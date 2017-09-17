@@ -1,0 +1,19 @@
+-# NOTE collapse behaviour in BS4 is less than ideal. Navbar collapsing will be revisited after 4.0 launches.
+%nav.navbar.navbar-expand-lg.navbar-light.bg-light.navbar-fixed-top
+  = link_to 'Brand', '/', class: 'navbar-brand'
+  %button.navbar-toggler{type: 'button', data: { toggle: 'collapse', target:'#nav_loggedin' }}
+    %span.navbar-toggler-icon
+  #nav_loggedin.collapse.navbar-collapse
+    %ul.navbar-nav.mr-auto
+      - if current_user_subscribed?
+        %li.nav-item
+          = link_to 'Dashboard', dashboard_path, class: 'nav-link'
+    %ul.navbar-nav
+      %li.nav-item
+        = link_to avatar(current_user, :nav), '#', {class: 'nav-link', 'data-toggle': 'dropdown', role: 'button', 'aria-haspopup': true, 'aria-expanded': false}
+      .dropdown-menu.dropdown-menu-right
+        = link_to 'Account', edit_user_registration_path, class: 'dropdown-item'
+        = current_user_subscribed? ? link_to('Billing', billing_path, class: 'dropdown-item') : link_to('Subscribe ', subscribe_path, class: 'dropdown-item')
+        .dropdown-divider
+        = link_to "Stop Impersonating", admin_stop_impersonating_path, class: 'dropdown-item' if current_user != true_user
+        = link_to 'Logout', main_app.destroy_user_session_path, class: 'dropdown-item'

@@ -1,0 +1,26 @@
+%h1 Account
+.row
+  .col-sm-6
+    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+      = devise_error_messages!
+      .row.form-group
+        = f.input :first_name, autofocus: true, wrapper_class: 'col-6'
+        = f.input :last_name, wrapper_class: 'col-6'
+      = f.input :email
+      - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+        %div
+          Currently waiting confirmation for: #{resource.unconfirmed_email}
+      = f.input :password, autocomplete: "off", hint: "Leave blank if you don't want to change it"
+      = f.input :password_confirmation, autocomplete: "off"
+      = f.input :current_password, autocomplete: "off", hint: "We need your current password to confirm your changes"
+      .form-group
+        = f.button :submit, "Update", class: "btn btn-primary"
+
+  .col-sm-6
+    %h4 Avatar
+    = render 'avatars/form', avatar: @avatar, user: resource
+.row
+  .col-12
+    %h4 Cancel my account
+    %p
+      Unhappy? Contact support! But if you really want to... #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn"}

@@ -1,0 +1,15 @@
+.row.justify-content-md-center
+  .col-md-8
+    %h2 Sign up
+    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+      = devise_error_messages!
+      = f.input :email, autofocus: true, required: true
+      .row.form-group
+        .col-6
+          = f.input :first_name, required: true
+        .col-6
+          = f.input :last_name, required: true
+      - min_pword_string = @minimum_password_length ? "Password (#{@minimum_password_length} characters minimum)" : 'Password'
+      = f.input :password, label: min_pword_string, autocomplete: "off"
+      .actions
+        = f.submit "Begin your free trial", class: 'btn btn-primary'

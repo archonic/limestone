@@ -1,0 +1,13 @@
+= form_tag subscriptions_path, id: 'payment_form', class: 'form form-horizontal' do
+  %h4 Credit Card
+  %span.payment-errors
+  .form-group
+    %input{value: '4242 4242 4242 4242', placeholder: 'Number', type: 'text', size: 20, 'data-stripe': 'number', class: 'form-control'}
+  .form-group.row
+    .input-group.col-8
+      %input{value: 12, placeholder: 'mm', type: 'text', size: 2, 'data-stripe': "exp-month", class: 'form-control col-4'}
+      %input{value: '2020', placeholder: 'yyyy', type: 'text', size: 4, 'data-stripe': "exp-year", class: 'form-control col-7'}
+    .col-4
+      %input{value: '123', placeholder: 'CVC', type: 'text', size: 4, 'data-stripe':"cvc", class: 'form-control col-12'}
+  .form-group.actions
+    %button.btn.btn-success{type: 'submit'} Submit

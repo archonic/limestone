@@ -1,0 +1,7 @@
+= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+  = f.input :email, label: false, autofocus: true, class: 'form-control', placeholder: "Email"
+  = f.input :password, label: false, autocomplete: "off", class: 'form-control', placeholder: "Password"
+  - if devise_mapping.rememberable?
+    = f.input :remember_me, as: :boolean, label: 'Stay signed in'
+  .actions
+    = f.submit "Sign in", class: 'btn btn-primary btn-block'

@@ -1,0 +1,14 @@
+-# NOTE collapse behaviour in BS4 is less than ideal. Navbar collapsing will be revisited after 4.0 launches.
+%nav.navbar.navbar-expand-lg.navbar-light.bg-light.navbar-fixed-top
+  = link_to 'Brand', '/', class: 'navbar-brand'
+  %button.navbar-toggler{type: 'button', data: { toggle: 'collapse', target:'#navbar_loggedout' }}
+    %span.navbar-toggler-icon
+  #nav_loggedout.collapse.navbar-collapse
+    %ul.navbar-nav.mr-auto
+      %li.nav-item
+        = link_to 'Pricing', pricing_path, class: 'nav-link'
+      %li.nav-item
+        = link_to 'About', about_path, class: 'nav-link'
+    .form
+      = link_to 'Sign up', main_app.new_user_registration_path, class: 'btn btn-success'
+      = link_to 'Sign in', main_app.new_user_session_path, class: 'btn btn-primary'

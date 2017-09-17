@@ -1,0 +1,12 @@
+%h1 New shit
+-# = react_component("AvatarApp", props: @avatar_props, prerender: false)
+
+%hr
+
+%h1 Old shit
+%p#notice= notice
+%p
+  = render 'avatars/form', avatar: @avatar, user: current_user
+= link_to 'Edit', edit_avatar_path(@avatar)
+|
+= link_to 'Back', avatars_path

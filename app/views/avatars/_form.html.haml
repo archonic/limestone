@@ -1,0 +1,16 @@
+#avatar_container
+  %span.user-avatar
+    = image_tag user.avatar_url(:xl)
+  = simple_form_for(@avatar) do |f|
+    - if avatar.errors.any?
+      %h2#error_explanation
+        = "#{pluralize(photo.errors.count, "error")} prohibited this avatar from being saved:"
+      %ul
+        - avatar.errors.full_messages.each do |message|
+          %li= message
+    .form-inputs
+      = f.input :image, as: :file, label: false
+      = f.input :user_id, as: :hidden, input_html: {value: user.id}
+    - if avatar.persisted?
+      = link_to 'Remove', avatar, method: :delete, data: { confirm: 'Are you sure?' }
+      %p.help-block Defaults to <a href="https://en.gravatar.com/" target="_blank">Gravatar</a>

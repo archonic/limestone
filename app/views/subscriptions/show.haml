@@ -1,0 +1,26 @@
+.row
+  .col-6
+    %h3 Billing
+    %p Your card on file is:
+    %p
+      = "#{current_user.card_type} **** **** **** #{current_user.card_last4}"
+      %br
+      = "Expires #{current_user.card_exp_month} / #{current_user.card_exp_year}"
+    .form-group
+      %button.btn.btn-secondary{type: 'button', 'data-toggle': 'collapse', 'data-target': '#new_card'} Use a different card
+    #new_card.collapse
+      = render 'card_form'
+
+  .col-6
+    %h3 Next Payment
+    %p= 'Your card will be charged XX on XX.'
+
+%h3 Previous Charges
+- if current_user.charges.any?
+  - current_user.charges.each do |charge|
+    You were charged
+    = charge_pdf_link(charge)
+    on
+    = charge.created_at.strftime("%B %d, %Y")
+- else
+  %p.text-muted No charges found

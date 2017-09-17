@@ -1,0 +1,12 @@
+.row
+  .col-sm-12.col-md-8.offset-md-2
+    %h2 Change your password
+    = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+      = devise_error_messages!
+      = f.hidden_field :reset_password_token
+      - min_pword_string = @minimum_password_length ? "Password (#{@minimum_password_length} characters minimum)" : ''
+      = f.input :password, label: min_pword_string, autocomplete: "off"
+      = f.input :password_confirmation, autocomplete: "off"
+      .actions
+        = f.submit "Change my password"
+    = render "devise/shared/links"
