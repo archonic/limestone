@@ -6,10 +6,6 @@
 //
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
-
-// TODO importing styles from JS seems dirty
-// import '../../assets/stylesheets/application'
-
 import 'jquery'
 import 'bootstrap'
 
