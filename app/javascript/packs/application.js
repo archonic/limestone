@@ -8,10 +8,10 @@
 // layout file, like app/views/layouts/application.html.erb
 
 // TODO importing styles from JS seems dirty
-import '../../assets/stylesheets/application'
+// import '../../assets/stylesheets/application'
 
-import 'jquery/dist/jquery'
-import 'bootstrap/dist/js/bootstrap'
+import 'jquery'
+import 'bootstrap'
 
 // Does not process requires when imported like this
 import '../../assets/javascripts/application'
