@@ -11,7 +11,6 @@ environment.plugins.set(
     $: 'jquery',
     jQuery: 'jquery',
     'window.jQuery': 'jquery',
-    'jquery': 'jquery',
     Popper: ['popper.js', 'default']
   })
 )
