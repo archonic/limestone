@@ -4,21 +4,23 @@ Limestone is a boilerplate SaaS app built with Rails 5 and allows for an opinion
 
 ## The Stack
 The gemset has been chosen to be modern, performant, and take care of a number of business concerns common to SaaS.
-* Postgres
-* jQuery
-* Turbolinks 5
-* CoffeeScript
-* HAML
-* Simple Form
-* Bootstrap 4
-* Pundit
 * Administrate
+* Bootstrap 4
+* CoffeeScript
+* Devise
+* HAML
+* Postgres
 * Pretender
-* Stripe
-* Shrine
-* Searchkick
-* Sidekiq
+* Pundit
 * Rollout
+* Rspec
+* Searchkick
+* Shrine
+* Sidekiq
+* Simple Form
+* Stripe
+* Turbolinks 5
+* jQuery
 
 ## Features
 * Direct uploading to S3 with Shrine, with progress bar. Image processing for resizing. Demonstrated with user avatars.
