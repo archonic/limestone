@@ -1463,6 +1463,10 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
+data-confirm-modal@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/data-confirm-modal/-/data-confirm-modal-1.4.0.tgz#515491391a9fd7bfa4f995af22c76f0379f7c0fe"
+
 date-now@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
@@ -4113,6 +4117,10 @@ rails-erb-loader@^5.2.1:
     loader-utils "^1.1.0"
     lodash.defaults "^4.2.0"
 
+rails-ujs@^5.1.4:
+  version "5.1.4"
+  resolved "https://registry.yarnpkg.com/rails-ujs/-/rails-ujs-5.1.4.tgz#e2e9f7bcbfe51ee69c5f72f4beb0d88ab81a638e"
+
 randomatic@^1.1.3:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/randomatic/-/randomatic-1.1.7.tgz#c7abe9cc8b87c0baa876b19fde83fd464797e38c"
@@ -4930,6 +4938,10 @@ tunnel-agent@^0.6.0:
   resolved "https://registry.yarnpkg.com/tunnel-agent/-/tunnel-agent-0.6.0.tgz#27a5dea06b36b04a0a9966774b290868f0fc40fd"
   dependencies:
     safe-buffer "^5.0.1"
+
+turbolinks@^5.0.3:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/turbolinks/-/turbolinks-5.0.3.tgz#c8ce128cfc9be1d691a1e41ffa858a5a5ee86a02"
 
 tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
