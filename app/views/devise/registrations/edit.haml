@@ -23,4 +23,6 @@
   .col-12
     %h4 Cancel my account
     %p
-      Unhappy? Contact support! But if you really want to... #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn"}
+      Unhappy? Contact support! But if you really want to... #{button_to 'Cancel my account', registration_path(resource_name), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn'}
+      -# %button.btn{type: 'button', data: {toggle: 'modal', target: '#confirm_modal'}}
+      -#   Cancel my account
