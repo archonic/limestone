@@ -8,6 +8,8 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import 'jquery'
+window.$ = window.jQuery = require('jquery');
+
 import 'bootstrap'
 
 import Rails from 'rails-ujs';

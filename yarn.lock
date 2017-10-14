@@ -1464,8 +1464,8 @@ dashdash@^1.12.0:
     assert-plus "^1.0.0"
 
 data-confirm-modal@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/data-confirm-modal/-/data-confirm-modal-1.4.0.tgz#515491391a9fd7bfa4f995af22c76f0379f7c0fe"
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/data-confirm-modal/-/data-confirm-modal-1.5.0.tgz#ea369c2b568a140887187a5c3240b9ca7d81a952"
 
 date-now@^0.1.4:
   version "0.1.4"
