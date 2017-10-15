@@ -31,8 +31,8 @@ The gemset has been chosen to be modern, performant, and take care of a number o
 * Mail sends through Sidekiq. Demonstrated with Devise mailing.
 * Opinionated search integration using Searchkick. Gem is in place but integration is up to you.
 * Feature rollout using the rollout gem. Installed but features are up to you.
-* Stripe subscription on sign up. Supports free trial without providing card
-* Icon helper for avatars with fallback to circle with user initials
+* Stripe subscription on sign up. Supports free trial without providing card.
+* Icon helper for avatars with fallback to circle with user initials.
 
 ## Roadmap
 * Email PDF receipts after Stripe charges card (using Stripe webhook).

@@ -531,8 +531,14 @@ GEM
       multi_json
     erubi (1.6.1)
     execjs (2.7.0)
+    factory_girl (4.8.1)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.8.0)
+      factory_girl (~> 4.8.0)
+      railties (>= 3.0.0)
     faraday (0.13.1)
       multipart-post (>= 1.2, < 3)
+    ffaker (2.7.0)
     ffi (1.9.18)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
@@ -775,6 +781,8 @@ DEPENDENCIES
   chartkick
   coffee-rails (~> 4.2)
   devise
+  factory_girl_rails (~> 4.7)
+  ffaker (~> 2.7)
   groupdate
   haml (~> 5)
   image_processing
