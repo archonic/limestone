@@ -36,7 +36,6 @@ The gemset has been chosen to be modern, performant, and take care of a number o
 
 ## Roadmap
 * Email PDF receipts after Stripe charges card (using Stripe webhook).
-* Dunning. When payment fails, webhook will call method to email user with a one-click login link to update their card.
 * In-browser image cropping using jcrop or the likes.
 * Business dashboard where you can see important stats. MRR (monthly recurring revenue) and churn (loss of paying users) graphed over time.
 
