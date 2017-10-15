@@ -21,7 +21,7 @@
     .container
       - flash.each do |name, msg|
         - if msg.is_a?(String)
-          .alert.alert-dismissible.fade.in{class: "alert-#{name}", role: 'alert'}
+          .alert.alert-dismissible{class: "alert-#{name}", role: 'alert'}
             %button.close{type: 'button', 'data-dismiss': 'alert', 'aria-label': 'Close'}
               %span{'aria-hidden': true} &times;
             = msg
