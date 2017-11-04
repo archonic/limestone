@@ -5,13 +5,16 @@ class CreatePlanService
     rescue
       p1 = nil
     end
-    
+
+    return if p1.present?
+
     Stripe::Plan.create(
-      name: "Basic",
+      name: 'Basic',
       amount: 900,
       interval: 'month',
       currency: 'usd',
       trial_period_days: 14,
-      id: SecureRandom.uuid) unless p1.present?
+      id: SecureRandom.uuid
+    )
   end
 end

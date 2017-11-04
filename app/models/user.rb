@@ -8,8 +8,8 @@ class User < ApplicationRecord
   has_many :charges
   has_one :avatar
 
-  enum role: [:trial, :user, :admin]
-  after_initialize :set_default_role, :if => :new_record?
+  enum role: %i[trial user admin]
+  after_initialize :set_default_role, if: :new_record?
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -24,12 +24,12 @@ class User < ApplicationRecord
     stripe_subscription_id?
   end
 
-  def avatar_url(size=:sm)
-    if self.avatar.present?
-      url = self.avatar.image[size].url(public: true)
+  def avatar_url(size = :sm)
+    if avatar.present?
+      url = avatar.image[size].url(public: true)
     else
       width = Avatar.sizes[size]
-      hash = Digest::MD5.hexdigest(self.email.try(:downcase) || "noemail")
+      hash = Digest::MD5.hexdigest(email.try(:downcase) || 'noemail')
       url = "https://secure.gravatar.com/avatar/#{hash}?d=blank&s=#{width}"
     end
     url
@@ -42,7 +42,7 @@ class User < ApplicationRecord
 
   protected
 
-    def set_full_name
-      self.full_name = [self.first_name, self.last_name].join(' ').strip
-    end
+  def set_full_name
+    self.full_name = [first_name, last_name].join(' ').strip
+  end
 end
