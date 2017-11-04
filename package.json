@@ -1,5 +1,5 @@
 {
-  "name": "limestun",
+  "name": "limestone",
   "private": true,
   "dependencies": {
     "@rails/webpacker": "^3.0.1",
