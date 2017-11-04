@@ -35,42 +35,43 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   protected
 
-    def after_update_path_for(resource)
-      edit_user_registration_path
-    end
+  def after_update_path_for(resource)
+    edit_user_registration_path
+  end
 
-    def after_sign_up_path_for(resource)
-      if resource.subscribed?
-        dashboard_path
-      else
-        new_subscription_path
-      end
+  def after_sign_up_path_for(resource)
+    if resource.subscribed?
+      dashboard_path
+    else
+      billing_path
     end
+  end
 
   private
-    def set_avatar
-      @avatar = resource.avatar || Avatar.new(user_id: resource.id)
-    end
 
-    # TODO Check if this can be done in before_create callback in user model
-    def create_stripe_subscription(resource)
-      customer = Stripe::Customer.create(email: resource.email)
+  def set_avatar
+    @avatar = resource.avatar || Avatar.new(user_id: resource.id)
+  end
 
-      begin
-        # Change this to a selected plan if you have more than 1
-        plan = Stripe::Plan.list(limit: 1).first
-        subscription = customer.subscriptions.create(
-          source: params[:stripeToken],
-          plan: plan.id,
-          trial_end: Rails.env.try(:trial_period) || 14.days.from_now.to_i
-        )
-        options = {
-          stripe_id: customer.id,
-          stripe_subscription_id: subscription.id,
-        }
-        resource.update(options)
-      rescue => e
-        puts "Log this error! #{e.inspect}"
-      end
+  # TODO Check if this can be done in before_create callback in user model
+  def create_stripe_subscription(resource)
+    customer = Stripe::Customer.create(email: resource.email)
+
+    begin
+      # Change this to a selected plan if you have more than 1
+      plan = Stripe::Plan.list(limit: 1).first
+      subscription = customer.subscriptions.create(
+        source: params[:stripeToken],
+        plan: plan.id,
+        trial_end: Rails.env.try(:trial_period) || 14.days.from_now.to_i
+      )
+      subscription_data = {
+        stripe_id: customer.id,
+        stripe_subscription_id: subscription.id,
+      }
+      resource.update(subscription_data)
+    rescue => e
+      puts "Log this error! #{e.inspect}"
     end
+  end
 end
