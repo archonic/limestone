@@ -1,5 +1,6 @@
 module IconHelper
   def avatar(user, size=:sm)
+    byebug
     circular_icon image_tag(user.avatar_url(size), class: 'rounded-circle') + user.full_name.initials, style: size.to_s, class: 'avatar', alt: user.full_name
   end
 

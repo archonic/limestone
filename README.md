@@ -13,7 +13,7 @@ The gemset has been chosen to be modern, performant, and take care of a number o
 * Pretender
 * Pundit
 * Rollout
-* Rspec
+* Rspec (w/ shoulda_matchers, database_cleaner and zeus)
 * Searchkick
 * Shrine
 * Sidekiq
@@ -39,6 +39,9 @@ The gemset has been chosen to be modern, performant, and take care of a number o
 * In-browser image cropping using jcrop or the likes.
 * Business dashboard where you can see important stats. MRR (monthly recurring revenue) and churn (loss of paying users) graphed over time.
 
+## Notes
+* RSpec controller tests have been omitted in favour of requests tests.
+
 ## Getting Started
 * `git clone git@github.com:archonic/limestone.git`
 * Customize config/database.yml
@@ -46,3 +49,6 @@ The gemset has been chosen to be modern, performant, and take care of a number o
 * Run `gem install foreman`. This is intentionally left out of the Gemfile.
 * `rails db:setup`
 * Start servers with `foreman start -f Procfile.dev` and visit localhost:5000
+
+### Setting up production
+A wiki will be written about this. Instructions for both Heroku and AWS would be handy.
