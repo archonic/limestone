@@ -1,7 +1,14 @@
 require 'rails_helper'
+require 'stripe_mock'
 
 RSpec.describe Users::RegistrationsController, type: :request do
+  let(:stripe_helper) { StripeMock.create_test_helper }
   let(:user) { create(:user_subscribed) }
+  before do
+    StripeMock.start
+    stripe_helper.create_plan(id: 'basic', amount: 900)
+  end
+  after { StripeMock.stop }
 
   describe 'POST /profile' do
     let(:user_params) do
@@ -37,7 +44,26 @@ RSpec.describe Users::RegistrationsController, type: :request do
     end
   end
 
-  describe 'DELETE /profile' do
+  describe 'GET /cancelled' do
+    let(:user) { create(:user_subscribed) }
+    before do
+      sign_in user
+    end
 
+    subject do
+      get cancelled_path
+    end
+
+    it 'destroys the user account' do
+      expect(user.reload).to be_nil
+    end
+
+    it 'signs the user out' do
+      expect(controller.current_user).to be_nil
+    end
+
+    it 'redirects to cancelled path' do
+      expect(subject).to redirect_to(cancelled_path)
+    end
   end
 end

@@ -52,13 +52,13 @@ group :test do
 end
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'pry'
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
   gem 'factory_bot_rails', '~> 4.8'
   gem 'rspec-rails', '~> 3.6'
+  gem 'stripe-ruby-mock', '~> 2.5', require: 'stripe_mock'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -78,7 +78,7 @@ gem 'administrate'
 
 # Stripe stuff
 gem 'stripe'
-gem 'stripe_event', '~> 1.5'
+gem 'stripe_event', '~> 1.8'
 gem 'receipts'
 
 # Upload to S3 directly
