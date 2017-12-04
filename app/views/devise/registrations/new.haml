@@ -10,6 +10,6 @@
         .col-6
           = f.input :last_name, required: true
       - min_pword_string = @minimum_password_length ? "Password (#{@minimum_password_length} characters minimum)" : 'Password'
-      = f.input :password, label: min_pword_string, autocomplete: "off"
+      = f.input :password, label: min_pword_string, autocomplete: 'new-password'
       .actions
         = f.submit "Begin your free trial", class: 'btn btn-primary'

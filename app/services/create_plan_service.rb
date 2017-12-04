@@ -1,5 +1,5 @@
 class CreatePlanService
-  def call
+  def self.call
     begin
       p1 = Stripe::Plan.retrieve('Basic')
     rescue

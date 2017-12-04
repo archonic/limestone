@@ -44,22 +44,27 @@ RSpec.describe Users::RegistrationsController, type: :request do
     end
   end
 
-  describe 'GET /cancelled' do
+  describe 'DELETE /profile' do
     let(:user) { create(:user_subscribed) }
+    let!(:user_id) { user.id }
     before do
       sign_in user
     end
 
     subject do
-      get cancelled_path
+      delete user_registration_path
+      response
     end
 
     it 'destroys the user account' do
-      expect(user.reload).to be_nil
+      expect(user.reload).to eq User.find(user_id)
+      subject
+      expect { user.reload }.to raise_exception(ActiveRecord::RecordNotFound)
     end
 
     it 'signs the user out' do
-      expect(controller.current_user).to be_nil
+      subject
+      expect(controller.signed_in?).to be false
     end
 
     it 'redirects to cancelled path' do

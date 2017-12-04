@@ -60,7 +60,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     begin
       # Change this to a selected plan if you have more than 1
       plan = Stripe::Plan.list(limit: 1).first
-      binding.pry
       subscription = customer.subscriptions.create(
         source: params[:stripeToken],
         plan: plan.id,

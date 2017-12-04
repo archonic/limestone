@@ -9,18 +9,18 @@ The gemset has been chosen to be modern, performant, and take care of a number o
 * CoffeeScript
 * Devise
 * HAML
+* jQuery
 * Postgres
 * Pretender
 * Pundit
 * Rollout
-* Rspec (w/ shoulda_matchers, database_cleaner and zeus)
+* Rspec (w/ shoulda_matchers, database_cleaner)
 * Searchkick
 * Shrine
 * Sidekiq
 * Simple Form
 * Stripe
 * Turbolinks 5
-* jQuery
 
 ## Features
 * Direct uploading to S3 with Shrine, with progress bar. Image processing for resizing. Demonstrated with user avatars.
@@ -37,7 +37,6 @@ The gemset has been chosen to be modern, performant, and take care of a number o
 ## Roadmap
 * Email PDF receipts after Stripe charges card (using Stripe webhook).
 * In-browser image cropping using jcrop or the likes.
-* Business dashboard where you can see important stats. MRR (monthly recurring revenue) and churn (loss of paying users) graphed over time.
 
 ## Notes
 * RSpec controller tests have been omitted in favour of requests tests.
@@ -47,7 +46,7 @@ The gemset has been chosen to be modern, performant, and take care of a number o
 * Customize config/database.yml
 * Customize config/secrets.yml from config/secrets-example.yml
 * Run `gem install foreman`. This is intentionally left out of the Gemfile.
-* `rails db:setup`
+* `rails db:setup` (running seeds will create the admin user and your Stripe Plan)
 * Start servers with `foreman start -f Procfile.dev` and visit localhost:5000
 
 ### Setting up production
