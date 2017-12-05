@@ -1,4 +1,4 @@
-# Limestone Webpack
+# Limestone Webpack ![TravisCI](https://travis-ci.org/archonic/limestone.svg?branch=master)
 
 Limestone is a boilerplate SaaS app built with Rails 5 and allows for an opinionated integration with NPM. It uses a webpack pipeline which works with Rails' asset pipeline. The opinions of this boilerplate stop short of choosing a front-end framework like [React](https://facebook.github.io/react/) or [Vue](https://vuejs.org/), so you can use what you like. This is a work in progress.
 
