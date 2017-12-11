@@ -30,16 +30,4 @@ RSpec.describe User, type: :model do
       expect(create(:user_subscribed).subscribed?).to eq true
     end
   end
-
-  describe 'avatar_url' do
-    let(:avatar_url) { create(:user).avatar_url }
-
-    it 'returns a blank gravatar by default' do
-      expect(create(:user).avatar_url).to include 'd=blank'
-    end
-
-    it 'has a default size of small' do
-      expect(avatar_url).to include "s=#{Avatar.sizes[:sm]}"
-    end
-  end
 end

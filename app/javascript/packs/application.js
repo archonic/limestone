@@ -17,6 +17,9 @@ import Turbolinks from 'turbolinks';
 Rails.start();
 Turbolinks.start();
 
+import * as ActiveStorage from "activestorage"
+ActiveStorage.start()
+
 import 'data-confirm-modal'
 
 // Does not process requires when imported like this

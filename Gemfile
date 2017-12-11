@@ -82,9 +82,7 @@ gem 'stripe_event', '~> 1.8'
 gem 'receipts'
 
 # Upload to S3 directly
-gem 'shrine'
 gem 'aws-sdk'
-gem 'roda'
 
 # Process images
 gem 'image_processing'

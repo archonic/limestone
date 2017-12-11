@@ -1,8 +1,6 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  mount ImageUploader::UploadEndpoint => '/images/upload'
-
   # Administrate
   namespace :admin do
     root controller: 'business', action: :index, as: 'business' #, to: 'business#index'
@@ -42,7 +40,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :avatars
+  patch 'avatars', to: 'avatars#update'
+  delete 'avatar', to: 'avatars#destroy'
 
   # Subscription stuff
   get 'billing', to: 'subscriptions#show'

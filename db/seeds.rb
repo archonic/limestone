@@ -8,6 +8,6 @@
 
 user = CreateAdminService.call
 puts 'CREATED ADMIN USER: ' << user.email
-test_users = User.create([{email: 'test@example.com', first_name: 'Firsty', last_name: 'McLast', password: 'password'}])
+User.create([{email: 'test@example.com', first_name: 'Firsty', last_name: 'McLast', password: 'password'}])
 CreatePlanService.call
 puts 'CREATED PLANS'

@@ -23,7 +23,7 @@ The gemset has been chosen to be modern, performant, and take care of a number o
 * Turbolinks 5
 
 ## Features
-* Direct uploading to S3 with Shrine, with progress bar. Image processing for resizing. Demonstrated with user avatars.
+* Direct uploading to S3 with ActiveStorage. Lazy transform for resizing. Demonstrated with user avatars.
 * Subscription management. Card update forms.
 * Trial upon registration without credit card.
 * Administrate dashboard lets you CRUD records (ex: users). Easy to add more and customize as you like. Visit /admin/.

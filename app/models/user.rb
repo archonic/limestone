@@ -6,7 +6,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   has_many :charges
-  has_one :avatar
+  has_one_attached :avatar
 
   enum role: %i[trial user admin]
   after_initialize :set_default_role, if: :new_record?
@@ -22,17 +22,6 @@ class User < ApplicationRecord
 
   def subscribed?
     stripe_subscription_id?
-  end
-
-  def avatar_url(size = :sm)
-    if avatar.present?
-      url = avatar.image[size].url(public: true)
-    else
-      width = Avatar.sizes[size]
-      hash = Digest::MD5.hexdigest(email.try(:downcase) || 'noemail')
-      url = "https://secure.gravatar.com/avatar/#{hash}?d=blank&s=#{width}"
-    end
-    url
   end
 
   # Send mail through activejob

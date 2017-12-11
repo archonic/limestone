@@ -10,7 +10,7 @@
           = link_to 'Dashboard', dashboard_path, class: 'nav-link'
     %ul.navbar-nav.ml-auto
       .li.nav-item.dropdown
-        = link_to avatar(current_user, :nav), '#', {class: 'dropdown-toggle', 'data-toggle': 'dropdown', role: 'button', 'aria-haspopup': true, 'aria-expanded': false}
+        = link_to avatar(current_user, :sm), '#', {class: 'dropdown-toggle', 'data-toggle': 'dropdown', role: 'button', 'aria-haspopup': true, 'aria-expanded': false}
         .dropdown-menu.dropdown-menu-right
           = link_to 'Account', edit_user_registration_path, class: 'dropdown-item'
           = current_user_subscribed? ? link_to('Billing', billing_path, class: 'dropdown-item') : link_to('Subscribe ', subscribe_path, class: 'dropdown-item')
