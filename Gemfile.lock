@@ -804,7 +804,7 @@ DEPENDENCIES
   rollout
   rspec-rails (~> 3.6)
   rubocop
-  sass-rails (~> 5.0)
+  sass-rails (~> 5)
   searchkick
   selenium-webdriver
   shoulda-matchers (~> 3.1)
@@ -823,4 +823,4 @@ DEPENDENCIES
   webpacker
 
 BUNDLED WITH
-   1.16.0
+   1.16.1
