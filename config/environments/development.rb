@@ -18,11 +18,10 @@ Rails.application.configure do
 
     config.cache_store = :memory_store
     config.public_file_server.headers = {
-      'Cache-Control' => "public, max-age=#{2.days.seconds.to_i}"
+      'Cache-Control' => 'public, max-age=172800'
     }
   else
     config.action_controller.perform_caching = false
-
     config.cache_store = :null_store
   end
 
@@ -54,6 +53,4 @@ Rails.application.configure do
 
   # For devise
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-
-  config.active_storage.service = :amazon
 end

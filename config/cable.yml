@@ -1,10 +1,14 @@
-development:
-  adapter: async
+---
+
+development: &default
+  adapter: redis
+  url: <%= ENV['ACTION_CABLE_BACKEND_URL'] %>
 
 test:
-  adapter: async
+  <<: *default
+
+staging:
+  <<: *default
 
 production:
-  adapter: redis
-  url: redis://localhost:6379/1
-  channel_prefix: limestone_production
+  <<: *default

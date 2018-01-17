@@ -1,19 +1,47 @@
-# Puma can serve each request in a thread from an internal thread pool.
-# The `threads` method setting takes two numbers: a minimum and maximum.
-# Any libraries that use thread pools should be configured to match
-# the maximum value specified for Puma. Default is set to 5 threads for minimum
-# and maximum; this matches the default thread size of Active Record.
+# Bind on a specific TCP address. We won't bother using unix sockets because
+# nginx will be running in a different Docker container.
+bind "tcp://#{ENV['BIND_ON']}"
+
+# Puma supports threading. Requests are served through an internal thread pool.
+# Even on MRI, it is beneficial to leverage multiple threads because I/O
+# operations do not lock the GIL. This typically requires more CPU resources.
 #
-threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
+# More threads will increase CPU load but will also increase throughput.
+#
+# Like anything this will heavily depend on the size of your instance and web
+# application's demands. 5 is a relatively safe number, start here and increase
+# it based on your app's demands.
+#
+# RAILS_MAX_THREADS will match the default thread size for Active Record.
+threads_count = ENV.fetch('RAILS_MAX_THREADS') { 5 }
 threads threads_count, threads_count
 
-# Specifies the `port` that Puma will listen on to receive requests; default is 3000.
+# Puma supports spawning multiple workers. It will fork out a process at the
+# OS level to support concurrent requests. This typically requires more RAM.
 #
-port        ENV.fetch("PORT") { 3000 }
+# If you're looking to maximize performance you'll want to use as many workers
+# as you can without starving your server of RAM.
+#
+# This value isn't really possible to auto-calculate if empty, so it defaults
+# to 2 when it's not set. That is heavily leaning on the safe side.
+#
+# Ultimately you'll want to tweak this number for your instance size and web
+# application's needs.
+#
+# If using threads and workers together, the concurrency of your application
+# will be THREADS * WORKERS.
+workers ENV.fetch('WEB_CONCURRENCY') { 2 }
 
-# Specifies the `environment` that Puma will run in.
+# An internal health check to verify that workers have checked in to the master
+# process within a specific time frame. If this time is exceeded, the worker
+# will automatically be rebooted. Defaults to 60s.
 #
-environment ENV.fetch("RAILS_ENV") { "development" }
+# Under most situations you will not have to tweak this value, which is why it
+# is coded into the config rather than being an environment variable.
+worker_timeout 30
+
+# The path to the puma binary without any arguments.
+restart_command 'puma'
 
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together

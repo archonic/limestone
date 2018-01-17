@@ -1,68 +1,48 @@
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0.beta2'
+
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
+
 # Use Puma as the app server
-gem 'puma', '~> 3.8'
+gem 'puma', '~> 3.10'
+
+# Use Rack Timeout. Read more: https://github.com/heroku/rack-timeout
+gem 'rack-timeout', '~> 0.4'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
+
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
+
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
-# TODO Consider replacing with active_model_serializers
+
+# TODO: Consider replacing with active_model_serializers
 gem 'jbuilder', '~> 2.5'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 3.0'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+
+# Use Redis Rails to set up a Redis backed Cache and / or Session
+gem 'redis-rails', '~> 5.0'
+
+# Use Font Awesome Rails for Font Awesome icons
+gem 'font-awesome-rails', '~> 4.7'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
-group :development do
-  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'rubocop'
-end
-
-group :test do
-  gem 'shoulda-matchers', '~> 3.1'
-  gem 'database_cleaner', '~> 1.6'
-  gem 'ffaker', '~> 2.7'
-  gem 'simplecov', :require => false
-end
-
-group :development, :test do
-  gem 'pry'
-  # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '~> 2.13'
-  gem 'selenium-webdriver'
-  gem 'factory_bot_rails', '~> 4.8'
-  gem 'rspec-rails', '~> 3.6'
-  gem 'stripe-ruby-mock', '~> 2.5', require: 'stripe_mock'
-end
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Pretty html abstractions
 gem 'haml', '~> 5'
@@ -76,10 +56,10 @@ gem 'pundit'
 # Pretty admin dashboards
 gem 'administrate'
 
+gem 'receipts'
 # Stripe stuff
 gem 'stripe'
 gem 'stripe_event', '~> 1.8'
-gem 'receipts'
 
 # Upload to S3 directly
 gem 'aws-sdk'
@@ -94,12 +74,35 @@ gem 'pretender'
 # Search
 gem 'searchkick'
 
-# Jobs
-gem 'sidekiq'
+# Jerbs
+gem 'sidekiq', '~> 5.0'
 
 # Feature flagging
 gem 'rollout'
 
-# It's business time
-gem 'chartkick'
-gem 'groupdate'
+group :development do
+  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'rubocop'
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'web-console', '>= 3.3.0'
+end
+
+group :test do
+  gem 'database_cleaner', '~> 1.6'
+  gem 'ffaker', '~> 2.7'
+  gem 'shoulda-matchers', '~> 3.1'
+  gem 'simplecov', require: false
+end
+
+group :development, :test do
+  gem 'capybara', '~> 2.13'
+  gem 'factory_bot_rails', '~> 4.8'
+  gem 'pry'
+  gem 'rspec-rails', '~> 3.6'
+  gem 'selenium-webdriver'
+  gem 'stripe-ruby-mock', '~> 2.5', require: 'stripe_mock'
+end
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data'
