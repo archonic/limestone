@@ -2,7 +2,7 @@ version: '2'
 
 services:
   postgres:
-    image: 'postgres:9.6-alpine'
+    image: 'postgres:10-alpine'
     environment:
       POSTGRES_USER: 'limestone'
       POSTGRES_PASSWORD: 'yourpassword'

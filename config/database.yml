@@ -1,15 +1,11 @@
 development:
-  adapter: postgresql
-  url: limestone
+  url: <%= ENV['DATABASE_URL'].gsub('?', '_development?') %>
 
 test:
-  adapter: postgres
   url: <%= ENV['DATABASE_URL'].gsub('?', '_test?') %>
 
 staging:
-  adapter: postgres
   url: <%= ENV['DATABASE_URL'].gsub('?', '_staging?') %>
 
 production:
-  adapter: postgres
   url: <%= ENV['DATABASE_URL'].gsub('?', '_production') %>

@@ -811,7 +811,7 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   mini_magick (>= 4.3.5)
-  pg (~> 0.18)
+  pg (~> 0.21)
   pretender
   pry
   puma (~> 3.10)

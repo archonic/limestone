@@ -60,6 +60,7 @@ module Limestone
     origins = ENV['ACTION_CABLE_ALLOWED_REQUEST_ORIGINS'].split(',')
     origins.map! { |url| /#{url}/ }
     config.action_cable.allowed_request_origins = origins
+    # config.action_cable.allowed_request_origins = /http:\/\/localhost*/
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
