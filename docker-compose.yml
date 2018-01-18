@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
   postgres:
@@ -31,6 +31,16 @@ services:
     env_file:
       - '.env'
 
+  webpacker:
+    build: .
+    env_file:
+      - '.env'
+    command: ./bin/webpack-dev-server --inline true
+    volumes:
+      - '.:/app'
+    ports:
+      - '3035:3035'
+
   sidekiq:
     depends_on:
       - 'postgres'
@@ -57,3 +67,4 @@ services:
 volumes:
   redis:
   postgres:
+  webpacker:

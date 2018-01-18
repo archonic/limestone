@@ -57,16 +57,16 @@ module Limestone
     config.action_cable.url = ENV['ACTION_CABLE_FRONTEND_URL']
 
     # Action Cable setting to allow connections from these domains.
-    origins = ENV['ACTION_CABLE_ALLOWED_REQUEST_ORIGINS'].split(',')
-    origins.map! { |url| /#{url}/ }
-    config.action_cable.allowed_request_origins = origins
-    # config.action_cable.allowed_request_origins = /http:\/\/localhost*/
+    # origins = ENV['ACTION_CABLE_ALLOWED_REQUEST_ORIGINS'].split(',')
+    # origins.map! { |url| /#{url}/ }
+    # config.action_cable.allowed_request_origins = origins
+    config.action_cable.allowed_request_origins = /http:\/\/localhost*/
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
     # Use AWS for active storage as a default
-    config.active_storage.service = :amazon
+    # config.active_storage.service = :amazon
   end
 end

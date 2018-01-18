@@ -81,6 +81,7 @@ gem 'sidekiq', '~> 5.0'
 gem 'rollout'
 
 group :development do
+  gem 'haml-lint', require: false
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'rubocop'
   gem 'spring'

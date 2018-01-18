@@ -24,30 +24,33 @@ The gemset has been chosen to be modern, performant, and take care of a number o
 
 ## Features
 * Direct uploading to S3 with ActiveStorage. Lazy transform for resizing. Demonstrated with user avatars.
+* Icon helper for avatars with fallback to circle with user initials.
 * Subscription management. Card update forms.
-* Trial upon registration without credit card.
+* Trial (with env var customizable length) upon registration without credit card.
 * Administrate dashboard lets you CRUD records (ex: users). Easy to add more and customize as you like. Visit /admin/.
 * Impersonate users through administrate dashboard.
 * Mail sends through Sidekiq. Demonstrated with Devise mailing.
-* Opinionated search integration using Searchkick. Gem is in place but integration is up to you.
+* Opinionated search integration using Elasticsearch via Searchkick. Gem is in place but integration is up to you.
 * Feature rollout using the rollout gem. Installed but features are up to you.
-* Stripe subscription on sign up. Supports free trial without providing card.
-* Icon helper for avatars with fallback to circle with user initials.
 
 ## Roadmap
 * Email PDF receipts after Stripe charges card (using Stripe webhook).
+* Automated dunning. Send email to subscription owner when payment fails, with a one click login to update their card.
 * In-browser image cropping using jcrop or the likes.
+* Example feature controls if public sign up is available.
 
 ## Notes
 * RSpec controller tests have been omitted in favour of requests tests.
 
 ## Getting Started
-* `git clone git@github.com:archonic/limestone.git`
-* Customize config/database.yml
+* Install [Docker](https://docs.docker.com/engine/installation/)
 * Customize config/secrets.yml from config/secrets-example.yml
-* Run `gem install foreman`. This is intentionally left out of the Gemfile.
-* `rails db:setup` (running seeds will create the admin user and your Stripe Plan)
-* Start servers with `foreman start -f Procfile.dev` and visit localhost:5000
+* Customize .env from .env-example
+* run `docker-compose up --build` to create and run the various images, volumes, containers and a network
+* run `docker-compose exec website rails db:setup` to create the DB or `docker-compose exec website rails db:reset` if the DB already exists
+* run `docker-compose exec website rails db:migrate` to migrate
+* run `docker-compose exec website rails db:seed` to create your admin user and Stripe plan(s)
+* Visit localhost:3000 and rejoice
 
 ### Setting up production
-A wiki will be written about this. Instructions for both Heroku and AWS would be handy.
+A wiki will be written about this.
