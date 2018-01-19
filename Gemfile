@@ -49,7 +49,7 @@ gem 'haml', '~> 5'
 gem 'simple_form'
 
 # Authentication
-gem 'devise'
+gem 'devise', '~> 4'
 # Authorization
 gem 'pundit'
 
