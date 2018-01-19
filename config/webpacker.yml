@@ -1,5 +1,4 @@
 # Note: You must restart bin/webpack-dev-server for changes to take effect
-
 default: &default
   source_path: app/javascript
   source_entry_path: packs
@@ -34,7 +33,7 @@ development:
   compile: true
 
   dev_server:
-    host: localhost
+    host: 0.0.0.0
     port: 3035
     hmr: false
     https: false

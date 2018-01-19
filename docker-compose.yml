@@ -1,0 +1,70 @@
+version: '3'
+
+services:
+  postgres:
+    image: 'postgres:10-alpine'
+    environment:
+      POSTGRES_USER: 'limestone'
+      POSTGRES_PASSWORD: 'yourpassword'
+    ports:
+      - '5432:5432'
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+
+  redis:
+    image: 'redis:3.2-alpine'
+    command: redis-server --requirepass yourpassword
+    ports:
+      - '6379:6379'
+    volumes:
+      - 'redis:/data'
+
+  website:
+    depends_on:
+      - 'postgres'
+      - 'redis'
+    build: .
+    ports:
+      - '3000:3000'
+    volumes:
+      - '.:/app'
+    env_file:
+      - '.env'
+
+  webpacker:
+    build: .
+    env_file:
+      - '.env'
+    command: ./bin/webpack-dev-server --inline true
+    volumes:
+      - '.:/app'
+    ports:
+      - '3035:3035'
+
+  sidekiq:
+    depends_on:
+      - 'postgres'
+      - 'redis'
+    build: .
+    command: sidekiq -C config/sidekiq.yml.erb
+    volumes:
+      - '.:/app'
+    env_file:
+      - '.env'
+
+  cable:
+    depends_on:
+      - 'redis'
+    build: .
+    command: puma -p 28080 cable/config.ru
+    ports:
+      - '28080:28080'
+    volumes:
+      - '.:/app'
+    env_file:
+      - '.env'
+
+volumes:
+  redis:
+  postgres:
+  webpacker:
