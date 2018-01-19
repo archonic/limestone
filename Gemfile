@@ -1,9 +1,7 @@
 source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
-  "https://github.com/#{repo_name}.git"
-end
+ruby '2.5.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0.beta2'
@@ -12,7 +10,7 @@ gem 'rails', '~> 5.2.0.beta2'
 gem 'pg', '~> 0.21'
 
 # Use Puma as the app server
-gem 'puma', '~> 3.10'
+gem 'puma', '~> 3.11'
 
 # Use Rack Timeout. Read more: https://github.com/heroku/rack-timeout
 gem 'rack-timeout', '~> 0.4'
@@ -41,9 +39,6 @@ gem 'redis-rails', '~> 5.0'
 # Use Font Awesome Rails for Font Awesome icons
 gem 'font-awesome-rails', '~> 4.7'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
 # Pretty html abstractions
 gem 'haml', '~> 5'
 gem 'simple_form'
@@ -67,6 +62,9 @@ gem 'aws-sdk'
 # Process images
 gem 'image_processing'
 gem 'mini_magick', '>= 4.3.5'
+
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '>= 1.1.0', require: false
 
 # Impersonate other users
 gem 'pretender'
@@ -97,7 +95,8 @@ group :test do
 end
 
 group :development, :test do
-  gem 'capybara', '~> 2.13'
+  gem 'capybara', '~> 2.15'
+  gem 'chromedriver-helper'
   gem 'factory_bot_rails', '~> 4.8'
   gem 'pry'
   gem 'rspec-rails', '~> 3.6'

@@ -1,4 +1,5 @@
 # Note: You must restart bin/webpack-dev-server for changes to take effect
+
 default: &default
   source_path: app/javascript
   source_entry_path: packs
@@ -32,11 +33,23 @@ development:
   <<: *default
   compile: true
 
+  # Reference: https://webpack.js.org/configuration/dev-server/
   dev_server:
+    https: false
     host: 0.0.0.0
     port: 3035
     hmr: false
-    https: false
+    # Inline should be set to true if using HMR
+    inline: true
+    overlay: true
+    compress: true
+    disable_host_check: true
+    use_local_ip: false
+    quiet: false
+    headers:
+      'Access-Control-Allow-Origin': '*'
+    watch_options:
+      ignored: /node_modules/
 
 test:
   <<: *default
