@@ -7,7 +7,10 @@ WORKDIR /app
 
 COPY Gemfile Gemfile.lock ./
 RUN bundle install --binstubs
-RUN yarn install
+
+COPY package.json yarn.lock ./
+RUN yarn --pure-lockfile
+
 COPY . .
 
 LABEL maintainer="Joshua Flark <joshuajmark@gmail.com>"
