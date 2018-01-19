@@ -13,6 +13,7 @@ RUN yarn --pure-lockfile
 
 COPY . .
 
+# Replace this with yourself
 LABEL maintainer="Joshua Flark <joshuajmark@gmail.com>"
 
 CMD puma -C config/puma.rb

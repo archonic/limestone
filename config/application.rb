@@ -67,6 +67,6 @@ module Limestone
     # -- all .rb files in that directory are automatically loaded.
 
     # Use AWS for active storage as a default
-    # config.active_storage.service = :amazon
+    config.active_storage.service = :amazon
   end
 end
