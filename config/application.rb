@@ -68,5 +68,8 @@ module Limestone
 
     # Use AWS for active storage as a default
     config.active_storage.service = :amazon
+
+    # Write stripe events to seperate log
+    $subscription_log_path = 'log/subscription.log'
   end
 end
