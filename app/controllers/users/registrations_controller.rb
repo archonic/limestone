@@ -44,11 +44,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def destroy
-    resource.destroy
-    Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
-    set_flash_message! :notice, :destroyed
-    yield resource if block_given?
-    redirect_to cancelled_path
+    @@subscription_service = SubscriptionService.new(current_user, params)
+    if @@subscription_service.destroy_subscription
+      resource.discard
+      Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
+      set_flash_message! :notice, :destroyed
+      yield resource if block_given?
+      redirect_to cancelled_path
+    else
+      set_flash_message! :error, :stripe_communication
+      respond_with resource
+    end
   end
 
   protected

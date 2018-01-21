@@ -1,17 +1,17 @@
-codeship_web:
-  build: .
+web:
+  build: ./
   links:
     - postgres
   environment:
-    EXAMPLE_ENV_VAR: example-var
+    encrypted_env_file: .env.encrypted
   cached: true
 postgres:
   image: 'postgres:10-alpine'
   environment:
     POSTGRES_USER: 'limestone'
     POSTGRES_PASSWORD: 'yourpassword'
-codeship_heroku_deployment:
-  image: codeship/heroku-deployment
-  encrypted_env_file: deployment.env.encrypted
-  volumes:
-    - ./:/deploy
+# codeship_heroku_deployment:
+#   image: codeship/heroku-deployment
+#   encrypted_env_file: deployment.env.encrypted
+#   volumes:
+#     - ./:/deploy

@@ -20,11 +20,4 @@ class SubscriptionsController < ApplicationController
     @@subscription_service.create_subscription
     redirect_to root_path
   end
-
-  # DELETE /subscriptions
-  def destroy
-    @@subscription_service = SubscriptionService.new(current_user, params)
-    @@subscription_service.destroy_subscription
-    redirect_to root_path, notice: "Your subscription has been canceled."
-  end
 end

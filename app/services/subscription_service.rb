@@ -7,30 +7,15 @@ class SubscriptionService
   end
 
   def create_subscription
-    stripe_success = false
-    begin
+    subscription = nil
+    stripe_call do
       plan = Stripe::Plan.list(limit: 1).first
       subscription = customer.subscriptions.create(
         source: @params[:stripeToken],
         plan: plan.id
       )
-      stripe_success = true
-    # https://stripe.com/docs/api?lang=ruby#errors
-    rescue Stripe::CardError => e
-      SubscriptionLogger.error(e.json_body[:error])
-    rescue Stripe::RateLimitError => e
-      SubscriptionLogger.error 'Too many requests made to the API too quickly.'
-    rescue Stripe::InvalidRequestError => e
-      SubscriptionLogger.error 'Invalid paramaters were supplied to Stripe\'s API.'
-    rescue Stripe::AuthenticationError => e
-      SubscriptionLogger.error 'Authentication with Stripe\'s API failed. Maybe you changed API keys recently.'
-    rescue Stripe::APIConnectionError => e
-      SubscriptionLogger.error 'Network communication with Stripe failed.'
-    rescue Stripe::StripeError => e
-      SubscriptionLogger.error 'Genric Stripe error.'
     end
-
-    return false unless stripe_success
+    return false if subscription.nil?
 
     options = {
       stripe_id: customer.id,
@@ -50,8 +35,10 @@ class SubscriptionService
   end
 
   def destroy_subscription
-    customer.subscriptions.retrieve(current_user.stripe_subscription_id).delete
-    current_user.update(stripe_subscription_id: nil)
+    stripe_call do
+      customer.subscriptions.retrieve(@user.stripe_subscription_id).delete
+      @user.update(stripe_subscription_id: nil)
+    end
   end
 
   private
@@ -62,5 +49,27 @@ class SubscriptionService
     else
       Stripe::Customer.create(email: @user.email)
     end
+  end
+
+  def stripe_call(&block)
+    stripe_success = false
+    begin
+      block.call
+      stripe_success = true
+    # https://stripe.com/docs/api?lang=ruby#errors
+    rescue Stripe::CardError => e
+      SubscriptionLogger.error(e.json_body[:error])
+    rescue Stripe::RateLimitError => e
+      SubscriptionLogger.error 'Too many requests made to the API too quickly.'
+    rescue Stripe::InvalidRequestError => e
+      SubscriptionLogger.error 'Invalid paramaters were supplied to Stripe\'s API.'
+    rescue Stripe::AuthenticationError => e
+      SubscriptionLogger.error 'Authentication with Stripe\'s API failed. Maybe you changed API keys recently.'
+    rescue Stripe::APIConnectionError => e
+      SubscriptionLogger.error 'Network communication with Stripe failed.'
+    rescue Stripe::StripeError => e
+      SubscriptionLogger.error 'Genric Stripe error.'
+    end
+    return stripe_success
   end
 end

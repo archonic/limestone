@@ -48,6 +48,9 @@ gem 'devise', '~> 4'
 # Authorization
 gem 'pundit'
 
+# Soft deletes for ActiveRecord done right
+gem 'discard'
+
 # Pretty admin dashboards
 gem 'administrate'
 
@@ -57,7 +60,7 @@ gem 'stripe'
 gem 'stripe_event', '~> 1.8'
 
 # Upload to S3 directly
-gem 'aws-sdk'
+gem 'aws-sdk-s3'
 
 # Process images
 gem 'image_processing'
