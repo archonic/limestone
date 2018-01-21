@@ -1,0 +1,11 @@
+#!/bin/sh
+# Usage: bin/ci [setup]
+set -e
+
+bin/wait-for-postgres
+
+time bundle exec rake db:create
+time bundle exec rake db:migrate
+time bundle exec rake db:seed
+
+time bundle exec rspec $2
