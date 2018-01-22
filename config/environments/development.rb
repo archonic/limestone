@@ -56,4 +56,7 @@ Rails.application.configure do
 
   # For devise
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  # Use AWS for active storage as a default
+  config.active_storage.service = :local
 end
