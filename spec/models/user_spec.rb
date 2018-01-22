@@ -27,7 +27,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'returns true for users subscribed' do
-      expect(create(:user_subscribed).subscribed?).to eq true
+      expect(create(:user, stripe_subscription_id: 'asdf').subscribed?).to eq true
     end
   end
 end

@@ -13,7 +13,7 @@ class CreatePlanService
       amount: 900,
       interval: 'month',
       currency: 'usd',
-      trial_period_days: 14,
+      trial_period_days: Rails.application.secrets.trial_period_days,
       id: SecureRandom.uuid
     )
   end

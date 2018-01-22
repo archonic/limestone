@@ -6,7 +6,7 @@ RSpec.describe Users::RegistrationsController, type: :request do
   let(:user) { create(:user_subscribed) }
   before do
     StripeMock.start
-    stripe_helper.create_plan(id: 'basic', amount: 900)
+    stripe_helper.create_plan(id: 'basic', amount: 900, trial_period_days: Rails.application.secrets.trial_period_days)
   end
   after { StripeMock.stop }
 
@@ -21,7 +21,7 @@ RSpec.describe Users::RegistrationsController, type: :request do
     end
 
     subject do
-      post '/profile', params: { user: user_params }
+      post user_registration_path, params: { user: user_params }
       response
     end
 
@@ -45,8 +45,9 @@ RSpec.describe Users::RegistrationsController, type: :request do
   end
 
   describe 'DELETE /profile' do
-    let(:user) { create(:user_subscribed) }
-    let!(:user_id) { user.id }
+    let(:mock_customer) { Stripe::Customer.create }
+    let(:mock_subscription) { mock_customer.subscriptions.create(plan: 'basic') }
+    let!(:user) { create(:user, stripe_id: mock_customer.id, stripe_subscription_id: mock_subscription.id) }
     before do
       sign_in user
     end
@@ -56,10 +57,14 @@ RSpec.describe Users::RegistrationsController, type: :request do
       response
     end
 
-    it 'destroys the user account' do
-      expect(user.reload).to eq User.find(user_id)
+    it 'discards the user account' do
       subject
-      expect { user.reload }.to raise_exception(ActiveRecord::RecordNotFound)
+      expect(user.reload.discarded?).to be true
+    end
+
+    it 'marks the user role as removed' do
+      subject
+      expect(user.reload.role).to eq 'removed'
     end
 
     it 'signs the user out' do

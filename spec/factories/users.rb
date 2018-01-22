@@ -6,9 +6,5 @@ FactoryBot.define do
     password 'password'
     password_confirmation 'password'
     initialize_with { User.where(email: email).first_or_initialize }
-
-    factory :user_subscribed do
-      stripe_subscription_id '12345'
-    end
   end
 end

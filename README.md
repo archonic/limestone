@@ -9,6 +9,7 @@ The gemset has been chosen to be modern, performant, and take care of a number o
 * Bootstrap 4
 * CoffeeScript
 * Devise
+* Discard
 * HAML
 * jQuery
 * Postgres
@@ -24,10 +25,10 @@ The gemset has been chosen to be modern, performant, and take care of a number o
 * Turbolinks 5
 
 ## Features
+* Trial upon registration without credit card.
+* Subscription management. Card update forms.
 * Direct uploading to S3 with ActiveStorage. Lazy transform for resizing. Demonstrated with user avatars.
 * Icon helper for avatars with fallback to circle with user initials.
-* Subscription management. Card update forms.
-* Trial (with env var customizable length) upon registration without credit card.
 * Administrate dashboard lets you CRUD records (ex: users). Easy to add more and customize as you like. Visit /admin/.
 * Impersonate users through administrate dashboard.
 * Mail sends through Sidekiq. Demonstrated with Devise mailing.

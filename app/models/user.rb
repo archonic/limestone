@@ -8,7 +8,9 @@ class User < ApplicationRecord
   has_many :charges
   has_one_attached :avatar
 
-  enum role: %i[trial user admin]
+  # If you create new roles and have existing data,
+  # add the role at the end so you don't corrupt existing role integers
+  enum role: %i[trial removed user admin]
   after_initialize :set_default_role, if: :new_record?
 
   validates :first_name, presence: true
