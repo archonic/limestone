@@ -1,8 +1,7 @@
 class Users::SessionsController < Devise::SessionsController
 
+  # TODO Nothing seems to be loading in this file
   def new
-    puts "============= WTF IS GOING ON"
-    binding.pry
     self.resource = resource_class.new(sign_in_params)
     clean_up_passwords(resource)
     yield resource if block_given?
@@ -11,7 +10,6 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create
-    binding.pry
     self.resource = warden.authenticate!(auth_options)
     set_flash_message!(:notice, :signed_in)
     sign_in(resource_name, resource)
@@ -22,7 +20,6 @@ class Users::SessionsController < Devise::SessionsController
   protected
 
   def auth_options
-    binding.pry
     # Don't let discarded (unsubscribed) users sign in
     { scope: resource_name.kept, recall: "#{controller_path}#new" }
   end
