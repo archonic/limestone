@@ -6,7 +6,7 @@
     %meta{name: 'viewport', content: 'width=device-width, initial-scale=1'}
     %meta{'http-equiv': 'x-ua-compatible', content: 'ie=edge'}
     = action_cable_meta_tag
-    = tag :meta, name: 'stripe-key', content: Rails.application.secrets.stripe_publishable_key
+    = tag :meta, name: 'stripe-key', content: ENV['STRIPE_PUBLISHABLE_KEY']
     = javascript_pack_tag 'vendor'
     = javascript_pack_tag 'application'
     = stylesheet_pack_tag 'src/application'

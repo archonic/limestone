@@ -1,10 +1,10 @@
 # config/initializers/stripe.rb
 Rails.configuration.stripe = {
-  :publishable_key => Rails.application.secrets.stripe_publishable_key,
-  :secret_key      => Rails.application.secrets.stripe_api_key
+  :publishable_key => ENV['STRIPE_PUBLISHABLE_KEY'],
+  :secret_key      => ENV['STRIPE_API_KEY']
 }
 
-Stripe.api_key = Rails.configuration.stripe[:secret_key]
+Stripe.api_key = ENV['STRIPE_API_KEY']
 Stripe.api_version = '2017-04-06'
 
 class RecordCharges

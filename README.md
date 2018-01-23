@@ -46,7 +46,6 @@ The gemset has been chosen to be modern, performant, and take care of a number o
 
 ## Getting Started
 * Install [Docker](https://docs.docker.com/engine/installation/)
-* Customize config/secrets.yml from config/secrets-example.yml
 * Customize .env from .env-example
 * run `docker-compose up --build` to create and run the various images, volumes, containers and a network
 * run `docker-compose exec website rails db:setup` to create the DB or `docker-compose exec website rails db:reset` if the DB already exists

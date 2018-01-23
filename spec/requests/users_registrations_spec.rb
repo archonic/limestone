@@ -6,7 +6,7 @@ RSpec.describe Users::RegistrationsController, type: :request do
   let(:user) { create(:user_subscribed) }
   before do
     StripeMock.start
-    stripe_helper.create_plan(id: 'basic', amount: 900, trial_period_days: Rails.application.secrets.trial_period_days)
+    stripe_helper.create_plan(id: 'basic', amount: 900, trial_period_days: ENV['TRIAL_PERIOD_DAYS'] || 14)
   end
   after { StripeMock.stop }
 
