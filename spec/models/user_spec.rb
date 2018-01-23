@@ -16,8 +16,54 @@ RSpec.describe User, type: :model do
     end
   end
 
-  it 'sets the default role of trial' do
-    expect(create(:user).role).to eq 'trial'
+  describe '#setup_new_user' do
+    it 'sets the default role of trial' do
+      expect(build(:user).role).to eq 'trial'
+    end
+
+    it 'sets trial_ends_at' do
+      expect(build(:user).trial_ends_at).to be_present
+    end
+  end
+
+  describe 'trial_role?' do
+    it 'returns true for trial' do
+      expect(build(:user, role: :trial).trial_role?).to be true
+    end
+
+    it 'returns false for other roles' do
+      expect(build(:user, role: :admin).trial_role?).to be false
+    end
+  end
+
+  describe 'removed_role?' do
+    it 'returns true for removed' do
+      expect(build(:user, role: :removed).removed_role?).to be true
+    end
+
+    it 'returns false for other roles' do
+      expect(build(:user, role: :admin).removed_role?).to be false
+    end
+  end
+
+  describe 'user_role?' do
+    it 'returns true for user' do
+      expect(build(:user, role: :user).user_role?).to be true
+    end
+
+    it 'returns false for other roles' do
+      expect(build(:user, role: :admin).user_role?).to be false
+    end
+  end
+
+  describe 'trial_expired?' do
+    it 'returns false for a valid trial' do
+      expect(build(:user, trial_ends_at: 14.days.from_now).trial_expired?).to be false
+    end
+
+    it 'returns true for expired trial' do
+      expect(build(:user, trial_ends_at: 1.hour.ago).trial_expired?).to be true
+    end
   end
 
   # Methods

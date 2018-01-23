@@ -68,5 +68,7 @@ module Limestone
 
     # Write stripe events to seperate log
     $subscription_log_path = 'log/subscription.log'
+
+    $trial_period_days = ENV['TRIAL_PERIOD_DAYS'] || 14
   end
 end

@@ -26,16 +26,13 @@ By default, it renders:
 </head>
 <body>
   <%= render "icons" %>
-
   <div class="app-container">
-    <%= render "navigation" -%>
-
+    <%= render "navigation" %>
     <main class="main-content" role="main">
-      <%= render "flashes" -%>
+      <%= render "flashes" %>
       <%= yield %>
     </main>
   </div>
-
   <%= render "javascript" %>
 </body>
 </html>

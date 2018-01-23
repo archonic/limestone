@@ -6,7 +6,7 @@ RSpec.describe Users::RegistrationsController, type: :request do
   let(:user) { create(:user_subscribed) }
   before do
     StripeMock.start
-    stripe_helper.create_plan(id: 'basic', amount: 900, trial_period_days: ENV['TRIAL_PERIOD_DAYS'] || 14)
+    stripe_helper.create_plan(id: 'basic', amount: 900, trial_period_days: $trial_period_days)
   end
   after { StripeMock.stop }
 
@@ -19,6 +19,7 @@ RSpec.describe Users::RegistrationsController, type: :request do
          last_name: FFaker::Name.last_name
       }
     end
+    let(:user) { User.find_by(email: user_params[:email]) }
 
     subject do
       post user_registration_path, params: { user: user_params }
@@ -27,16 +28,20 @@ RSpec.describe Users::RegistrationsController, type: :request do
 
     it 'creates a subscribed user' do
       subject
-      user = User.find_by(email: user_params[:email])
       expect(user).to be_present
       expect(user.subscribed?).to be true
     end
 
     it 'populates subscription data' do
       subject
-      user = User.find_by(email: user_params[:email])
       expect(user.stripe_id).to be_present
       expect(user.stripe_subscription_id).to be_present
+    end
+
+    it 'sets the trial expiration date' do
+      subject
+      expect(user.trial_ends_at).to be_present
+      expect(user.trial_ends_at).to be_within(1).of(Time.current + 14.days)
     end
 
     it 'redirects to dashboard' do

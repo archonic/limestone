@@ -1,6 +1,11 @@
+- if current_user.trial_role?
+  .alert.alert-dismissible.alert-success{role: 'alert'}
+    %button.close{type: 'button', 'data-dismiss': 'alert', 'aria-label': 'Close'}
+      %span{'aria-hidden': true} &times;
+    = "You have #{distance_of_time_in_words(Time.current, current_user.trial_ends_at)} left in your trial!"
+
 %h1.display-1 You're in!
 %p dashboard#show
-
 Populate your app with features and make a nifty dashboard.
 
 %p
