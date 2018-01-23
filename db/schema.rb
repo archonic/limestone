@@ -72,9 +72,8 @@ ActiveRecord::Schema.define(version: 2018_01_20_180341) do
     t.integer "card_exp_year"
     t.string "card_type"
     t.integer "role"
-    t.datetime "deleted_at"
     t.datetime "discarded_at"
-    t.index ["deleted_at"], name: "index_users_on_deleted_at"
+    t.index ["discarded_at"], name: "index_users_on_discarded_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
