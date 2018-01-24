@@ -102,6 +102,7 @@ group :development, :test do
   gem 'chromedriver-helper'
   gem 'factory_bot_rails', '~> 4.8'
   gem 'pry'
+  gem 'rails-controller-testing', '~> 1'
   gem 'rspec-rails', '~> 3.6'
   gem 'selenium-webdriver'
   gem 'stripe-ruby-mock', '~> 2.5', require: 'stripe_mock'

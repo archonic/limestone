@@ -8,6 +8,12 @@ RSpec.describe User, type: :model do
   # Validations
   it { should validate_presence_of(:first_name) }
   it { should validate_presence_of(:last_name) }
+  it { should validate_presence_of(:email) }
+  it { is_expected.to allow_value("email@address.foo").for(:email) }
+  it { is_expected.to_not allow_value("email").for(:email) }
+  it { is_expected.to_not allow_value("email@domain").for(:email) }
+  it { is_expected.to_not allow_value("email@domain.").for(:email) }
+  it { is_expected.to_not allow_value("email@domain.a").for(:email) }
 
   # Callbacks
   describe '#set_full_name' do
@@ -23,46 +29,6 @@ RSpec.describe User, type: :model do
 
     it 'sets trial_ends_at' do
       expect(build(:user).trial_ends_at).to be_present
-    end
-  end
-
-  describe 'trial_role?' do
-    it 'returns true for trial' do
-      expect(build(:user, role: :trial).trial_role?).to be true
-    end
-
-    it 'returns false for other roles' do
-      expect(build(:user, role: :admin).trial_role?).to be false
-    end
-  end
-
-  describe 'removed_role?' do
-    it 'returns true for removed' do
-      expect(build(:user, role: :removed).removed_role?).to be true
-    end
-
-    it 'returns false for other roles' do
-      expect(build(:user, role: :admin).removed_role?).to be false
-    end
-  end
-
-  describe 'user_role?' do
-    it 'returns true for user' do
-      expect(build(:user, role: :user).user_role?).to be true
-    end
-
-    it 'returns false for other roles' do
-      expect(build(:user, role: :admin).user_role?).to be false
-    end
-  end
-
-  describe 'trial_expired?' do
-    it 'returns false for a valid trial' do
-      expect(build(:user, trial_ends_at: 14.days.from_now).trial_expired?).to be false
-    end
-
-    it 'returns true for expired trial' do
-      expect(build(:user, trial_ends_at: 1.hour.ago).trial_expired?).to be true
     end
   end
 

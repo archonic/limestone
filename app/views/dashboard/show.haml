@@ -1,4 +1,4 @@
-- if current_user.trial_role?
+- if current_user.trial?
   .alert.alert-dismissible.alert-success{role: 'alert'}
     %button.close{type: 'button', 'data-dismiss': 'alert', 'aria-label': 'Close'}
       %span{'aria-hidden': true} &times;

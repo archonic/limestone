@@ -8,7 +8,7 @@ module Admin
 
     def stop_impersonating
       stop_impersonating_user
-      redirect_to admin_root_path
+      redirect_to admin_users_path
     end
   end
 end

@@ -13,6 +13,8 @@ class User < ApplicationRecord
   enum role: %i[trial removed user admin]
   after_initialize :setup_new_user, if: :new_record?
 
+  validates :email, presence: true
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
   validates :first_name, presence: true
   validates :last_name, presence: true
 
@@ -32,24 +34,8 @@ class User < ApplicationRecord
     devise_mailer.send(notification, self, *args).deliver_later
   end
 
-  def trial_role?
-    role == 'trial'
-  end
-
-  def removed_role?
-    role == 'removed'
-  end
-
-  def user_role?
-    role == 'user'
-  end
-
-  def admin_role?
-    role == 'admin'
-  end
-
   def trial_expired?
-    role == 'trial' &&
+    self.trial? &&
     trial_ends_at < Time.current
   end
 

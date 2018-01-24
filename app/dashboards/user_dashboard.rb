@@ -23,6 +23,7 @@ class UserDashboard < Administrate::BaseDashboard
     last_sign_in_at: Field::DateTime,
     current_sign_in_ip: Field::String,
     last_sign_in_ip: Field::String,
+    trial_ends_at: Field::DateTime,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -37,7 +38,9 @@ class UserDashboard < Administrate::BaseDashboard
     :email,
     :full_name,
     :sign_in_count,
+    :last_sign_in_ip,
     :charges,
+    :trial_ends_at,
     :created_at,
   ].freeze
 
@@ -51,6 +54,7 @@ class UserDashboard < Administrate::BaseDashboard
     :sign_in_count,
     :current_sign_in_at,
     :current_sign_in_ip,
+    :trial_ends_at,
     :created_at,
     :charges
   ].freeze

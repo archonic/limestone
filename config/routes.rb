@@ -3,7 +3,7 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   # Administrate
   namespace :admin do
-    root controller: 'business', action: :index, as: 'business' #, to: 'business#index'
+    root controller: 'users', action: :index
     resources :users do
       post :impersonate, on: :member
     end
@@ -38,6 +38,7 @@ Rails.application.routes.draw do
     end
   end
 
+  # Avatars
   patch 'avatars', to: 'avatars#update'
   delete 'avatar', to: 'avatars#destroy'
 
@@ -46,5 +47,6 @@ Rails.application.routes.draw do
   get 'subscribe', to: 'subscriptions#new'
   post 'subscriptions', to: 'subscriptions#create'
   resource :card
-  resources :charges
+  get 'charges', to: 'charges#index'
+  get 'charges/:id', to: 'charges#show'
 end

@@ -6,5 +6,21 @@ FactoryBot.define do
     password 'password'
     password_confirmation 'password'
     initialize_with { User.where(email: email).first_or_initialize }
+
+    trait :admin do
+      role :admin
+    end
+    trait :trial do
+      role :trial
+    end
+    trait :user do
+      role :user
+    end
+    trait :removed do
+      role :removed
+    end
+    trait :expired do
+      trial_ends_at 1.hour.ago
+    end
   end
 end
