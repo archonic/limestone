@@ -24,3 +24,6 @@
 /config/secrets.yml
 .env
 *.aes
+
+# Local ActiveStorage uploads
+/storage
