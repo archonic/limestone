@@ -14,7 +14,7 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2018-01-25T03:35:43+00:00">2018-01-25T03:35:43+00:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2018-01-25T16:32:59+00:00">2018-01-25T16:32:59+00:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -203,7 +203,7 @@
       <tr>
         <td class="strong"><a href="#603949c34be75eff987d18815fc41dd4d7230405" class="src_link" title="app/dashboards/user_dashboard.rb">app/dashboards/user_dashboard.rb</a></td>
         <td class="yellow strong">87.5 %</td>
-        <td>78</td>
+        <td>80</td>
         <td>8</td>
         <td>7</td>
         <td>1</td>
@@ -873,7 +873,7 @@
       <tr>
         <td class="strong"><a href="#603949c34be75eff987d18815fc41dd4d7230405" class="src_link" title="app/dashboards/user_dashboard.rb">app/dashboards/user_dashboard.rb</a></td>
         <td class="yellow strong">87.5 %</td>
-        <td>78</td>
+        <td>80</td>
         <td>8</td>
         <td>7</td>
         <td>1</td>
@@ -3357,370 +3357,382 @@
         <li class="never" data-hits="" data-linenumber="17">
           
           
-          <code class="ruby">    encrypted_password: Field::String,</code>
+          <code class="ruby">    role: Field::String,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="18">
           
           
-          <code class="ruby">    reset_password_token: Field::String,</code>
+          <code class="ruby">    encrypted_password: Field::String,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="19">
           
           
-          <code class="ruby">    reset_password_sent_at: Field::DateTime,</code>
+          <code class="ruby">    reset_password_token: Field::String,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="20">
           
           
-          <code class="ruby">    remember_created_at: Field::DateTime,</code>
+          <code class="ruby">    reset_password_sent_at: Field::DateTime,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="21">
           
           
-          <code class="ruby">    sign_in_count: Field::Number,</code>
+          <code class="ruby">    remember_created_at: Field::DateTime,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="22">
           
           
-          <code class="ruby">    current_sign_in_at: Field::DateTime,</code>
+          <code class="ruby">    sign_in_count: Field::Number,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="23">
           
           
-          <code class="ruby">    last_sign_in_at: Field::DateTime,</code>
+          <code class="ruby">    current_sign_in_at: Field::DateTime,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="24">
           
           
-          <code class="ruby">    current_sign_in_ip: Field::String,</code>
+          <code class="ruby">    last_sign_in_at: Field::DateTime,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="25">
           
           
-          <code class="ruby">    last_sign_in_ip: Field::String,</code>
+          <code class="ruby">    current_sign_in_ip: Field::String,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="26">
           
           
-          <code class="ruby">    trial_ends_at: Field::DateTime,</code>
+          <code class="ruby">    last_sign_in_ip: Field::String,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="27">
           
           
-          <code class="ruby">    created_at: Field::DateTime,</code>
+          <code class="ruby">    trial_ends_at: Field::DateTime,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="28">
           
           
-          <code class="ruby">    updated_at: Field::DateTime,</code>
+          <code class="ruby">    created_at: Field::DateTime,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="29">
           
           
-          <code class="ruby">  }.freeze</code>
+          <code class="ruby">    updated_at: Field::DateTime,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="30">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">  }.freeze</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="31">
           
           
-          <code class="ruby">  # COLLECTION_ATTRIBUTES</code>
+          <code class="ruby"></code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="32">
           
           
-          <code class="ruby">  # an array of attributes that will be displayed on the model&#39;s index page.</code>
+          <code class="ruby">  # COLLECTION_ATTRIBUTES</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="33">
           
           
-          <code class="ruby">  #</code>
+          <code class="ruby">  # an array of attributes that will be displayed on the model&#39;s index page.</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="34">
           
           
-          <code class="ruby">  # By default, it&#39;s limited to four items to reduce clutter on index pages.</code>
+          <code class="ruby">  #</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="35">
           
           
+          <code class="ruby">  # By default, it&#39;s limited to four items to reduce clutter on index pages.</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="36">
+          
+          
           <code class="ruby">  # Feel free to add, remove, or rearrange items.</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="36">
+        <li class="covered" data-hits="1" data-linenumber="37">
           <span class="hits">1</span>
           
           <code class="ruby">  COLLECTION_ATTRIBUTES = [</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="37">
-          
-          
-          <code class="ruby">    :id,</code>
-        </li>
-      
         <li class="never" data-hits="" data-linenumber="38">
           
           
-          <code class="ruby">    :email,</code>
+          <code class="ruby">    :id,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="39">
           
           
-          <code class="ruby">    :full_name,</code>
+          <code class="ruby">    :email,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="40">
           
           
-          <code class="ruby">    :sign_in_count,</code>
+          <code class="ruby">    :full_name,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="41">
           
           
-          <code class="ruby">    :last_sign_in_ip,</code>
+          <code class="ruby">    :role,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="42">
           
           
-          <code class="ruby">    :charges,</code>
+          <code class="ruby">    :sign_in_count,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="43">
           
           
-          <code class="ruby">    :trial_ends_at,</code>
+          <code class="ruby">    :last_sign_in_ip,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="44">
           
           
-          <code class="ruby">    :created_at,</code>
+          <code class="ruby">    :charges,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="45">
           
           
-          <code class="ruby">  ].freeze</code>
+          <code class="ruby">    :trial_ends_at,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="46">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">    :created_at,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="47">
           
           
-          <code class="ruby">  # SHOW_PAGE_ATTRIBUTES</code>
+          <code class="ruby">  ].freeze</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="48">
           
           
-          <code class="ruby">  # an array of attributes that will be displayed on the model&#39;s show page.</code>
+          <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="49">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="49">
           
-          <code class="ruby">  SHOW_PAGE_ATTRIBUTES = [</code>
+          
+          <code class="ruby">  # SHOW_PAGE_ATTRIBUTES</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="50">
           
           
-          <code class="ruby">    :id,</code>
+          <code class="ruby">  # an array of attributes that will be displayed on the model&#39;s show page.</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="51">
+        <li class="covered" data-hits="1" data-linenumber="51">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">    :email,</code>
+          <code class="ruby">  SHOW_PAGE_ATTRIBUTES = [</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="52">
           
           
-          <code class="ruby">    :first_name,</code>
+          <code class="ruby">    :id,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="53">
           
           
-          <code class="ruby">    :last_name,</code>
+          <code class="ruby">    :email,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="54">
           
           
-          <code class="ruby">    :sign_in_count,</code>
+          <code class="ruby">    :full_name,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="55">
           
           
-          <code class="ruby">    :current_sign_in_at,</code>
+          <code class="ruby">    :role,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="56">
           
           
-          <code class="ruby">    :current_sign_in_ip,</code>
+          <code class="ruby">    :sign_in_count,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="57">
           
           
-          <code class="ruby">    :trial_ends_at,</code>
+          <code class="ruby">    :current_sign_in_at,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="58">
           
           
-          <code class="ruby">    :created_at,</code>
+          <code class="ruby">    :current_sign_in_ip,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="59">
           
           
-          <code class="ruby">    :charges</code>
+          <code class="ruby">    :trial_ends_at,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="60">
           
           
-          <code class="ruby">  ].freeze</code>
+          <code class="ruby">    :created_at,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="61">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">    :charges</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="62">
           
           
-          <code class="ruby">  # FORM_ATTRIBUTES</code>
+          <code class="ruby">  ].freeze</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="63">
           
           
-          <code class="ruby">  # an array of attributes that will be displayed</code>
+          <code class="ruby"></code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="64">
           
           
-          <code class="ruby">  # on the model&#39;s form (`new` and `edit`) pages.</code>
+          <code class="ruby">  # FORM_ATTRIBUTES</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="65">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="65">
           
-          <code class="ruby">  FORM_ATTRIBUTES = [</code>
+          
+          <code class="ruby">  # an array of attributes that will be displayed</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="66">
           
           
-          <code class="ruby">    :email,</code>
+          <code class="ruby">  # on the model&#39;s form (`new` and `edit`) pages.</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="67">
+        <li class="covered" data-hits="1" data-linenumber="67">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">    :first_name,</code>
+          <code class="ruby">  FORM_ATTRIBUTES = [</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="68">
           
           
-          <code class="ruby">    :last_name,</code>
+          <code class="ruby">    :email,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="69">
           
           
-          <code class="ruby">    :charges</code>
+          <code class="ruby">    :first_name,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="70">
           
           
-          <code class="ruby">  ].freeze</code>
+          <code class="ruby">    :last_name,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="71">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">    :role</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="72">
           
           
-          <code class="ruby">  # Overwrite this method to customize how users are displayed</code>
+          <code class="ruby">  ].freeze</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="73">
           
           
-          <code class="ruby">  # across all pages of the admin dashboard.</code>
+          <code class="ruby"></code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="74">
           
           
+          <code class="ruby">  # Overwrite this method to customize how users are displayed</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="75">
+          
+          
+          <code class="ruby">  # across all pages of the admin dashboard.</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="76">
+          
+          
           <code class="ruby">  #</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="75">
+        <li class="covered" data-hits="1" data-linenumber="77">
           <span class="hits">1</span>
           
           <code class="ruby">  def display_resource(user)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="76">
+        <li class="missed" data-hits="0" data-linenumber="78">
           
           
           <code class="ruby">    user.full_name</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="77">
+        <li class="never" data-hits="" data-linenumber="79">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="78">
+        <li class="never" data-hits="" data-linenumber="80">
           
           
           <code class="ruby">end</code>
