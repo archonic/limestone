@@ -2,7 +2,7 @@ class CreatePlanService
   def self.call
     begin
       p1 = Stripe::Plan.retrieve('Basic')
-    rescue
+    rescue Stripe::InvalidRequestError
       p1 = nil
     end
 

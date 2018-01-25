@@ -425,7 +425,7 @@ DEPENDENCIES
   pretender
   pry
   puma (~> 3.11)
-  pundit
+  pundit (~> 1)
   rack-timeout (~> 0.4)
   rails (~> 5.2.0.beta2)
   rails-controller-testing (~> 1)

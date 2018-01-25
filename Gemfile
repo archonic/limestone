@@ -46,7 +46,7 @@ gem 'simple_form'
 # Authentication
 gem 'devise', '~> 4'
 # Authorization
-gem 'pundit'
+gem 'pundit', '~> 1'
 
 # Soft deletes for ActiveRecord done right
 gem 'discard'
