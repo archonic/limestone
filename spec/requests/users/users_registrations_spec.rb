@@ -3,7 +3,6 @@ require 'stripe_mock'
 
 RSpec.describe Users::RegistrationsController, type: :request do
   let(:stripe_helper) { StripeMock.create_test_helper }
-  let(:user) { create(:user_subscribed) }
   before do
     StripeMock.start
     stripe_helper.create_plan(id: 'basic', amount: 900, trial_period_days: $trial_period_days)
@@ -81,9 +80,9 @@ RSpec.describe Users::RegistrationsController, type: :request do
   describe 'DELETE /profile' do
     let(:mock_customer) { Stripe::Customer.create }
     let(:mock_subscription) { mock_customer.subscriptions.create(plan: 'basic') }
-    let!(:user) { create(:user, stripe_id: mock_customer.id, stripe_subscription_id: mock_subscription.id) }
+    let!(:user_subscribed) { create(:user, :user, stripe_id: mock_customer.id, stripe_subscription_id: mock_subscription.id) }
     before do
-      sign_in user
+      sign_in user_subscribed
     end
 
     subject do
@@ -94,12 +93,12 @@ RSpec.describe Users::RegistrationsController, type: :request do
     context 'subscription cancellation succeeds' do
       it 'discards the user account' do
         subject
-        expect(user.reload.discarded?).to be true
+        expect(user_subscribed.reload.discarded?).to be true
       end
 
       it 'marks the user role as removed' do
         subject
-        expect(user.reload.role).to eq 'removed'
+        expect(user_subscribed.reload.role).to eq 'removed'
       end
 
       it 'signs the user out' do
