@@ -26,7 +26,7 @@ class User < ApplicationRecord
   end
 
   def subscribed?
-    stripe_subscription_id?
+    stripe_subscription_id.present?
   end
 
   # Send mail through activejob

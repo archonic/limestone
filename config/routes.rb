@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   devise_for :users, path: '',
     path_names: { sign_in: 'login', sign_out: 'logout', registration: 'profile' },
-    controllers: { registrations: 'users/registrations', sessions: 'users/sessions' } #, passwords: "users/passwords"
+    controllers: { registrations: 'users/registrations' } #sessions: 'users/sessions', passwords: "users/passwords"
 
   unauthenticated :user do
     devise_scope :user do
@@ -46,7 +46,7 @@ Rails.application.routes.draw do
   get 'billing', to: 'subscriptions#show'
   get 'subscribe', to: 'subscriptions#new'
   post 'subscriptions', to: 'subscriptions#create'
-  resource :card
+  post 'update-card', to: 'cards#update'
   get 'charges', to: 'charges#index'
   get 'charges/:id', to: 'charges#show'
 end

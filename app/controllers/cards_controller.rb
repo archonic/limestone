@@ -3,19 +3,12 @@ class CardsController < ApplicationController
   # verify that user is subscribed
 
   def update
-    customer = Stripe::Customer.retrieve(current_user.stripe_id)
-    subscription = customer.subscriptions.retrieve(current_user.stripe_subscription_id)
-    subscription.source = params[:stripeToken]
-    #byebug
-    subscription.save
-
-    current_user.update(
-      card_last4: params[:card_last4],
-      card_exp_month: params[:card_exp_month],
-      card_exp_year: params[:card_exp_year],
-      card_type: params[:card_brand]
-    )
-
-    redirect_to new_subscription_path, notice: "Successfully updated your card"
+    @@subscription_service = SubscriptionService.new(current_user, params)
+    if @@subscription_service.update_subscription
+      redirect_to billing_path, notice: "Successfully updated your card"
+    else
+      redirect_path = current_user.subscribed? ? billing_path : subscribe_path
+      redirect_to redirect_path, flash: { error: 'There was an error updating your subscription :(' }
+    end
   end
 end

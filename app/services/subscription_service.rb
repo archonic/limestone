@@ -34,6 +34,22 @@ class SubscriptionService
     @user.update(options)
   end
 
+  def update_subscription
+    success = stripe_call do
+      customer = Stripe::Customer.retrieve(@user.stripe_id)
+      subscription = customer.subscriptions.retrieve(@user.stripe_subscription_id)
+      subscription.source = @params[:stripeToken]
+      subscription.save
+    end
+    return false unless success
+    @user.update(
+      card_last4: @params[:card_last4],
+      card_exp_month: @params[:card_exp_month],
+      card_exp_year: @params[:card_exp_year],
+      card_type: @params[:card_brand]
+    )
+  end
+
   def destroy_subscription
     stripe_call do
       customer.subscriptions.retrieve(@user.stripe_subscription_id).delete

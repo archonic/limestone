@@ -7,7 +7,6 @@ class SubscriptionsController < ApplicationController
   # GET '/billing'
   def show
     redirect_to subscribe_path unless current_user_subscribed?
-    # customer = Stripe::Customer.retrieve(current_user.stripe_id)
   end
 
   # GET '/subscribe'
@@ -17,7 +16,10 @@ class SubscriptionsController < ApplicationController
   # POST /subscriptions
   def create
     @@subscription_service = SubscriptionService.new(current_user, params)
-    @@subscription_service.create_subscription
-    redirect_to root_path
+    if @@subscription_service.create_subscription
+      redirect_to billing_path, flash: { success: 'Yay! Thanks for subscribing!' }
+    else
+      redirect_to subscribe_path, flash: { error: 'There was an error creating your subscription :(' }
+    end
   end
 end

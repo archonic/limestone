@@ -5,7 +5,7 @@ Rails.configuration.stripe = {
 }
 
 Stripe.api_key = ENV['STRIPE_API_KEY']
-Stripe.api_version = '2017-04-06'
+Stripe.api_version = '2017-08-15'
 
 class RecordCharges
   def call(event)

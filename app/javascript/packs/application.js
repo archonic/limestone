@@ -24,4 +24,5 @@ import 'data-confirm-modal'
 
 // Does not process requires when imported like this
 import '../../assets/javascripts/application'
+import '../packs/src/subscriptions'
 console.log('Hello World from Webpacker')
