@@ -1,6 +1,6 @@
 class AddTrialEndsAtToUsers < ActiveRecord::Migration[5.2]
   def change
-    add_column :users, :trial_ends_at, :datetime
-    add_index :users, :trial_ends_at
+    add_column :users, :current_period_end, :datetime
+    add_index :users, :current_period_end
   end
 end
