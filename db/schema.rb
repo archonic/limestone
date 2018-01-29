@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_01_23_041906) do
+ActiveRecord::Schema.define(version: 2018_01_27_230250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,19 +36,23 @@ ActiveRecord::Schema.define(version: 2018_01_23_041906) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "charges", id: :serial, force: :cascade do |t|
+  create_table "invoices", force: :cascade do |t|
     t.integer "user_id"
     t.string "stripe_id"
-    t.string "description"
     t.integer "amount"
     t.string "currency"
-    t.string "card_last4"
-    t.string "card_type"
-    t.string "card_exp_month"
-    t.string "card_exp_year"
+    t.string "number"
+    t.datetime "paid_at"
+    t.text "lines"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["stripe_id"], name: "index_charges_on_stripe_id", unique: true
+    t.index ["stripe_id"], name: "index_invoices_on_stripe_id", unique: true
+  end
+
+  create_table "plans", force: :cascade do |t|
+    t.string "name"
+    t.integer "amount"
+    t.string "stripe_id"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|

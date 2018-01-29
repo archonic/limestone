@@ -5,7 +5,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  has_many :charges
+  has_many :invoices
   has_one_attached :avatar
 
   # If you create new roles and have existing data,
@@ -22,10 +22,11 @@ class User < ApplicationRecord
 
   def setup_new_user
     self.role ||= :trial
-    self.trial_ends_at = Time.current + $trial_period_days.days
+    self.current_period_end = Time.current + $trial_period_days.days
   end
 
   def subscribed?
+    self.user? &&
     stripe_subscription_id.present?
   end
 
@@ -36,7 +37,7 @@ class User < ApplicationRecord
 
   def trial_expired?
     self.trial? &&
-    trial_ends_at < Time.current
+    current_period_end < Time.current
   end
 
   protected

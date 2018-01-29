@@ -27,19 +27,23 @@ RSpec.describe User, type: :model do
       expect(build(:user).role).to eq 'trial'
     end
 
-    it 'sets trial_ends_at' do
-      expect(build(:user).trial_ends_at).to be_present
+    it 'sets current_period_end' do
+      expect(build(:user).current_period_end).to be_present
     end
   end
 
   # Methods
   describe '#subscribed?' do
     it 'returns false for users not subscribed' do
-      expect(create(:user).subscribed?).to eq false
+      expect(create(:user).subscribed?).to be false
+    end
+
+    it 'returns false for trial users' do
+      expect(create(:user, :trial).subscribed?).to be false
     end
 
     it 'returns true for users subscribed' do
-      expect(create(:user, stripe_subscription_id: 'asdf').subscribed?).to eq true
+      expect(create(:user, :user, stripe_subscription_id: 'asdf').subscribed?).to be true
     end
   end
 end

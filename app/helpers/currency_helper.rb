@@ -1,8 +1,9 @@
 module CurrencyHelper
-  def charge_pdf_link(charge)
+  def invoice_pdf_link(invoice)
     link_to(
-      number_to_currency(charge.amount / 100),
-      charge_path(charge, format: :pdf)
+      icon('file-pdf-o', :sm),
+      invoice_path(invoice, format: :pdf),
+      target: :_blank
     )
   end
 end

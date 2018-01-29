@@ -10,6 +10,9 @@ class SubscriptionService
     subscription = nil
     stripe_call do
       plan = Stripe::Plan.list(limit: 1).first
+      # If the plan has a trial time, it does not need a stripe token to create a subscription
+      # We assume you have a trial time > 0. Otherwise there will be 2 customers created for
+      # each subscribed customer. One at registration and another when subscribing.
       subscription = customer.subscriptions.create(
         source: @params[:stripeToken],
         plan: plan.id
@@ -19,8 +22,7 @@ class SubscriptionService
 
     options = {
       stripe_id: customer.id,
-      stripe_subscription_id: subscription.id,
-      role: :user
+      stripe_subscription_id: subscription.id
     }
 
     # Only update the card on file if we're adding a new one
@@ -74,17 +76,17 @@ class SubscriptionService
       stripe_success = true
     # https://stripe.com/docs/api?lang=ruby#errors
     rescue Stripe::CardError => e
-      SubscriptionLogger.error(e.json_body[:error])
+      StripeLogger.error(e.json_body[:error])
     rescue Stripe::RateLimitError => e
-      SubscriptionLogger.error 'Too many requests made to the API too quickly.'
+      StripeLogger.error 'Too many requests made to the API too quickly.'
     rescue Stripe::InvalidRequestError => e
-      SubscriptionLogger.error 'Invalid paramaters were supplied to Stripe\'s API.'
+      StripeLogger.error 'Invalid paramaters were supplied to Stripe\'s API.'
     rescue Stripe::AuthenticationError => e
-      SubscriptionLogger.error 'Authentication with Stripe\'s API failed. Maybe you changed API keys recently.'
+      StripeLogger.error 'Authentication with Stripe\'s API failed. Maybe you changed API keys recently.'
     rescue Stripe::APIConnectionError => e
-      SubscriptionLogger.error 'Network communication with Stripe failed.'
+      StripeLogger.error 'Network communication with Stripe failed.'
     rescue Stripe::StripeError => e
-      SubscriptionLogger.error 'Genric Stripe error.'
+      StripeLogger.error 'Genric Stripe error.'
     end
     return stripe_success
   end

@@ -20,7 +20,7 @@ FactoryBot.define do
       role :removed
     end
     trait :expired do
-      trial_ends_at 1.hour.ago
+      current_period_end 1.hour.ago
     end
   end
 end

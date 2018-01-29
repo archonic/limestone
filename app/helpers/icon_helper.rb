@@ -32,4 +32,11 @@ module IconHelper
       )
     )
   end
+
+  # http://fontawesome.io/icons/
+  def icon(reference, size = :sm, options = {})
+    options.merge!(style: "font-size: #{AVATAR_SIZES[size]}px")
+    options.merge!(class: "fa fa-#{reference} #{options[:class]}")
+    content_tag(:i, nil, options)
+  end
 end

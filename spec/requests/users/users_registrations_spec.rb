@@ -26,10 +26,11 @@ RSpec.describe Users::RegistrationsController, type: :request do
         response
       end
 
-      it 'creates a subscribed user' do
+      it 'creates a trial user with stripe subscription' do
         subject
         expect(user).to be_present
-        expect(user.subscribed?).to be true
+        expect(user.trial?).to be true
+        expect(user.stripe_id?).to be_present
       end
 
       it 'populates subscription data' do
@@ -40,8 +41,8 @@ RSpec.describe Users::RegistrationsController, type: :request do
 
       it 'sets the trial expiration date' do
         subject
-        expect(user.trial_ends_at).to be_present
-        expect(user.trial_ends_at).to be_within(1).of(Time.current + 14.days)
+        expect(user.current_period_end).to be_present
+        expect(user.current_period_end).to be_within(1).of(Time.current + 14.days)
       end
 
       it 'redirects to dashboard' do

@@ -1,10 +1,10 @@
 # Custom Post logger
 require 'singleton'
-class SubscriptionLogger < Logger
+class StripeLogger < Logger
   include Singleton
 
   def initialize
-    super(Rails.root.join($subscription_log_path))
+    super(Rails.root.join($stripe_log_path))
     self.formatter = formatter()
     self
   end

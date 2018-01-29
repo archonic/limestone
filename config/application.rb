@@ -67,7 +67,7 @@ module Limestone
     # -- all .rb files in that directory are automatically loaded.
 
     # Write stripe events to seperate log
-    $subscription_log_path = 'log/subscription.log'
+    $stripe_log_path = 'log/stripe.log'
 
     $trial_period_days = ENV['TRIAL_PERIOD_DAYS'] || 14
   end

@@ -37,7 +37,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'redis-rails', '~> 5.0'
 
 # Use Font Awesome Rails for Font Awesome icons
-gem 'font-awesome-rails', '~> 4.7'
+# gem 'font-awesome-rails', '~> 4.7'
 
 # Pretty html abstractions
 gem 'haml', '~> 5'
@@ -57,7 +57,7 @@ gem 'administrate'
 gem 'receipts'
 # Stripe stuff
 gem 'stripe'
-gem 'stripe_event', '~> 1.8'
+gem 'stripe_event', '~> 2'
 
 # Upload to S3 directly
 gem 'aws-sdk-s3'

@@ -1,26 +1,47 @@
 .row
   .col-6
     %h3 Billing
-    %p Your card on file is:
-    %p
-      = "#{current_user.card_type} **** **** **** #{current_user.card_last4}"
-      %br
-      = "Expires #{current_user.card_exp_month} / #{current_user.card_exp_year}"
+    - if current_user.card_last4.present?
+      %p Your card on file is:
+      %p
+        = "#{current_user.card_type} **** **** **** #{current_user.card_last4}"
+        %br
+        = "Expires #{current_user.card_exp_month} / #{current_user.card_exp_year}"
+    - else
+      %p
+        = "You have no payment source and your trial ends in #{distance_of_time_in_words(Time.current, current_user.current_period_end)}."
+      %p Entering now will bill you at the end of your trial.
     .form-group
-      %button.btn.btn-secondary{type: 'button', 'data-toggle': 'collapse', 'data-target': '#new_card'} Use a different card
+      %button.btn.btn-secondary{type: 'button', 'data-toggle': 'collapse', 'data-target': '#new_card'} Update your payment source
     #new_card.collapse
       = render 'card_form', locals: { path: update_card_path }
 
   .col-6
-    %h3 Next Payment
-    %p= 'Your card will be charged XX on XX.'
+    - if current_user.user? && current_user.card_last4.present?
+      %h3 Next Payment
+      %p= "Your card will be charged XX on #{current_user.current_period_end.strftime('%Y-%m-%d')}."
 
+%hr
 %h3 Your Invoices
-- if current_user.charges.any?
-  - current_user.charges.each do |charge|
-    You were charged
-    = charge_pdf_link(charge)
-    on
-    = charge.created_at.strftime("%B %d, %Y")
-- else
-  %p.text-muted No charges found
+%table.table
+  %thead
+    %tr
+      %th{scope: 'col'}#
+      %th{scope: 'col'}Date
+      %th{scope: 'col'}Services
+      %th{scope: 'col'}Quanity
+      %th{scope: 'col'}Amount
+      %th{scope: 'col'}PDF
+  %tbody
+    - if current_user.invoices.any?
+      - current_user.invoices.each_with_index do |invoice, index|
+        %tr
+          %th{scope: 'row'}= index
+          %td= invoice.created_at.strftime("%B %d, %Y")
+          - invoice.lines.each do |line|
+            %td= line['description']
+            %td= "x #{line['quantity']}"
+          %td= invoice.formatted_amount
+          %td= invoice_pdf_link(invoice)
+    - else
+      %p.text-muted You have no invoices

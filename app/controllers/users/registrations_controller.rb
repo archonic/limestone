@@ -45,10 +45,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def after_sign_up_path_for(resource)
-    if resource.subscribed?
-      dashboard_path
-    else
-      billing_path
-    end
+    dashboard_path
   end
 end

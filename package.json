@@ -6,6 +6,7 @@
     "activestorage": "^0.1.1",
     "bootstrap": "4.0.0",
     "data-confirm-modal": "^1.4.0",
+    "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
     "popper.js": "^1.11.0",
     "postcss-smart-import": "^0.7.6",

@@ -1,6 +1,0 @@
-web: bundle exec rails s
-webpacker: ./bin/webpack-dev-server --inline true
-
-# watcher: ./bin/webpack --colors --progress
-# hot: ./bin/webpack-dev-server
-# jobs: bundle exec sidekiq -q default -q mailers

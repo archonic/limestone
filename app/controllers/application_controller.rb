@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_subscribed?
 
   def after_sign_in_path_for(resource)
-    resource.discarded? ? subscribe_path : dashboard_path
+    resource.removed? ? subscribe_path : dashboard_path
   end
 
   protected

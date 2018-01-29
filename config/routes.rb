@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       post :impersonate, on: :member
     end
     get :stop_impersonating, to: :stop_impersonating, controller: 'users'
-    resources :charges
+    resources :invoices
   end
 
   mount StripeEvent::Engine, at: '/stripe/webhook'
@@ -47,6 +47,6 @@ Rails.application.routes.draw do
   get 'subscribe', to: 'subscriptions#new'
   post 'subscriptions', to: 'subscriptions#create'
   post 'update-card', to: 'cards#update'
-  get 'charges', to: 'charges#index'
-  get 'charges/:id', to: 'charges#show'
+  get 'invoices', to: 'invoices#index'
+  get 'invoices/:id', to: 'invoices#show', as: 'invoice'
 end

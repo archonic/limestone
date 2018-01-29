@@ -1,0 +1,23 @@
+%h1 Invoice paid
+
+%p
+  We received your payment for your Limestone subscription. Thanks
+  = @user.first_name
+  !
+
+%p
+  Questions? Feel free to contact support@example.com at anytime.
+
+%hr
+  Limestone Subsctiption Receipt
+
+  Amount:
+  = @invoice.formatted_amount
+
+  Charged to:
+  = @invoice.card_string
+  Transaction ID:
+  = @invoice.transaction_id
+  Date:
+  = @invoice.invoice_date_string
+%hr

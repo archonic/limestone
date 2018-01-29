@@ -1,4 +1,8 @@
 @import '~bootstrap/scss/bootstrap';
+
+$fa-font-path: "~font-awesome/fonts";
+@import '~font-awesome/scss/font-awesome';
+
 @import '../../../assets/stylesheets/avatars';
 @import '../../../assets/stylesheets/modals';
 @import '../../../assets/stylesheets/alerts';
