@@ -7,16 +7,19 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   has_many :invoices
   has_one_attached :avatar
+  belongs_to :plan #, optional: true
+
+  validates :email, presence: true
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+  validates :first_name, presence: true
+  validates :last_name, presence: true
 
   # If you create new roles and have existing data,
   # add the role at the end so you don't corrupt existing role integers
   enum role: %i[trial removed user admin]
   after_initialize :setup_new_user, if: :new_record?
 
-  validates :email, presence: true
-  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
-  validates :first_name, presence: true
-  validates :last_name, presence: true
+  delegate :cost, to: :plan
 
   before_save :set_full_name
 

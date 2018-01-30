@@ -5,6 +5,7 @@ FactoryBot.define do
     email {  FFaker::Internet.email }
     password 'password'
     password_confirmation 'password'
+    association :plan
     initialize_with { User.where(email: email).first_or_initialize }
 
     trait :admin do

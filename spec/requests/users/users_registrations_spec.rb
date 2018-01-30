@@ -11,12 +11,14 @@ RSpec.describe Users::RegistrationsController, type: :request do
 
   describe 'POST /profile' do
     context 'with valid parameters' do
+      let(:plan) { create(:plan) }
       let(:valid_user_params) do
         {
            email: FFaker::Internet.email,
            password: 'password',
            first_name: FFaker::Name.first_name,
-           last_name: FFaker::Name.last_name
+           last_name: FFaker::Name.last_name,
+           plan_id: plan.id
         }
       end
       let(:user) { User.find_by(email: valid_user_params[:email]) }

@@ -19,7 +19,7 @@
   .col-6
     - if current_user.user? && current_user.card_last4.present?
       %h3 Next Payment
-      %p= "Your card will be charged XX on #{current_user.current_period_end.strftime('%Y-%m-%d')}."
+      %p= "Your card will be charged #{current_user.cost} on #{current_user.current_period_end.strftime('%A, %B %e, %Y')}."
 
 %hr
 %h3 Your Invoices

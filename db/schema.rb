@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_01_27_230250) do
+ActiveRecord::Schema.define(version: 2018_01_29_173731) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,10 @@ ActiveRecord::Schema.define(version: 2018_01_27_230250) do
     t.string "stripe_id"
     t.integer "amount"
     t.string "currency"
+    t.string "card_last4"
+    t.string "card_type"
+    t.string "card_exp_month"
+    t.string "card_exp_year"
     t.string "number"
     t.datetime "paid_at"
     t.text "lines"
@@ -80,6 +84,7 @@ ActiveRecord::Schema.define(version: 2018_01_27_230250) do
     t.integer "role"
     t.datetime "discarded_at"
     t.datetime "current_period_end"
+    t.integer "plan_id"
     t.index ["current_period_end"], name: "index_users_on_current_period_end"
     t.index ["discarded_at"], name: "index_users_on_discarded_at"
     t.index ["email"], name: "index_users_on_email", unique: true
