@@ -7,6 +7,8 @@ class CreateAdminService
       u.password_confirmation = ENV['ADMIN_PASSWORD']
       u.first_name = ENV['ADMIN_FIRST_NAME']
       u.last_name = ENV['ADMIN_LAST_NAME']
+      # admins obs don't need a plan, but it's better to have the validation in place
+      u.plan_id = 1
       u.admin!
     end
   end

@@ -6,9 +6,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-admin_user = CreateAdminService.call
-puts 'CREATED ADMIN USER: ' << admin_user.email
-
 # This will create plans in your Stripe account. Check that you don't have duplicates
 # or comment out/remove if you want to manage plans manually.
 # https://stripe.com/docs/api#plan_object
@@ -17,3 +14,6 @@ plans = Plan.create([
   {name: 'Pro', amount: 1500, interval: 'month', currency: 'usd'}
 ])
 puts "CREATED PLANS #{plans.map(&:name).join(', ')}"
+
+admin_user = CreateAdminService.call
+puts 'CREATED ADMIN USER: ' << admin_user.email

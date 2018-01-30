@@ -7,7 +7,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   has_many :invoices
   has_one_attached :avatar
-  belongs_to :plan #, optional: true
+  # set optional: true if you don't want the default Rails 5 belongs_to presence validation
+  belongs_to :plan
 
   validates :email, presence: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
