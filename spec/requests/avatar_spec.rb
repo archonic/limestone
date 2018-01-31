@@ -40,7 +40,7 @@ RSpec.describe AvatarsController, type: :request do
     end
 
     it 'removes the avatar' do
-      user.avatar.should_receive(:purge).once
+      expect(user.avatar).to receive(:purge).once
       expect(subject).to have_http_status(:redirect)
       expect(flash[:notice]).to match 'Avatar deleted'
     end

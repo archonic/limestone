@@ -19,7 +19,7 @@ RSpec.describe 'Administrate Dashboards', type: :request do
       end
     end
 
-    describe ChargeDashboard do
+    describe InvoiceDashboard do
       subject do
         get admin_users_path
         response
@@ -46,7 +46,7 @@ RSpec.describe 'Administrate Dashboards', type: :request do
       end
     end
 
-    describe ChargeDashboard do
+    describe InvoiceDashboard do
       subject do
         get admin_users_path
         response
