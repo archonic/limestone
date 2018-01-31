@@ -1,6 +1,6 @@
 require "administrate/base_dashboard"
 
-class ChargeDashboard < Administrate::BaseDashboard
+class InvoiceDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -12,10 +12,14 @@ class ChargeDashboard < Administrate::BaseDashboard
     user: Field::BelongsTo,
     stripe_id: Field::String,
     amount: Field::Number,
+    currency: Field::String,
     card_last4: Field::Number,
     card_type: Field::String,
     card_exp_month: Field::Number,
     card_exp_year: Field::Number,
+    number: Field::String,
+    paid_at: Field::DateTime,
+    lines: Field::Text,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -30,10 +34,13 @@ class ChargeDashboard < Administrate::BaseDashboard
     :user,
     :stripe_id,
     :amount,
+    :currency,
     :card_type,
     :card_last4,
     :card_exp_month,
     :card_exp_year,
+    :number,
+    :paid_at,
     :created_at,
   ].freeze
 
@@ -44,10 +51,14 @@ class ChargeDashboard < Administrate::BaseDashboard
     :user,
     :stripe_id,
     :amount,
+    :currency,
     :card_type,
     :card_last4,
     :card_exp_month,
     :card_exp_year,
+    :number,
+    :paid_at,
+    :lines,
     :created_at,
   ].freeze
 
