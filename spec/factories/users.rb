@@ -7,6 +7,7 @@ FactoryBot.define do
     password_confirmation 'password'
     association :plan
     initialize_with { User.where(email: email).first_or_initialize }
+    stripe_id 'asdf' # registration creates subscription on trial creation
 
     trait :admin do
       role :admin
