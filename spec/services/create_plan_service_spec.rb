@@ -9,7 +9,7 @@ RSpec.describe CreatePlanService, type: :service do
 
   describe '#call' do
     it 'creates the plan' do
-      Stripe::Plan.should_receive(:create).once
+      expect(Stripe::Plan).to receive(:create).once
       CreatePlanService.new(plan)
     end
   end

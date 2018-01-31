@@ -4,10 +4,6 @@ FactoryBot.define do
     stripe_id 'asdf'
     amount 900
     currency 'usd'
-    card_last4 4242
-    card_type 'MasterCard'
-    card_exp_month '12'
-    card_exp_year '2025'
     number 'd1a9e076f5-0001'
     paid_at '2018-01-28 22:50:26'
     lines [

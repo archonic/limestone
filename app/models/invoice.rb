@@ -25,8 +25,11 @@ class Invoice < ActiveRecord::Base
     )
   end
 
+  # This assumes that the card charged is the one currently on file
+  # That will always be the case unless the user manages to change their card
+  # and get invoiced before the stripe webhook updates their user account (super unlikely).
   def formatted_card
-    "#{card_type} (**** **** **** #{card_last4})"
+    "#{user.card_type} (**** **** **** #{user.card_last4})"
   end
 
   def formatted_invoice_date
