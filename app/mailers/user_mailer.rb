@@ -24,9 +24,8 @@ class UserMailer < ApplicationMailer
     )
   end
 
-  def invoice_failed(user, invoice)
+  def invoice_failed(user)
     @user = user
-    @invoice = invoice
     mail(
       to: email_with_name(user),
       subject: '[Limestone] Payment Failed'

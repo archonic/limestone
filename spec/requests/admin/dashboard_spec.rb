@@ -17,6 +17,22 @@ RSpec.describe 'Administrate Dashboards', type: :request do
       it 'allows admins to access /admin' do
         expect(subject).to have_http_status(:success)
       end
+
+      describe 'impersonate' do
+        it 'allows impersonation of users' do
+          post impersonate_admin_user_path(user.id)
+          expect(response).to have_http_status(:redirect)
+          expect(flash.any?).to eq false
+        end
+      end
+
+      describe 'stop_impersonating' do
+        it 'allows stop impersonating' do
+          get admin_stop_impersonating_path
+          expect(response).to have_http_status(:redirect)
+          expect(flash.any?).to eq false
+        end
+      end
     end
 
     describe InvoiceDashboard do
