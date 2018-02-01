@@ -26,7 +26,7 @@ class RecordInvoicePaid
     end
 
     # Ignore invoices for $0.00 such as trial period invoice
-    return true if event_data.total.zero?
+    # return true if event_data.total.zero?
 
     invoice = user.invoices.where(stripe_id: event_data.id).first_or_initialize
     lines = event_data.lines.data
@@ -39,6 +39,7 @@ class RecordInvoicePaid
     )
 
     invoice.save!
+    UserMailer.invoice_paid(user, invoice).deliver_later
     return true
   end
 end
@@ -84,6 +85,7 @@ class UpdateCustomer
     end
 
     user.save!
+    UserMailer.billing_updated(user).deliver_later if sources.total_count == 1
     return true
   end
 end
@@ -98,6 +100,7 @@ class Dun
       return true
     end
 
+    UserMailer.invoice_failed(user).deliver_later
     return true
   end
 end

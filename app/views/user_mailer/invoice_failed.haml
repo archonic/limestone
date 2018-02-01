@@ -1,0 +1,9 @@
+%h1 Invoice payment failed
+
+%p
+  It happens. Please
+  = link_to 'update your payment information', update_card_url, target: :_blank
+  = '. We\'ll invoice your new card shortly after you update it.'
+
+%p
+  You have a few days of grace where you can still access your account. After this grace period, your access will be revoked.

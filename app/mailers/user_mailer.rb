@@ -2,8 +2,16 @@ class UserMailer < ApplicationMailer
   def welcome_email(user)
     @user = user
     mail(
-      email_with_name(user),
-      subject: '[Limestone] Welcome to Limestone!'
+      to: email_with_name(user),
+      subject: '[Limestone] Welcome!'
+    )
+  end
+
+  def billing_updated(user)
+    @user = user
+    mail(
+      to: email_with_name(user),
+      subject: '[Limestone] Billing Updated'
     )
   end
 
@@ -11,8 +19,8 @@ class UserMailer < ApplicationMailer
     @user = user
     @invoice = invoice
     mail(
-      email_with_name(user),
-      subject: '[Limestone] Payment receipt'
+      to: email_with_name(user),
+      subject: '[Limestone] Payment Receipt'
     )
   end
 
@@ -20,14 +28,14 @@ class UserMailer < ApplicationMailer
     @user = user
     @invoice = invoice
     mail(
-      email_with_name(user),
-      subject: '[Limestone] Payment failed'
+      to: email_with_name(user),
+      subject: '[Limestone] Payment Failed'
     )
   end
 
   private
 
   def email_with_name(user)
-    %("#{user.name}" <#{user.email}>)
+    %("#{user.full_name}" <#{user.email}>)
   end
 end

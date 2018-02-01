@@ -57,8 +57,7 @@ gem 'administrate'
 gem 'receipts'
 # Stripe stuff
 gem 'stripe'
-# gem 'stripe_event', '~> 2'
-gem 'stripe_event', github: 'integrallis/stripe_event'
+gem 'stripe_event', '~> 2.1.1'
 
 # Upload to S3 directly
 gem 'aws-sdk-s3'
