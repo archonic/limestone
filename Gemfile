@@ -78,6 +78,9 @@ gem 'searchkick'
 # Jerbs
 gem 'sidekiq', '~> 5.0'
 
+# Use Clockwork for recurring background tasks without needing cron
+# gem 'clockwork', '~> 2.0'
+
 # Feature flagging
 gem 'rollout'
 

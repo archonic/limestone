@@ -26,7 +26,7 @@ class RecordInvoicePaid
     end
 
     # Ignore invoices for $0.00 such as trial period invoice
-    # return true if event_data.total.zero?
+    return true if event_data.total.zero?
 
     invoice = user.invoices.where(stripe_id: event_data.id).first_or_initialize
     lines = event_data.lines.data
