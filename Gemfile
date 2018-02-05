@@ -78,8 +78,9 @@ gem 'searchkick'
 # Jerbs
 gem 'sidekiq', '~> 5.0'
 
-# Use Clockwork for recurring background tasks without needing cron
-# gem 'clockwork', '~> 2.0'
+# Use Clockwork or Whenever for recurring background tasks
+# gem 'clockwork'
+# gem 'whenever'
 
 # Feature flagging
 gem 'rollout'
@@ -108,7 +109,7 @@ group :development, :test do
   gem 'rails-controller-testing', '~> 1'
   gem 'rspec-rails', '~> 3.6'
   gem 'selenium-webdriver'
-  gem 'stripe-ruby-mock', '~> 2.5', require: 'stripe_mock'
+  gem 'stripe-ruby-mock', github: 'archonic/stripe-ruby-mock', require: 'stripe_mock'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

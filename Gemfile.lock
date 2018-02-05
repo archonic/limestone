@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/archonic/stripe-ruby-mock.git
+  revision: d82526fc608816f2ea66b6f4f448f81842def79a
+  specs:
+    stripe-ruby-mock (2.5.1)
+      dante (>= 0.2.0)
+      multi_json (~> 1.0)
+      stripe (>= 2.0.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -190,7 +199,7 @@ GEM
     momentjs-rails (2.17.1)
       railties (>= 3.1)
     msgpack (1.2.2)
-    multi_json (1.12.2)
+    multi_json (1.13.1)
     multipart-post (2.0.0)
     nio4r (2.2.0)
     nokogiri (1.8.1)
@@ -357,10 +366,6 @@ GEM
       sprockets (>= 3.0.0)
     stripe (3.9.1)
       faraday (~> 0.10)
-    stripe-ruby-mock (2.5.0)
-      dante (>= 0.2.0)
-      multi_json (~> 1.0)
-      stripe (>= 2.0.3)
     stripe_event (2.1.1)
       activesupport (>= 3.1)
       stripe (>= 2.8, < 4.0)
@@ -441,7 +446,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   stripe
-  stripe-ruby-mock (~> 2.5)
+  stripe-ruby-mock!
   stripe_event (~> 2.1.1)
   turbolinks (~> 5)
   tzinfo-data
