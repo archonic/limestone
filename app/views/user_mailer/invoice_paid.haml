@@ -1,9 +1,7 @@
 %h1 Invoice paid
-
 %p= "We received your payment for your Limestone subscription. Thanks #{@user.first_name}!"
-
 %hr
-  Limestone Subsctiption Receipt
+  Limestone Receipt
   %br
   %br
   Amount:
@@ -19,5 +17,4 @@
   = @invoice.formatted_invoice_date
 %hr
 
-%p
-  Questions? Feel free to contact support@example.com at anytime.
+%p Questions? Feel free to contact support@example.com at anytime.

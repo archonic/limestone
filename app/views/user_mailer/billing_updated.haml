@@ -1,10 +1,9 @@
 %h1 Billing Information Updated
-
 %p
   Your billing information has been updated:
-
+  %br
+  %br
   Card:
   = "#{@user.card_type} (#{@user.card_last4})"
   = "#{@user.card_exp_month} / #{@user.card_exp_year}"
-
-Thanks!
+%p= "Thanks #{@user.first_name}!"

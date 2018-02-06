@@ -24,11 +24,23 @@ class UserMailer < ApplicationMailer
     )
   end
 
-  def invoice_failed(user)
+  def invoice_failed(user, attempt_count, next_attempt_at)
     @user = user
+    @attempt_count = attempt_count
+    # ActiveJob serialization doesn't support DateTime,
+    # so we send seconds since unix epoch and use that in the view.
+    @next_attempt_at = next_attempt_at
     mail(
       to: email_with_name(user),
       subject: '[Limestone] Payment Failed'
+    )
+  end
+
+  def trial_will_end(user)
+    @user = user
+    mail(
+      to: email_with_name(user),
+      subject: '[Limestone] Your trial is ending soon!'
     )
   end
 

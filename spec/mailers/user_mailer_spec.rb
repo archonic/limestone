@@ -26,9 +26,16 @@ RSpec.describe UserMailer, type: :mailer do
   end
 
   describe 'invoice_failed' do
-    let(:mail) { UserMailer.invoice_failed(user) }
+    let(:mail) { UserMailer.invoice_failed(user, 1, 1.hour.from_now.to_s) }
     it 'renders the body' do
       expect(mail.body).to match "Invoice payment failed"
+    end
+  end
+
+  describe 'trial_will_end' do
+    let(:mail) { UserMailer.trial_will_end(user) }
+    it 'renders the body' do
+      expect(mail.body).to match "Your trial is almost over"
     end
   end
 end

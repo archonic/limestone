@@ -12,7 +12,6 @@ StripeEvent.configure do |events|
   # All webhooks are responded to with an empty 200 success, even if not subscribed to.
   # When you have a webhook url configured in stripe, a success response is required
   # to attempt payment shortly (1 hour) after invoice.created
-
   events.subscribe 'invoice.payment_succeeded', StripeWebhookService::RecordInvoicePaid.new
   events.subscribe 'customer.updated', StripeWebhookService::UpdateCustomer.new
   events.subscribe 'customer.subscription.trial_will_end', StripeWebhookService::TrialWillEnd.new
