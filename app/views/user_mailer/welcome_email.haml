@@ -1,3 +1,5 @@
 %h1= "Welcome to Limestone, #{@user.first_name}"
 %p This is the beginning of a wonderful thing. Thanks for joining!
-%p= "Your free trial will end on #{@user.current_period_end.strftime('%B %d, %Y')}. You can #{link_to('enter your payment details', billing_url, target: :_blank)} and billing would begin at the end of your trial."
+%p
+  = "Your free trial will end on #{@user.current_period_end.strftime('%B %d, %Y')}."
+  You can #{link_to('enter your payment details', billing_url, target: :_blank)} and billing would begin at the end of your trial.
