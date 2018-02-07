@@ -1,4 +1,9 @@
+require 'stripe_mock'
+
 FactoryBot.define do
+  before { StripeMock.start }
+  after { StripeMock.stop }
+
   factory :plan do
     name 'World Domination'
     amount 100000
