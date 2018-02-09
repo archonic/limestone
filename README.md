@@ -26,7 +26,8 @@ The gemset has been chosen to be modern, performant, and take care of a number o
 
 ## Features
 * Trial upon registration without credit card.
-* Subscription management. Card update forms.
+* Subscription management. Card update form and cancel account button.
+* Emails for welcome, billing updated, invoice paid, invoice failed and trial expiring.
 * Direct uploading to S3 with ActiveStorage. Lazy transform for resizing. Demonstrated with user avatars.
 * Icon helper for avatars with fallback to circle with user initials.
 * Administrate dashboard lets you CRUD records (ex: users). Easy to add more and customize as you like. Visit /admin/.
@@ -36,10 +37,11 @@ The gemset has been chosen to be modern, performant, and take care of a number o
 * Feature rollout using the rollout gem. Installed but features are up to you.
 
 ## Roadmap
-* Email PDF receipts after Stripe charges card (using Stripe webhook).
-* Automated dunning. Send email to subscription owner when payment fails, with a one click login to update their card.
 * In-browser image cropping using jcrop or the likes.
-* Example feature controls if public sign up is available.
+* Example feature which controls if public sign up is available.
+* Pretty modals using bootstrap integrated into rails_ujs data-confirm
+* Custom error pages.
+* Invoice PDF attached to invoice paid email.
 
 ## Notes
 * RSpec controller tests have been omitted in favour of requests tests.
