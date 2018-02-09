@@ -11,7 +11,7 @@
     .form-group
       %button.btn.btn-secondary{type: 'button', 'data-toggle': 'collapse', 'data-target': '#new_card'} Update your card
     #new_card.collapse
-      = render 'card_form', locals: { path: update_card_path }
+      = render 'card_form', locals: { path: subscriptions_path, method: 'patch' }
 
   .col-6
     - if current_user.user? && current_user.card_last4.present?

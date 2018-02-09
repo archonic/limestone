@@ -106,12 +106,54 @@ RSpec.describe StripeWebhookService, type: :service do
       subject do
         StripeWebhookService::UpdateCustomer.new.call(event_no_subscription)
       end
+
       it 'logs error with no subscription message' do
         expect(StripeLogger).to receive(:error).once.with(/has no subscription/)
         subject
       end
     end
 
+    context 'with no source and a subscription in payload' do
+      let(:sources) do
+        {
+          object: "list",
+          data: [],
+          has_more: false,
+          total_count: 0
+        }
+      end
+      let(:event_zero_sources) { StripeMock.mock_webhook_event('customer.updated', id: mock_customer.id, sources: sources) }
+      subject do
+        StripeWebhookService::UpdateCustomer.new.call(event_zero_sources)
+      end
+
+      it 'does not error' do
+        expect(StripeLogger).to_not receive(:error)
+        subject
+      end
+
+      it 'updates and commits user attributes appropriately' do
+        expect(User).to receive(:find_by).with(stripe_id: event_zero_sources.data.object.id).and_return(user_subscribed)
+        subscription = event_zero_sources.data.object.subscriptions.first
+        expect(user_subscribed).to receive(:assign_attributes).once.with(
+          role: 'trial',
+          current_period_end: Time.at(subscription.current_period_end).to_datetime
+        )
+        expect(user_subscribed).to receive(:save).once.and_return(true)
+        subject
+      end
+
+      it 'does not mail the user with billing updated' do
+        billing_updated_dbl = double(ActionMailer::MessageDelivery)
+        allow(UserMailer).to receive(:billing_updated).with(
+          user_subscribed
+        ).and_return(billing_updated_dbl)
+        expect(billing_updated_dbl).to_not receive(:deliver_later)
+        subject
+      end
+    end
+
+    # This happens when a trial user subscribes when a normal user or updates their card
     context 'with source and subscription in payload' do
       it 'does not error' do
         expect(StripeLogger).to_not receive(:error)
@@ -128,7 +170,7 @@ RSpec.describe StripeWebhookService, type: :service do
           card_type: source.brand,
           card_exp_month: source.exp_month,
           card_exp_year: source.exp_year,
-          role: 'trial',
+          role: 'user',
           current_period_end: Time.at(subscription.current_period_end).to_datetime
         )
         expect(user_subscribed).to receive(:save).once.and_return(true)

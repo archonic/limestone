@@ -52,4 +52,49 @@ RSpec.describe SubscriptionsController, type: :request do
       end
     end
   end
+
+  describe 'PATCH /subscriptions' do
+    subject do
+      patch subscriptions_path, params: {
+        stripeToken: stripe_helper.generate_card_token,
+        card_brand: 'MasterCard',
+        card_exp_month: 12,
+        card_exp_year: 2024,
+        card_last4: 4444
+      }
+      response
+    end
+
+    context 'as a not subscribed user' do
+      before { sign_in user_trial }
+      it 'redirects to root with access denied' do
+        expect(subject).to redirect_to root_path
+        expect(flash[:alert]).to match 'Access denied'
+      end
+    end
+
+    context 'as a subscribed user' do
+      before { sign_in user_subscribed }
+
+      context 'with good params' do
+        it 'updates the existing subscription' do
+          expect(subject).to redirect_to billing_path
+          expect(flash[:success]).to match 'Your subscription has been updated'
+        end
+      end
+
+      context 'with no stripe token' do
+        it 'displays error' do
+          patch subscriptions_path, params: {
+            card_brand: 'MasterCard',
+            card_exp_month: 12,
+            card_exp_year: 2024,
+            card_last4: 4444
+          }
+          expect(response).to redirect_to subscribe_path
+          expect(flash[:error]).to match 'There was an error updating your subscription'
+        end
+      end
+    end
+  end
 end

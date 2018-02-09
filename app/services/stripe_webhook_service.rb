@@ -27,6 +27,8 @@ class StripeWebhookService
   class UpdateCustomer
     def call(event)
       event_data = event.data.object
+      puts 'OMG ============= UPDATE CUSTOMER'
+      puts event_data
       user = User.find_by(stripe_id: event_data.id)
       StripeWebhookService::no_user_error(self, event_data.id) { return } if user.nil?
       # Hold all attributes until assignment. Makes it easier to test.
@@ -60,7 +62,12 @@ class StripeWebhookService
           # Update customer role based on subscription status
           case subscription.status
           when 'trialing'
-            user_attributes[:role] = 'trial'
+            # Users can subscribe before the end of their trial
+            if sources.try(:total_count) == 1
+              user_attributes[:role] = 'user'
+            else
+              user_attributes[:role] = 'trial'
+            end
           when 'active'
             user_attributes[:role] = 'user'
           when 'past_due', 'canceled', 'unpaid'

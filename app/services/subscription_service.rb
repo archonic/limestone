@@ -6,6 +6,7 @@ class SubscriptionService
     @params = params
   end
 
+  # Subscriptions are created when users complete the registration form.
   def create_subscription
     subscription = nil
     stripe_call do
@@ -26,6 +27,8 @@ class SubscriptionService
     }
 
     # Only update the card on file if we're adding a new one
+    # Limestone doesn't use this because we don't ask for a card upon registration
+    # but you could add the card form to the registration form
     options.merge!(
       card_last4: @params[:card_last4],
       card_exp_month: @params[:card_exp_month],
@@ -36,6 +39,8 @@ class SubscriptionService
     @user.update(options)
   end
 
+  # Only used to update source for subscription.
+  # This is when users subscribe (/subscribe) and update their card (/billing).
   def update_subscription
     success = stripe_call do
       customer = Stripe::Customer.retrieve(@user.stripe_id)

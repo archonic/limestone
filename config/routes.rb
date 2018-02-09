@@ -45,8 +45,7 @@ Rails.application.routes.draw do
   # Subscription stuff
   get 'billing', to: 'subscriptions#show'
   get 'subscribe', to: 'subscriptions#new'
-  post 'subscriptions', to: 'subscriptions#create'
-  post 'update-card', to: 'cards#update'
+  patch 'subscriptions', to: 'subscriptions#update'
   get 'invoices', to: 'invoices#index'
   get 'invoices/:id', to: 'invoices#show', as: 'invoice'
 end

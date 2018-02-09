@@ -2,7 +2,7 @@
 %p
   = "It happens. We've attempted to charge your card #{pluralize(@attempt_count, 'time')}. The next attempt will be at #{@next_attempt_at.to_datetime.strftime('%H:%M %B %d, %Y')}."
   Please
-  = link_to('update your payment information', update_card_url, target: :_blank)
+  = link_to('update your payment information', billing_url, target: :_blank)
   before then.
 %p
   You have a few days of grace where you can still access your account. After this grace period, your access will be revoked.

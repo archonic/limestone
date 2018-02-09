@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'stripe_mock'
 
-RSpec.describe CardsController, type: :request do
+RSpec.describe InvoicesController, type: :request do
   let(:stripe_helper) { StripeMock.create_test_helper }
   before do
     StripeMock.start

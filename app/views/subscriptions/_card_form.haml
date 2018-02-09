@@ -1,4 +1,4 @@
-= form_tag locals[:path], id: 'payment-form', method: 'post' do
+= form_tag locals[:path], id: 'payment-form', method: locals[:method] do
   .form-group
     %label{for: 'card-element'}
       Credit or debit card
