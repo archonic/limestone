@@ -21,25 +21,26 @@ The gemset has been chosen to be modern, performant, and take care of a number o
 * Shrine
 * Sidekiq
 * Simple Form
-* Stripe
+* Stripe (w/ stripe-ruby-mock, stripe_event)
 * Turbolinks 5
 
 ## Features
-* Trial upon registration without credit card.
+* Trial begins upon registration without credit card.
 * Subscription management. Card update form and cancel account button.
-* Emails for welcome, billing updated, invoice paid, invoice failed and trial expiring.
+* Emails for welcome, billing updated, invoice paid, invoice failed and trial expiring controlled by Stripe webhooks.
+* Mail sends through Sidekiq with deliver_later. Devise mailing also configured for Sidekiq dispatch.
 * Direct uploading to S3 with ActiveStorage. Lazy transform for resizing. Demonstrated with user avatars.
 * Icon helper for avatars with fallback to circle with user initials.
 * Administrate dashboard lets you CRUD records (ex: users). Easy to add more and customize as you like. Visit /admin/.
 * Impersonate users through administrate dashboard.
-* Mail sends through Sidekiq. Demonstrated with Devise mailing.
 * Opinionated search integration using Elasticsearch via Searchkick. Gem is in place but integration is up to you.
 * Feature rollout using the rollout gem. Installed but features are up to you.
 
 ## Roadmap
 * In-browser image cropping using jcrop or the likes.
 * Example feature which controls if public sign up is available.
-* Pretty modals using bootstrap integrated into rails_ujs data-confirm
+* Dunning for card expiring Stripe Webhook.
+* Pretty modals using bootstrap integrated into rails_ujs data-confirm.
 * Custom error pages.
 * Invoice PDF attached to invoice paid email.
 
@@ -50,9 +51,7 @@ The gemset has been chosen to be modern, performant, and take care of a number o
 * Install [Docker](https://docs.docker.com/engine/installation/)
 * Customize .env from .env-example
 * run `docker-compose up --build` to create and run the various images, volumes, containers and a network
-* run `docker-compose exec website rails db:setup` to create the DB or `docker-compose exec website rails db:reset` if the DB already exists
-* run `docker-compose exec website rails db:migrate` to migrate
-* run `docker-compose exec website rails db:seed` to create your admin user and Stripe plan(s)
+* run `docker-compose exec website rails db:setup` to create DB, load schema and seed. Seeding will also create your plan(s) in Stripe.
 * Visit localhost:3000 and rejoice
 
 ### Setting up production
