@@ -1,4 +1,5 @@
 const { environment } = require('@rails/webpacker')
+const coffee =  require('./loaders/coffee')
 const webpack = require('webpack')
 
 // Get a pre-configured plugin
@@ -26,4 +27,5 @@ environment.plugins.insert('CommonChunkVendor',
   })
 , { before: 'manifest' })
 
+environment.loaders.append('coffee', coffee)
 module.exports = environment

@@ -20,9 +20,8 @@ Turbolinks.start();
 import * as ActiveStorage from "activestorage"
 ActiveStorage.start()
 
-import 'data-confirm-modal'
-
 // Does not process requires when imported like this
 import '../../assets/javascripts/application'
 import '../packs/src/subscriptions'
+import '../packs/src/modals'
 console.log('Hello World from Webpacker')
