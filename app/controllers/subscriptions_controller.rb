@@ -1,6 +1,5 @@
 class SubscriptionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :verify_subscribed!, only: :update
 
   # NOTE This isn't a controller for a typical model. Subscriptions live in Stripe.
   # We use the columns on the user to know a users current subscription status.
@@ -23,11 +22,5 @@ class SubscriptionsController < ApplicationController
     else
       redirect_to subscribe_path, flash: { error: 'There was an error updating your subscription :(' }
     end
-  end
-
-  private
-
-  def verify_subscribed!
-    raise Pundit::NotAuthorizedError unless current_user.subscribed?
   end
 end

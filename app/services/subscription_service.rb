@@ -1,6 +1,5 @@
 # Manages all calls to Stripe pertaining to subscriptions
 class SubscriptionService
-
   def initialize(current_user, params)
     @user = current_user
     @params = params

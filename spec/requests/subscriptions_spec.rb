@@ -68,8 +68,9 @@ RSpec.describe SubscriptionsController, type: :request do
     context 'as a not subscribed user' do
       before { sign_in user_trial }
       it 'redirects to root with access denied' do
-        expect(subject).to redirect_to root_path
-        expect(flash[:alert]).to match 'Access denied'
+        expect(StripeLogger).to receive(:error).once.with('Invalid paramaters were supplied to Stripe\'s API.')
+        expect(subject).to redirect_to subscribe_path
+        expect(flash[:error]).to match 'There was an error updating your subscription'
       end
     end
 
