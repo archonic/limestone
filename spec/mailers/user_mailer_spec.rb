@@ -21,7 +21,9 @@ RSpec.describe UserMailer, type: :mailer do
     let(:mail) { UserMailer.invoice_paid(user, invoice) }
     let(:invoice) { create(:invoice) }
     it 'renders the body' do
-      expect(mail.body).to match "We received your payment"
+      expect(mail.body.parts.length).to eq 2
+      expect(mail.body.parts.first.body.raw_source).to match "We received your payment"
+      expect(mail.body.parts.last.content_type).to eq "application/pdf"
     end
   end
 

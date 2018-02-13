@@ -194,8 +194,6 @@
         1,
         11,
         11,
-        11,
-        11,
         12,
         null,
         10,
@@ -348,12 +346,6 @@
       "/app/app/mailers/user_mailer.rb": [
         1,
         1,
-        1,
-        1,
-        null,
-        null,
-        null,
-        null,
         null,
         1,
         1,
@@ -366,6 +358,18 @@
         1,
         1,
         1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null,
         1,
         null,
         null,
@@ -1043,6 +1047,6 @@
         0
       ]
     },
-    "timestamp": 1518209622
+    "timestamp": 1518554075
   }
 }

@@ -1,4 +1,6 @@
 class UserMailer < ApplicationMailer
+  include Rails.application.routes.url_helpers
+
   def welcome_email(user)
     @user = user
     mail(
@@ -18,6 +20,10 @@ class UserMailer < ApplicationMailer
   def invoice_paid(user, invoice)
     @user = user
     @invoice = invoice
+    attachments["limestone_invoice_#{@invoice.paid_at.strftime('%Y_%m_%d')}.pdf"] = {
+      mime_type: 'application/pdf',
+      content: invoice_path(@invoice, format: :pdf)
+    }
     mail(
       to: email_with_name(user),
       subject: '[Limestone] Payment Receipt'
