@@ -27,8 +27,6 @@ class StripeWebhookService
   class UpdateCustomer
     def call(event)
       event_data = event.data.object
-      puts 'OMG ============= UPDATE CUSTOMER'
-      puts event_data
       user = User.find_by(stripe_id: event_data.id)
       StripeWebhookService::no_user_error(self, event_data.id) { return } if user.nil?
       # Hold all attributes until assignment. Makes it easier to test.
