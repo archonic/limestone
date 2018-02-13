@@ -28,6 +28,7 @@ The gemset has been chosen to be modern, performant, and take care of a number o
 * Trial begins upon registration without credit card.
 * Subscription management. Card update form and cancel account button.
 * Emails for welcome, billing updated, invoice paid, invoice failed and trial expiring. All except welcome are controlled by Stripe webhooks.
+* Invoice PDF attached to invoice paid email.
 * Mail sends through Sidekiq with deliver_later. Devise mailing also configured for Sidekiq dispatch.
 * Direct uploading to S3 with ActiveStorage. Lazy transform for resizing. Demonstrated with user avatars.
 * Icon helper for user avatars with fallback to circle with user initials. Icon helper for font awesome icons.
@@ -42,7 +43,6 @@ The gemset has been chosen to be modern, performant, and take care of a number o
 * Example feature which controls if public registration is available.
 * Dunning for card expiring Stripe webhook.
 * Custom error pages.
-* Invoice PDF attached to invoice paid email.
 
 ## Notes
 * RSpec controller tests have been omitted in favour of requests tests.
