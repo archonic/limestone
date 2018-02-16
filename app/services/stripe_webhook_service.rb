@@ -1,10 +1,24 @@
 # Manages all incoming stripe webhooks
 class StripeWebhookService
-  class RecordInvoicePaid
+  def no_user_error(klass, user_stripe_id)
+    StripeLogger.error "#{klass.class.name.upcase} ERROR: No user found with stripe_id #{user_stripe_id}."
+    yield
+  end
+
+  def assign_role(user_attributes, stripe_plan)
+    plan = Plan.find_by( stripe_id: stripe_plan.id )
+    if plan.present?
+      user_attributes[:role] = plan.associated_role
+    else
+      StripeLogger.error "AssignRole ERROR: No local plan found for #{stripe_plan.id}"
+    end
+  end
+
+  class RecordInvoicePaid < StripeWebhookService
     def call(event)
       event_data = event.data.object
       user = User.find_by(stripe_id: event_data.customer)
-      StripeWebhookService::no_user_error(self, event_data.customer) { return } if user.nil?
+      no_user_error(self, event_data.customer) { return } if user.nil?
 
       # Ignore invoices for $0.00 such as trial period invoice
       return true if event_data.total.zero?
@@ -24,11 +38,11 @@ class StripeWebhookService
     end
   end
 
-  class UpdateCustomer
+  class UpdateCustomer < StripeWebhookService
     def call(event)
       event_data = event.data.object
       user = User.find_by(stripe_id: event_data.id)
-      StripeWebhookService::no_user_error(self, event_data.id) { return } if user.nil?
+      no_user_error(self, event_data.id) { return } if user.nil?
       # Hold all attributes until assignment. Makes it easier to test.
       user_attributes = {}
 
@@ -60,14 +74,11 @@ class StripeWebhookService
           # Update customer role based on subscription status
           case subscription.status
           when 'trialing'
-            # Users can subscribe before the end of their trial
-            if sources.try(:total_count) == 1
-              user_attributes[:role] = 'user'
-            else
-              user_attributes[:role] = 'trial'
-            end
+            user_attributes[:trialing] = true
+            assign_role(user_attributes, subscription.plan)
           when 'active'
-            user_attributes[:role] = 'user'
+            user_attributes[:trialing] = false
+            assign_role(user_attributes, subscription.plan)
           when 'past_due', 'canceled', 'unpaid'
             user_attributes[:role] = 'removed'
           else
@@ -79,30 +90,53 @@ class StripeWebhookService
       else
         StripeLogger.error "UpdateCustomer ERROR: Customer #{event_data.id} has no subscription."
       end
-
-      user.assign_attributes user_attributes
-      user.save
+      user.update user_attributes
       # This event is fired on new trials. Only send email if the source is present.
       UserMailer.billing_updated(user).deliver_later if sources.try(:total_count) == 1
       return true
     end
   end
 
-  class TrialWillEnd
+  # Fires when switching plans
+  class UpdateSubscription < StripeWebhookService
+    def call(event)
+      subscription = event.data.object
+      user = User.find_by(stripe_id: subscription.customer)
+      no_user_error(self, subscription.customer) { return } if user.nil?
+      user_attributes = {}
+      case subscription.status
+      when 'trialing'
+        user_attributes[:trialing] = true
+        assign_role(user_attributes, subscription.plan)
+      when 'active'
+        user_attributes[:trialing] = false
+        assign_role(user_attributes, subscription.plan)
+      when 'past_due', 'canceled', 'unpaid'
+        user_attributes[:role] = 'removed'
+      else
+        StripeLogger.error "UpdateCustomer ERROR: Unknown subscription status #{subscription.status}."
+      end
+      user_attributes[:current_period_end] = Time.at(subscription.current_period_end).to_datetime
+
+      user.update(user_attributes)
+    end
+  end
+
+  class TrialWillEnd < StripeWebhookService
     def call(event)
       event_data = event.data.object
       user = User.find_by(stripe_id: event_data.customer)
-      StripeWebhookService::no_user_error(self, event_data.customer) { return } if user.nil?
+      no_user_error(self, event_data.customer) { return } if user.nil?
       UserMailer.trial_will_end(user).deliver_later
       return true
     end
   end
 
-  class Dun
+  class Dun < StripeWebhookService
     def call(event)
       event_data = event.data.object
       user = User.find_by(stripe_id: event_data.customer)
-      StripeWebhookService::no_user_error(self, event_data.customer) { return } if user.nil?
+      no_user_error(self, event_data.customer) { return } if user.nil?
       UserMailer.invoice_failed(
         user,
         event_data.attempt_count,
@@ -110,10 +144,5 @@ class StripeWebhookService
       ).deliver_later
       return true
     end
-  end
-
-  def self.no_user_error(klass, user_stripe_id)
-    StripeLogger.error "#{klass.class.name.upcase} ERROR: No user found with stripe_id #{user_stripe_id}."
-    yield
   end
 end
