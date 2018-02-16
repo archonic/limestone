@@ -7,7 +7,7 @@ class CreatePlanService
     stripe_plan = nil
     begin
       stripe_plan = Stripe::Plan.create(
-        id: SecureRandom.uuid,
+        id: [@plan_model.name.downcase, SecureRandom.uuid].join('_'),
         name: @plan_model.name,
         amount: @plan_model.amount,
         interval: @plan_model.interval,
@@ -16,7 +16,7 @@ class CreatePlanService
       )
     rescue Stripe::InvalidRequestError => e
       StripeLogger.error "Error creating plan #{@plan_model.name}: #{e}"
-      raise ActiveRecord::RecordInvalid, "Error creating plan #{@plan_model.name} in Stripe: #{e}"
+      raise ActiveRecord::RecordInvalid
     end
 
     # Don't hit the DB here as this is performed in before_create

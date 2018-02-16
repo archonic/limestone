@@ -2,8 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Administrate Dashboards', type: :request do
   let(:admin) { create(:user, :admin) }
-  let(:user) { create(:user, :user) }
-
+  let(:user) { create(:user, :trialing) }
 
   context 'as admin' do
     before { sign_in admin }

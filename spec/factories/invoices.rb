@@ -8,7 +8,7 @@ FactoryBot.define do
     paid_at '2018-01-28 22:50:26'
     lines [
       {
-        "id": "sub_CDqg88OBfqx8Fb",
+        "id": "sub_00000000000000",
         "object": "line_item",
         "amount": 0,
         "currency": "usd",
@@ -20,7 +20,7 @@ FactoryBot.define do
           "start": 1517179826,
           "end": 1518389426},
           "plan": {
-            "id": "dcf18e9e-d1bb-4a35-ba31-02478e9d8989",
+            "id": "example-plan-id",
             "object": "plan",
             "amount": 1500,
             "created": 1517179573,
@@ -36,7 +36,7 @@ FactoryBot.define do
           "proration": false,
           "quantity": 1,
           "subscription": nil,
-          "subscription_item": "si_CDqgCufS4FKS9E",
+          "subscription_item": "si_00000000000000",
           "type": "subscription"
         }
       ]

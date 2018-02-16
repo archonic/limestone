@@ -17,20 +17,20 @@ class User < ApplicationRecord
 
   # If you create new roles and have existing data,
   # add the role at the end so you don't corrupt existing role integers
-  enum role: %i[trial removed user admin]
+  enum role: %i[removed basic pro admin]
   after_initialize :setup_new_user, if: :new_record?
 
   delegate :cost, to: :plan
+  delegate :name, to: :plan, prefix: true
 
   before_save :set_full_name
 
   def setup_new_user
-    self.role ||= :trial
+    self.role ||= :basic
     self.current_period_end = Time.current + $trial_period_days.days
   end
 
   def subscribed?
-    self.user? &&
     stripe_subscription_id.present?
   end
 
@@ -40,7 +40,7 @@ class User < ApplicationRecord
   end
 
   def trial_expired?
-    self.trial? &&
+    trialing? &&
     current_period_end < Time.current
   end
 

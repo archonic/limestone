@@ -1,0 +1,5 @@
+= form_tag subscriptions_path, id: 'plan_switch_form', method: :patch do
+  .input-group
+    = select_tag 'plan_id', options_from_collection_for_select(@plans, 'id', 'name', locals[:current_plan_id]), { class: 'custom-select' }
+    .input-group-append
+      %button.btn.btn-outline-success Switch

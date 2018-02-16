@@ -5,8 +5,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     resource.save
     yield resource if block_given?
     if resource.persisted?
-      @@subscription_service = SubscriptionService.new(resource, params)
-      @@subscription_service.create_subscription
+      SubscriptionService.new(resource, params).create_subscription
       if resource.active_for_authentication?
         set_flash_message! :notice, :signed_up
         sign_up(resource_name, resource)
@@ -25,8 +24,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def destroy
-    @@subscription_service = SubscriptionService.new(current_user, params)
-    if @@subscription_service.destroy_subscription
+    if SubscriptionService.new(current_user, params).destroy_subscription
       resource.discard
       resource.role = :removed
       Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)

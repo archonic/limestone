@@ -12,16 +12,26 @@ FactoryBot.define do
     trait :admin do
       role :admin
     end
-    trait :trial do
-      role :trial
+    trait :trialing do
+      role :basic
+      trialing true
     end
-    trait :user do
-      role :user
+    trait :subscribed do
+      role :basic
+      trialing false
+      stripe_subscription_id 'test_su_2'
+    end
+    trait :pro do
+      role :pro
+      trialing false
+      stripe_subscription_id 'test_su_2'
     end
     trait :removed do
       role :removed
     end
     trait :expired do
+      role :basic
+      trialing true
       current_period_end 1.hour.ago
     end
   end

@@ -5,11 +5,11 @@ RSpec.describe StripeWebhookService, type: :service do
   let(:stripe_helper) { StripeMock.create_test_helper }
   before do
     StripeMock.start
-    stripe_helper.create_plan(id: 'basic', amount: 900, trial_period_days: $trial_period_days)
+    stripe_helper.create_plan(id: 'example-plan-id', name: 'World Domination', amount: 100000, trial_period_days: $trial_period_days)
   end
   let(:mock_customer) { Stripe::Customer.create }
-  let(:mock_subscription) { mock_customer.subscriptions.create(plan: 'basic') }
-  let!(:user_subscribed) { create(:user, :user, stripe_id: mock_customer.id, stripe_subscription_id: mock_subscription.id) }
+  let(:mock_subscription) { mock_customer.subscriptions.create(plan: 'example-plan-id') }
+  let!(:user_subscribed) { create(:user, :subscribed, stripe_id: mock_customer.id, stripe_subscription_id: mock_subscription.id) }
   after { StripeMock.stop }
 
   describe StripeWebhookService::RecordInvoicePaid do
@@ -86,7 +86,7 @@ RSpec.describe StripeWebhookService, type: :service do
       end
 
       it 'logs error with no source message' do
-        expect(StripeLogger).to receive(:error).once.with(/has no source./)
+        expect(StripeLogger).to receive(:error).once.with(/has no source/)
         subject
       end
 
@@ -136,7 +136,8 @@ RSpec.describe StripeWebhookService, type: :service do
         expect(User).to receive(:find_by).with(stripe_id: event_zero_sources.data.object.id).and_return(user_subscribed)
         subscription = event_zero_sources.data.object.subscriptions.first
         expect(user_subscribed).to receive(:assign_attributes).once.with(
-          role: 'trial',
+          role: 'basic',
+          trialing: true,
           current_period_end: Time.at(subscription.current_period_end).to_datetime
         )
         expect(user_subscribed).to receive(:save).once.and_return(true)
@@ -153,7 +154,7 @@ RSpec.describe StripeWebhookService, type: :service do
       end
     end
 
-    # This happens when a trial user subscribes when a normal user or updates their card
+    # Happens when a trial user subscribes when a normal user or updates their card
     context 'with source and subscription in payload' do
       it 'does not error' do
         expect(StripeLogger).to_not receive(:error)
@@ -161,7 +162,7 @@ RSpec.describe StripeWebhookService, type: :service do
       end
 
       it 'updates and commits user attributes appropriately' do
-        expect(user_subscribed.user?).to eq true
+        expect(user_subscribed.basic?).to eq true
         expect(User).to receive(:find_by).with(stripe_id: event_customer.data.object.id).and_return(user_subscribed)
         source = event_customer.data.object.sources.first
         subscription = event_customer.data.object.subscriptions.first
@@ -170,7 +171,8 @@ RSpec.describe StripeWebhookService, type: :service do
           card_type: source.brand,
           card_exp_month: source.exp_month,
           card_exp_year: source.exp_year,
-          role: 'user',
+          role: 'basic',
+          trialing: true,
           current_period_end: Time.at(subscription.current_period_end).to_datetime
         )
         expect(user_subscribed).to receive(:save).once.and_return(true)

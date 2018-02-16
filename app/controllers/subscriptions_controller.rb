@@ -6,6 +6,7 @@ class SubscriptionsController < ApplicationController
 
   # GET '/billing'
   def show
+    @plans = Plan.all
     redirect_to subscribe_path unless current_user_subscribed?
   end
 
@@ -16,9 +17,8 @@ class SubscriptionsController < ApplicationController
 
   # PATCH /subscriptions
   def update
-    @@subscription_service = SubscriptionService.new(current_user, params)
-    if @@subscription_service.update_subscription
-      redirect_to billing_path, flash: { success: 'Your subscription has been updated! If this change alters your role, please allow a moment for us to update it.' }
+    if SubscriptionService.new(current_user, params).update_subscription
+      redirect_to billing_path, flash: { success: 'Subscription updated! If this change alters your abilities, please allow a moment for us to update them.' }
     else
       redirect_to subscribe_path, flash: { error: 'There was an error updating your subscription :(' }
     end

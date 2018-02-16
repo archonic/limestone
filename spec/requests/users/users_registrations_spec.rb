@@ -5,7 +5,7 @@ RSpec.describe Users::RegistrationsController, type: :request do
   let(:stripe_helper) { StripeMock.create_test_helper }
   before do
     StripeMock.start
-    stripe_helper.create_plan(id: 'basic', amount: 900, trial_period_days: $trial_period_days)
+    stripe_helper.create_plan(id: 'example-plan-id', name: 'World Domination', amount: 100000, trial_period_days: $trial_period_days)
   end
   after { StripeMock.stop }
 
@@ -28,10 +28,10 @@ RSpec.describe Users::RegistrationsController, type: :request do
         response
       end
 
-      it 'creates a trial user with stripe subscription' do
+      it 'creates a basic user with stripe subscription' do
         subject
         expect(user).to be_present
-        expect(user.trial?).to be true
+        expect(user.basic?).to be true
         expect(user.stripe_id?).to be_present
       end
 
@@ -82,8 +82,8 @@ RSpec.describe Users::RegistrationsController, type: :request do
 
   describe 'DELETE /profile' do
     let(:mock_customer) { Stripe::Customer.create }
-    let(:mock_subscription) { mock_customer.subscriptions.create(plan: 'basic') }
-    let!(:user_subscribed) { create(:user, :user, stripe_id: mock_customer.id, stripe_subscription_id: mock_subscription.id) }
+    let(:mock_subscription) { mock_customer.subscriptions.create(plan: 'example-plan-id') }
+    let!(:user_subscribed) { create(:user, :subscribed, stripe_id: mock_customer.id, stripe_subscription_id: mock_subscription.id) }
     before do
       sign_in user_subscribed
     end

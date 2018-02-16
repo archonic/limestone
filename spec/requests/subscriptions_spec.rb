@@ -5,16 +5,16 @@ RSpec.describe SubscriptionsController, type: :request do
   let(:stripe_helper) { StripeMock.create_test_helper }
   before do
     StripeMock.start
-    stripe_helper.create_plan(id: 'basic', amount: 900, trial_period_days: $trial_period_days)
+    stripe_helper.create_plan(id: 'example-plan-id', name: 'World Domination', amount: 100000, trial_period_days: $trial_period_days)
   end
   after { StripeMock.stop }
   let(:mock_customer) { Stripe::Customer.create }
-  let(:mock_subscription) { mock_customer.subscriptions.create(plan: 'basic') }
-  let(:user_trial) { create(:user, :trial) }
+  let(:mock_subscription) { mock_customer.subscriptions.create(plan: 'example-plan-id') }
+  let(:user_trial) { create(:user, :trialing) }
   let(:user_subscribed) {
     create(
       :user,
-      :user,
+      :subscribed,
       stripe_id: mock_customer.id,
       stripe_subscription_id: mock_subscription.id,
       card_last4: '4242',
@@ -43,12 +43,14 @@ RSpec.describe SubscriptionsController, type: :request do
 
       it 'shows card on file' do
         expect(subject).to have_http_status(:success)
-        expect(subject.body).to include "Visa **** **** **** 4242"
-        expect(subject.body).to include "Expires 12 / 2025"
+        expect(subject.body).to include 'Visa **** **** **** 4242'
+        expect(subject.body).to include 'Expires 12 / 2025'
       end
 
       it 'shows next payment' do
-        expect(subject.body).to include "Your card will be charged #{user_subscribed.plan.cost} on #{user_subscribed.current_period_end.strftime('%A, %B %e, %Y')}"
+        expect(subject.body).to include 'Your card will be charged'
+        expect(subject.body).to include user_subscribed.plan.cost
+        expect(subject.body).to include "on #{user_subscribed.current_period_end.strftime('%A, %B %e, %Y')}"
       end
     end
   end
@@ -68,7 +70,7 @@ RSpec.describe SubscriptionsController, type: :request do
     context 'as a not subscribed user' do
       before { sign_in user_trial }
       it 'redirects to root with access denied' do
-        expect(StripeLogger).to receive(:error).once.with('Invalid paramaters were supplied to Stripe\'s API.')
+        expect(StripeLogger).to receive(:error).once.with('Invalid parameters were supplied to Stripe\'s API.')
         expect(subject).to redirect_to subscribe_path
         expect(flash[:error]).to match 'There was an error updating your subscription'
       end
@@ -80,20 +82,23 @@ RSpec.describe SubscriptionsController, type: :request do
       context 'with good params' do
         it 'updates the existing subscription' do
           expect(subject).to redirect_to billing_path
-          expect(flash[:success]).to match 'Your subscription has been updated'
+          expect(flash[:success]).to match 'Subscription updated'
         end
       end
 
-      context 'with no stripe token' do
-        it 'displays error' do
+      context 'with no stripe token and no plan' do
+        it 'does not update user but reports success' do
+          expect(user_subscribed).to_not receive(:update)
           patch subscriptions_path, params: {
             card_brand: 'MasterCard',
             card_exp_month: 12,
             card_exp_year: 2024,
             card_last4: 4444
           }
-          expect(response).to redirect_to subscribe_path
-          expect(flash[:error]).to match 'There was an error updating your subscription'
+          expect(response).to redirect_to billing_path
+          # Although no changes were made, there were no errors.
+          # Success response indicates that current data is correct
+          expect(flash[:success]).to match 'Subscription updated'
         end
       end
     end

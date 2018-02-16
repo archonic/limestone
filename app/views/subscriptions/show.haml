@@ -1,5 +1,5 @@
 .row
-  .col-6
+  .col
     %h3 Billing
     -# Any user who can see this page should have a card_last4 populated by stripe webhook UpdateCustomer
     - if current_user.card_last4.present?
@@ -9,14 +9,24 @@
         %br
         = "Expires #{current_user.card_exp_month} / #{current_user.card_exp_year}"
     .form-group
-      %button.btn.btn-secondary{type: 'button', 'data-toggle': 'collapse', 'data-target': '#new_card'} Update your card
+      %button.btn.btn-outline-secondary{type: 'button', 'data-toggle': 'collapse', 'data-target': '#new_card'} Update your card
     #new_card.collapse
       = render 'card_form', locals: { path: subscriptions_path, method: 'patch' }
 
-  .col-6
-    - if current_user.user? && current_user.card_last4.present?
+  .col
+    %h3 Plan
+    = "You are currently on the #{current_user.plan_name} plan."
+    = render 'plan_switch_form', locals: { current_plan_id: current_user.plan_id }
+    = "Your role is #{current_user.role}."
+
+  - if current_user.subscribed?
+    .col
       %h3 Next Payment
-      %p= "Your card will be charged #{current_user.cost} on #{current_user.current_period_end.strftime('%A, %B %e, %Y')}."
+      %p
+        Your card will be charged
+        %span{ data: { toggle: 'tooltip' }, title: 'This does not reflect proration or credits from plan switching', style: 'color: blue;' }
+          = current_user.cost
+        = "on #{current_user.current_period_end.strftime('%A, %B %e, %Y')}."
 
 %hr
 %h3 Your Invoices
@@ -41,4 +51,6 @@
           %td= invoice.formatted_amount
           %td= invoice_pdf_link(invoice)
     - else
-      %p.text-muted You have no invoices
+      %tr
+        %td{colspan: 6}
+          %h5.text-center.text-muted You have no invoices

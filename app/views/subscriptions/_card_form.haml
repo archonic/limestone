@@ -5,4 +5,4 @@
     #card-element.form-control
     -# Used to display Element errors
     #card-errors{role: 'alert'}
-  %button.btn.btn-success Subscribe
+  %button.btn.btn-success= locals[:method] == 'patch' ? 'Update Card' : 'Subscribe'

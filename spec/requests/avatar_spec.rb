@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'sidekiq/testing'
 
 RSpec.describe AvatarsController, type: :request do
-  let(:user) { create(:user, :user) }
+  let(:user) { create(:user, :trialing) }
   let(:file) { fixture_file_upload("#{fixture_path}/files/money_sloth.png") }
 
 
