@@ -9,7 +9,7 @@ RUN mkdir /app
 WORKDIR /app
 
 COPY Gemfile Gemfile.lock ./
-RUN bundle install --binstubs
+RUN bundle install
 
 COPY package.json yarn.lock ./
 RUN yarn --pure-lockfile
