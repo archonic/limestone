@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   # Signed in pages
   authenticated :user do
     root to: 'dashboard#show', as: 'dashboard'
+    get 'pro', to: 'pages#pro'
 
     # This will check user from DB on every poll from /admin/sidekiq. May not want that.
     authenticate :user, lambda { |u| u.admin? } do
