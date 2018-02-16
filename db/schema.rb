@@ -50,8 +50,9 @@ ActiveRecord::Schema.define(version: 2018_01_29_173731) do
   end
 
   create_table "plans", force: :cascade do |t|
-    t.string "name"
-    t.integer "amount"
+    t.string "name", null: false
+    t.integer "amount", null: false
+    t.string "associated_role", null: false
     t.string "stripe_id"
   end
 
@@ -78,6 +79,8 @@ ActiveRecord::Schema.define(version: 2018_01_29_173731) do
     t.integer "card_exp_year"
     t.string "card_type"
     t.integer "role"
+    t.boolean "trialing", null: false, default: true
+    t.boolean "past_due", null: false, default: true
     t.datetime "discarded_at"
     t.datetime "current_period_end"
     t.integer "plan_id"

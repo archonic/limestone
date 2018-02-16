@@ -10,8 +10,8 @@
 # or comment out/remove if you want to manage plans manually.
 # https://stripe.com/docs/api#plan_object
 plans = Plan.create([
-  {name: 'Basic', amount: 900, interval: 'month', currency: 'usd'},
-  {name: 'Pro', amount: 1500, interval: 'month', currency: 'usd'}
+  {name: 'Basic', amount: 900, interval: 'month', associated_role: 'basic', currency: 'usd'},
+  {name: 'Pro', amount: 1500, interval: 'month', associated_role: 'pro', currency: 'usd'}
 ])
 puts "CREATED PLANS #{plans.map(&:name).join(', ')}"
 
