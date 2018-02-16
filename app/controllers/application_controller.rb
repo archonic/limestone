@@ -4,11 +4,6 @@ class ApplicationController < ActionController::Base
   impersonates :user
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  def current_user_subscribed?
-    user_signed_in? && current_user.subscribed?
-  end
-  helper_method :current_user_subscribed?
-
   def after_sign_in_path_for(resource)
     resource.removed? ? subscribe_path : dashboard_path
   end
