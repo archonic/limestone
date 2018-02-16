@@ -25,18 +25,13 @@ class User < ApplicationRecord
 
   before_save :set_full_name
 
-  def setup_new_user
-    self.role ||= :basic
-    self.current_period_end = Time.current + $trial_period_days.days
+  # Send mail through activejob
+  def send_devise_notification(notification, *args)
+    devise_mailer.send(notification, self, *args).deliver_later
   end
 
   def subscribed?
     stripe_subscription_id.present?
-  end
-
-  # Send mail through activejob
-  def send_devise_notification(notification, *args)
-    devise_mailer.send(notification, self, *args).deliver_later
   end
 
   def trial_expired?
@@ -44,7 +39,12 @@ class User < ApplicationRecord
     current_period_end < Time.current
   end
 
-  protected
+  private
+
+  def setup_new_user
+    self.role ||= :basic
+    self.current_period_end = Time.current + $trial_period_days.days
+  end
 
   def set_full_name
     self.full_name = [first_name, last_name].join(' ').strip
