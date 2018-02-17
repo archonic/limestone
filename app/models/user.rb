@@ -30,8 +30,9 @@ class User < ApplicationRecord
     devise_mailer.send(notification, self, *args).deliver_later
   end
 
+  # Only checks that they have a source, not that their in good standing
   def subscribed?
-    stripe_subscription_id.present?
+    card_last4.present?
   end
 
   def trial_expired?

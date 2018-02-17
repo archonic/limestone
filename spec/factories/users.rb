@@ -20,6 +20,7 @@ FactoryBot.define do
       role :basic
       trialing false
       stripe_subscription_id 'test_su_2'
+      card_last4 '4242'
     end
     trait :pro do
       role :pro
