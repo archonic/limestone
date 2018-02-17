@@ -5,7 +5,7 @@ Rails.configuration.stripe = {
 }
 
 Stripe.api_key = ENV['STRIPE_API_KEY']
-Stripe.api_version = '2017-08-15'
+Stripe.api_version = '2018-01-23'
 StripeEvent.signing_secret = ENV['STRIPE_SIGNING_SECRET']
 
 StripeEvent.configure do |events|
