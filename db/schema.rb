@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 2018_01_29_173731) do
     t.string "card_type"
     t.integer "role"
     t.boolean "trialing", null: false, default: true
-    t.boolean "past_due", null: false, default: true
+    t.boolean "past_due", null: false, default: false
     t.datetime "discarded_at"
     t.datetime "current_period_end"
     t.integer "plan_id"

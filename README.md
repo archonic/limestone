@@ -35,6 +35,7 @@ The gemset has been chosen to be modern, performant, and take care of a number o
 * Administrate dashboard lets you CRUD records (ex: users). Easy to add more and customize as you like. Visit /admin/.
 * Impersonate users through administrate dashboard.
 * Pretty modals using bootstrap integrated into rails_ujs data-confirm. Demonstrated with cancel account button.
+* Banner with a link to billing page users that are past due.
 * Opinionated search integration using Elasticsearch via Searchkick. Gem is in place but integration is up to you.
 * Feature rollout using the rollout gem. Installed but features are up to you.
 

@@ -9,7 +9,8 @@
         %br
         = "Expires #{current_user.card_exp_month} / #{current_user.card_exp_year}"
     .form-group
-      %button.btn.btn-outline-secondary{type: 'button', 'data-toggle': 'collapse', 'data-target': '#new_card'} Update your card
+      %button.btn{class: "#{current_user.past_due? ? 'btn-danger' : 'btn-outline-secondary'}", type: 'button', 'data-toggle': 'collapse', 'data-target': '#new_card'}
+        Update your card
     #new_card.collapse
       = render 'card_form', locals: { path: subscriptions_path, method: 'patch' }
 

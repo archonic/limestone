@@ -75,9 +75,11 @@ class StripeWebhookService
           case subscription.status
           when 'trialing'
             user_attributes[:trialing] = true
+            user_attributes[:past_due] = false
             assign_role(user_attributes, subscription.plan)
           when 'active'
             user_attributes[:trialing] = false
+            user_attributes[:past_due] = false
             assign_role(user_attributes, subscription.plan)
           when 'past_due'
             user_attributes[:past_due] = true
@@ -110,9 +112,11 @@ class StripeWebhookService
       case subscription.status
       when 'trialing'
         user_attributes[:trialing] = true
+        user_attributes[:past_due] = false
         assign_role(user_attributes, subscription.plan)
       when 'active'
         user_attributes[:trialing] = false
+        user_attributes[:past_due] = false
         assign_role(user_attributes, subscription.plan)
       when 'past_due'
         user_attributes[:past_due] = true

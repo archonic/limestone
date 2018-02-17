@@ -138,6 +138,7 @@ RSpec.describe StripeWebhookService, type: :service do
         expect(user_subscribed).to receive(:assign_attributes).once.with(
           role: 'basic',
           trialing: true,
+          past_due: false,
           current_period_end: Time.at(subscription.current_period_end).to_datetime
         )
         expect(user_subscribed).to receive(:save).once.and_return(true)
@@ -172,6 +173,7 @@ RSpec.describe StripeWebhookService, type: :service do
           card_exp_month: source.exp_month,
           card_exp_year: source.exp_year,
           role: 'basic',
+          past_due: false,
           trialing: true,
           current_period_end: Time.at(subscription.current_period_end).to_datetime
         )
@@ -187,6 +189,10 @@ RSpec.describe StripeWebhookService, type: :service do
         expect(billing_updated_dbl).to receive(:deliver_later).once
         subject
       end
+    end
+
+    context 'with a customer past_due' do
+      # TODO
     end
   end
 
