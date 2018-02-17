@@ -41,7 +41,6 @@ The gemset has been chosen to be modern, performant, and take care of a number o
 ## Roadmap
 * In-browser image cropping using jcrop or the likes.
 * Example feature which controls if public registration is available.
-* Dunning for card expiring Stripe webhook.
 * Custom error pages.
 
 ## Notes

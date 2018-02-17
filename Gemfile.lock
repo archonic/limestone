@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/archonic/stripe-ruby-mock.git
-  revision: c73bcfb7720ce121fef3bf259cde9d8f0197d36c
+  revision: 486a7d27d279eb1eb8b1ab174150191d96e533d2
   specs:
     stripe-ruby-mock (2.5.1)
       dante (>= 0.2.0)
