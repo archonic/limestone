@@ -1,11 +1,14 @@
 class ApplicationController < ActionController::Base
   include Pundit
+  include ActionView::Helpers::DateHelper
   protect_from_forgery with: :exception
   impersonates :user
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :check_access, if: :access_required?
 
   def after_sign_in_path_for(resource)
-    resource.removed? ? subscribe_path : dashboard_path
+    flash[:notice] = "You have #{distance_of_time_in_words(Time.current, current_user.current_period_end)} left in your trial!"
+    dashboard_path
   end
 
   protected
@@ -14,5 +17,19 @@ class ApplicationController < ActionController::Base
     added_params = [:first_name, :last_name, :avatar, :plan_id]
     devise_parameter_sanitizer.permit :sign_up, keys: added_params
     devise_parameter_sanitizer.permit :account_update, keys: added_params
+  end
+
+  # Users are always allowed to manage their session, registration and subscription
+  def access_required?
+    user_signed_in? &&
+    !devise_controller? &&
+    controller_name != 'subscriptions'
+  end
+
+  # Redirect users in bad standing to billing page
+  def check_access
+    if current_user.removed?
+      redirect_to billing_path, flash: { error: 'Your access has been removed. Please update your card. Access will be restored once payment succeeds.' }
+    end
   end
 end

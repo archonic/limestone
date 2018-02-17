@@ -1,5 +1,6 @@
 class SubscriptionsController < ApplicationController
   before_action :authenticate_user!
+  skip_before_action :check_access, only: :show
 
   # NOTE This isn't a controller for a typical model. Subscriptions live in Stripe.
   # We use the columns on the user to know a users current subscription status.
