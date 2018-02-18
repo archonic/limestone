@@ -1,5 +1,5 @@
 .row
-  .col
+  .col-md
     %h3 Billing
     -# Any user who can see this page should have a card_last4 populated by stripe webhook UpdateCustomer
     - if current_user.card_last4.present?
@@ -14,14 +14,15 @@
     #new_card.collapse
       = render 'card_form', locals: { path: subscriptions_path, method: 'patch' }
 
-  .col
+  .col-md
     %h3 Plan
-    = "You are currently on the #{current_user.plan_name} plan."
-    = render 'plan_switch_form', locals: { current_plan_id: current_user.plan_id }
-    = "Your role is #{current_user.role}."
+    .form-group
+      = "You are currently on the #{current_user.plan_name} plan."
+      = render 'plan_switch_form', locals: { current_plan_id: current_user.plan_id }
+      = "Your role is #{current_user.role}."
 
   - if current_user.subscribed?
-    .col
+    .col-md
       %h3 Next Payment
       %p
         Your card will be charged
