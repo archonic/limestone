@@ -55,9 +55,8 @@ RSpec.describe 'Administrate Dashboards', type: :request do
         response
       end
 
-      it 'rejects user with permission denied' do
-        expect(subject).to redirect_to root_path
-        expect(flash[:alert]).to eq 'Not authorized'
+      it 'raises no route matches' do
+        expect{ subject }.to raise_error(ActionController::RoutingError)
       end
     end
 
@@ -67,9 +66,8 @@ RSpec.describe 'Administrate Dashboards', type: :request do
         response
       end
 
-      it 'rejects user with permission denied' do
-        expect(subject).to redirect_to root_path
-        expect(flash[:alert]).to eq 'Not authorized'
+      it 'raises no route matches' do
+        expect{ subject }.to raise_error(ActionController::RoutingError)
       end
     end
   end
