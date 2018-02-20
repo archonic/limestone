@@ -6,6 +6,8 @@ RSpec.describe Users::RegistrationsController, type: :request do
   before do
     StripeMock.start
     stripe_helper.create_plan(id: 'example-plan-id', name: 'World Domination', amount: 100000, trial_period_days: $trial_period_days)
+    # Allow public registration before testing it
+    $flipper.enable :public_registration
   end
   after { StripeMock.stop }
 

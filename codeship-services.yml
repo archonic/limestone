@@ -2,6 +2,7 @@ web:
   build: ./
   links:
     - postgres
+    - redis
   encrypted_env_file: .env.encrypted
   cached: true
 postgres:
@@ -9,6 +10,11 @@ postgres:
   environment:
     POSTGRES_USER: 'limestone'
     POSTGRES_PASSWORD: 'yourpassword'
+redis:
+  image: 'redis:3.2-alpine'
+  command: redis-server --requirepass yourpassword
+  volumes:
+    - 'redis:/data'
 # codeship_heroku_deployment:
 #   image: codeship/heroku-deployment
 #   encrypted_env_file: deployment.env.encrypted
