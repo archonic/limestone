@@ -83,7 +83,9 @@ gem 'sidekiq', '~> 5.0'
 # gem 'whenever'
 
 # Feature flagging
-gem 'rollout'
+gem 'flipper'
+gem 'flipper-ui'
+gem 'flipper-redis'
 
 group :development do
   gem 'haml-lint', require: false

@@ -13,7 +13,10 @@
         = link_to avatar(current_user, :sm), '#', {class: 'dropdown-toggle', 'data-toggle': 'dropdown', role: 'button', 'aria-haspopup': true, 'aria-expanded': false}
         .dropdown-menu.dropdown-menu-right
           = link_to 'Account', edit_user_registration_path, class: 'dropdown-item'
-          = current_user.subscribed? ? link_to('Billing', billing_path, class: 'dropdown-item') : link_to('Subscribe ', subscribe_path, class: 'dropdown-item')
+          - if current_user.admin?
+            = link_to 'Admin', admin_root_path, class: 'dropdown-item'
+          - else
+            = current_user.subscribed? ? link_to('Billing', billing_path, class: 'dropdown-item') : link_to('Subscribe ', subscribe_path, class: 'dropdown-item')
           .dropdown-divider
           = link_to "Stop Impersonating", admin_stop_impersonating_path, class: 'dropdown-item' if current_user != true_user
           = link_to 'Logout', main_app.destroy_user_session_path, class: 'dropdown-item'

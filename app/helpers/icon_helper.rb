@@ -33,7 +33,7 @@ module IconHelper
     )
   end
 
-  # http://fontawesome.io/icons/
+  # https://fontawesome.com/v4.7.0/icons/
   def icon(reference, size = :sm, options = {})
     options.merge!(style: "font-size: #{AVATAR_SIZES[size]}px")
     options.merge!(class: "fa fa-#{reference} #{options[:class]}")

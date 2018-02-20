@@ -6,13 +6,7 @@
 # you're free to overwrite the RESTful controller actions.
 module Admin
   class ApplicationController < Administrate::ApplicationController
-    before_action :authenticate_admin!
     impersonates :user
-
-    def authenticate_admin!
-      redirect_to dashboard_path, alert: 'Not authorized' unless true_user && true_user.admin?
-    end
-
     # Define a custom finder by overriding the `find_resource` method:
     # def find_resource(param)
     #   User.find_by!(slug: param)

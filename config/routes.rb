@@ -2,13 +2,17 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
   # Administrate
-  namespace :admin do
-    root controller: 'users', action: :index
-    resources :users do
-      post :impersonate, on: :member
+  constraints CanAccessAdmin do
+    namespace :admin do
+      root controller: 'users', action: :index
+      resources :users do
+        post :impersonate, on: :member
+      end
+      get :stop_impersonating, to: :stop_impersonating, controller: 'users'
+      resources :invoices
+
+      mount Flipper::UI.app(Flipper.instance) => '/flipper', as: 'flipper'
     end
-    get :stop_impersonating, to: :stop_impersonating, controller: 'users'
-    resources :invoices
   end
 
   mount StripeEvent::Engine, at: '/stripe/webhook'

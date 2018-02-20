@@ -133,6 +133,7 @@ GEM
       faraday
       multi_json
     erubi (1.7.0)
+    erubis (2.7.0)
     execjs (2.7.0)
     factory_bot (4.8.2)
       activesupport (>= 3.0.0)
@@ -143,6 +144,15 @@ GEM
       multipart-post (>= 1.2, < 3)
     ffaker (2.7.0)
     ffi (1.9.18)
+    flipper (0.12.2)
+    flipper-redis (0.12.2)
+      flipper (~> 0.12.2)
+      redis (>= 2.2, < 4.1.0)
+    flipper-ui (0.12.2)
+      erubis (~> 2.7.0)
+      flipper (~> 0.12.2)
+      rack (>= 1.4, < 3)
+      rack-protection (>= 1.5.3, < 2.1.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     haml (5.0.4)
@@ -290,7 +300,6 @@ GEM
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
-    rollout (2.4.3)
     rspec-core (3.6.0)
       rspec-support (~> 3.6.0)
     rspec-expectations (3.6.0)
@@ -417,6 +426,9 @@ DEPENDENCIES
   discard
   factory_bot_rails (~> 4.8)
   ffaker (~> 2.7)
+  flipper
+  flipper-redis
+  flipper-ui
   haml (~> 5)
   haml-lint
   image_processing
@@ -433,7 +445,6 @@ DEPENDENCIES
   rails-controller-testing (~> 1)
   receipts
   redis-rails (~> 5.0)
-  rollout
   rspec-rails (~> 3.6)
   rubocop
   sass-rails (~> 5)

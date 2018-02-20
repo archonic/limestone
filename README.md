@@ -10,12 +10,12 @@ The gemset has been chosen to be modern, performant, and take care of a number o
 * CoffeeScript
 * Devise
 * Discard
+* Flipper
 * HAML
 * jQuery
 * Postgres
 * Pretender
 * Pundit
-* Rollout
 * Rspec (w/ shoulda_matchers, database_cleaner)
 * Searchkick
 * Shrine
@@ -53,6 +53,11 @@ The gemset has been chosen to be modern, performant, and take care of a number o
 * run `docker-compose up --build` to create and run the various images, volumes, containers and a network
 * run `docker-compose exec website rails db:setup` to create DB, load schema and seed. Seeding will also create your plan(s) in Stripe.
 * Visit localhost:3000 and rejoice
+
+### Bonus points
+* Login as the admin user that was created (from .env)
+* Visit /admin/flipper
+* Create the feature `public_registration` as a boolean and enable it. Now anyone can register :clap:
 
 ### Setting up production
 A wiki will be written about this.

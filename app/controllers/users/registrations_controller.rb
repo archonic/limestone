@@ -1,4 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+  before_action :check_public_registration, only: [:new, :create]
+
   # POST /resource
   def create
     build_resource(sign_up_params)
@@ -45,5 +47,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def after_sign_up_path_for(resource)
     dashboard_path
+  end
+
+  private
+
+  def check_public_registration
+    redirect_to root_path, flash: { warning: 'That feature is not enabled.' } unless Flipper.enabled?(:public_registration)
   end
 end
