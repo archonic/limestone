@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/archonic/stripe-ruby-mock.git
-  revision: 486a7d27d279eb1eb8b1ab174150191d96e533d2
+  revision: 4e5ed75e9100814887f05b2f60faedf392a10056
   specs:
     stripe-ruby-mock (2.5.1)
       dante (>= 0.2.0)
@@ -373,7 +373,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    stripe (3.9.2)
+    stripe (3.10.0)
       faraday (~> 0.10)
     stripe_event (2.1.1)
       activesupport (>= 3.1)

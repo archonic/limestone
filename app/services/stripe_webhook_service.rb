@@ -84,7 +84,7 @@ class StripeWebhookService
           when 'past_due'
             user_attributes[:past_due] = true
             assign_role(user_attributes, subscription.plan)
-          when 'canceled', 'unpaid'
+          when 'cancelled', 'unpaid'
             user_attributes[:role] = 'removed'
           else
             StripeLogger.error "UpdateCustomer ERROR: Unknown subscription status #{subscription.status}."
@@ -121,7 +121,7 @@ class StripeWebhookService
       when 'past_due'
         user_attributes[:past_due] = true
         assign_role(user_attributes, subscription.plan)
-      when 'canceled', 'unpaid'
+      when 'cancelled', 'unpaid'
         user_attributes[:role] = 'removed'
       else
         StripeLogger.error "UpdateCustomer ERROR: Unknown subscription status #{subscription.status}."
