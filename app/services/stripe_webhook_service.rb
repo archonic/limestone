@@ -14,6 +14,26 @@ class StripeWebhookService
     end
   end
 
+  def process_subscription_status(subscription, user_attributes)
+    case subscription.status
+    when 'trialing'
+      user_attributes[:trialing] = true
+      user_attributes[:past_due] = false
+      assign_role(user_attributes, subscription.plan)
+    when 'active'
+      user_attributes[:trialing] = false
+      user_attributes[:past_due] = false
+      assign_role(user_attributes, subscription.plan)
+    when 'past_due'
+      user_attributes[:past_due] = true
+      assign_role(user_attributes, subscription.plan)
+    when 'cancelled', 'unpaid'
+      user_attributes[:role] = 'removed'
+    else
+      StripeLogger.error "#{self.class.name} ERROR: Unknown subscription status #{subscription.status}."
+    end
+  end
+
   class RecordInvoicePaid < StripeWebhookService
     def call(event)
       event_data = event.data.object
@@ -71,25 +91,7 @@ class StripeWebhookService
           StripeLogger.error "UpdateCustomer ERROR: Customer #{event_data.id} has #{subscriptions.total_count} subscriptions. They're supposed to have one!"
         elsif subscriptions.total_count == 1
           subscription = subscriptions.first
-          # Update customer role based on subscription status
-          case subscription.status
-          when 'trialing'
-            user_attributes[:trialing] = true
-            user_attributes[:past_due] = false
-            assign_role(user_attributes, subscription.plan)
-          when 'active'
-            user_attributes[:trialing] = false
-            user_attributes[:past_due] = false
-            assign_role(user_attributes, subscription.plan)
-          when 'past_due'
-            user_attributes[:past_due] = true
-            assign_role(user_attributes, subscription.plan)
-          when 'cancelled', 'unpaid'
-            user_attributes[:role] = 'removed'
-          else
-            StripeLogger.error "UpdateCustomer ERROR: Unknown subscription status #{subscription.status}."
-          end
-          # Update customer valid until
+          process_subscription_status(subscription, user_attributes)
           user_attributes[:current_period_end] = Time.at(subscription.current_period_end).to_datetime
         end
       else
@@ -109,25 +111,8 @@ class StripeWebhookService
       user = User.find_by(stripe_id: subscription.customer)
       no_user_error(self, subscription.customer) { return } if user.nil?
       user_attributes = {}
-      case subscription.status
-      when 'trialing'
-        user_attributes[:trialing] = true
-        user_attributes[:past_due] = false
-        assign_role(user_attributes, subscription.plan)
-      when 'active'
-        user_attributes[:trialing] = false
-        user_attributes[:past_due] = false
-        assign_role(user_attributes, subscription.plan)
-      when 'past_due'
-        user_attributes[:past_due] = true
-        assign_role(user_attributes, subscription.plan)
-      when 'cancelled', 'unpaid'
-        user_attributes[:role] = 'removed'
-      else
-        StripeLogger.error "UpdateCustomer ERROR: Unknown subscription status #{subscription.status}."
-      end
+      process_subscription_status(subscription, user_attributes)
       user_attributes[:current_period_end] = Time.at(subscription.current_period_end).to_datetime
-
       user.update(user_attributes)
     end
   end
