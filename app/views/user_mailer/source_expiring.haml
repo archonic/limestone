@@ -1,0 +1,5 @@
+%h1 Your card is about to expire
+%p
+  = "Your #{@source.brand} (#{@source.last4}) has the expiry #{@source.exp_month}/#{@source.exp_year}."
+%p
+  = "Keeping your card up to date will ensure there's no interruptions in service. #{link_to('Update your card here', billing_url, target: :_blank)}."

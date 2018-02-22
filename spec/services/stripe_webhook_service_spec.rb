@@ -351,6 +351,28 @@ RSpec.describe StripeWebhookService, type: :service do
     end
   end
 
+  describe StripeWebhookService::SourceExpiring do
+    let(:event_source_expiring) do
+      StripeMock.mock_webhook_event(
+        'customer.source.expiring',
+        customer: mock_customer.id
+      )
+    end
+    subject do
+      StripeWebhookService::SourceExpiring.new.call(event_source_expiring)
+    end
+
+    it 'asynchronously mails the user a source expiring message' do
+      source_expiring_dbl = double(ActionMailer::MessageDelivery)
+      allow(UserMailer).to receive(:source_expiring).with(
+        user_subscribed,
+        an_instance_of(Stripe::Card)
+      ).and_return(source_expiring_dbl)
+      expect(source_expiring_dbl).to receive(:deliver_later).once
+      subject
+    end
+  end
+
   describe StripeWebhookService::Dun do
     let(:event_invoice_payment_failed) {
       StripeMock.mock_webhook_event(

@@ -42,6 +42,15 @@ class UserMailer < ApplicationMailer
     )
   end
 
+  def source_expiring(user, source)
+    @user = user
+    @source = source
+    mail(
+      to: email_with_name(user),
+      subject: '[Limestone] Your card is about to expire'
+    )
+  end
+
   def trial_will_end(user)
     @user = user
     mail(

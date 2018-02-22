@@ -127,6 +127,16 @@ class StripeWebhookService
     end
   end
 
+  class SourceExpiring < StripeWebhookService
+    def call(event)
+      card = event.data.object
+      user = User.find_by(stripe_id: card.customer)
+      no_user_error(self, card.customer) { return } if user.nil?
+      UserMailer.source_expiring(user, card).deliver_later
+      return true
+    end
+  end
+
   class Dun < StripeWebhookService
     def call(event)
       event_data = event.data.object

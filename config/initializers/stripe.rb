@@ -16,5 +16,6 @@ StripeEvent.configure do |events|
   events.subscribe 'customer.updated', StripeWebhookService::UpdateCustomer.new
   events.subscribe 'customer.subscription.updated', StripeWebhookService::UpdateSubscription.new
   events.subscribe 'customer.subscription.trial_will_end', StripeWebhookService::TrialWillEnd.new
+  events.subscribe 'customer.source.expiring', StripeWebhookService::SourceExpiring.new
   events.subscribe 'invoice.payment_failed', StripeWebhookService::Dun.new
 end
