@@ -40,6 +40,11 @@ class User < ApplicationRecord
     current_period_end < Time.current
   end
 
+  # Allows features to be flipped for individuals
+  def flipper_id
+    "User;#{id}"
+  end
+
   private
 
   def setup_new_user

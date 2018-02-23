@@ -63,4 +63,10 @@ RSpec.describe User, type: :model do
       expect(create(:user, :subscribed, current_period_end: 1.hour.ago).trial_expired?).to be false
     end
   end
+
+  describe '#flipped_id' do
+    it 'returns namespaced id' do
+      expect(create(:user).flipper_id).to match /User;/
+    end
+  end
 end
