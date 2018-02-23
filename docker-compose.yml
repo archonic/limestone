@@ -18,6 +18,9 @@ services:
       - '6379:6379'
     volumes:
       - 'redis:/data'
+    sysctls:
+      # https://github.com/docker-library/redis/issues/35
+      net.core.somaxconn: '511'
 
   website:
     depends_on:
