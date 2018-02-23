@@ -37,15 +37,16 @@ The gemset has been chosen to be modern, performant, and take care of a number o
 * Pretty modals using bootstrap integrated into rails_ujs data-confirm. Demonstrated with cancel account button.
 * Banner with a link to billing page users that are past due.
 * Opinionated search integration using Elasticsearch via Searchkick. Gem is in place but integration is up to you.
-* Feature rollout using the rollout gem. Installed but features are up to you.
+* Feature control using the flipper gem. Demonstrated with public_registration.
+* 86% RSpec test coverage.
 
 ## Roadmap
 * In-browser image cropping using jcrop or the likes.
-* Example feature which controls if public registration is available.
 * Custom error pages.
 
 ## Notes
 * RSpec controller tests have been omitted in favour of requests tests.
+* You can run tests locally with `docker-compose run website rspec`
 
 ## Getting Started
 * Install [Docker](https://docs.docker.com/engine/installation/)
