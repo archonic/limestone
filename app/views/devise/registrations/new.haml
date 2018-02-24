@@ -2,7 +2,7 @@
   .col-md-8
     %h2 Sign up
     = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-      = f.hidden_field :plan_id, value: params[:plan] || 1
+      = f.hidden_field :plan_id, value: params[:plan] || Plan.first.id
       = devise_error_messages!
       = f.input :email, autofocus: true, required: true
       .row.form-group
