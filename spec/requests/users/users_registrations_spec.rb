@@ -132,5 +132,4 @@ RSpec.describe Users::RegistrationsController, type: :request do
       end
     end
   end
-
 end
