@@ -7,6 +7,8 @@ class Plan < ApplicationRecord
   has_many :users
   before_create :create_plan_on_stripe
 
+  scope :active, -> { where(active: true) }
+
   include ActionView::Helpers::NumberHelper
 
   def cost

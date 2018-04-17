@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2018_01_29_173731) do
     t.integer "amount", null: false
     t.string "associated_role", null: false
     t.string "stripe_id"
+    t.boolean "active", default: true, null: false
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
