@@ -81,7 +81,6 @@ RSpec.describe Users::RegistrationsController, type: :request do
     end
   end
 
-
   describe 'DELETE /profile' do
     let(:mock_customer) { Stripe::Customer.create }
     let(:mock_subscription) { mock_customer.subscriptions.create(plan: 'example-plan-id') }

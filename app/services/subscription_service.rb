@@ -9,13 +9,15 @@ class SubscriptionService
   def create_subscription
     subscription = nil
     stripe_call do
-      plan = Stripe::Plan.list(limit: @params[:plan_id]).first
+      local_plan = Plan.active.find(@params[:user][:plan_id])
+      return false if local_plan.nil?
+      stripe_plan = Stripe::Plan.retrieve(local_plan.stripe_id)
       # If the plan has a trial time, it does not need a stripe token to create a subscription
       # We assume you have a trial time > 0. Otherwise there will be 2 customers created for
       # each subscribed customer. One at registration and another when subscribing.
       subscription = customer.subscriptions.create(
         source: @params[:stripeToken],
-        plan: plan.id
+        plan: stripe_plan.id
       )
     end
     return false if subscription.nil?
@@ -45,6 +47,7 @@ class SubscriptionService
       subscription = customer.subscriptions.retrieve(@user.stripe_subscription_id)
       subscription.source = @params[:stripeToken] if @params[:stripeToken]
       # Update plan if one is provided, otherwise use user's existing plan
+      # TODO providing plan_id is untested
       plan_stripe_id = if @params[:plan_id]
         Plan.find(@params[:plan_id]).stripe_id
       else
