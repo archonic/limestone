@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.5.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.0.rc1'
+gem 'rails', '~> 5.2'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.21'
@@ -41,7 +41,7 @@ gem 'redis-rails', '~> 5.0'
 
 # Pretty html abstractions
 gem 'haml', '~> 5'
-gem 'simple_form'
+gem 'simple_form', '~> 4'
 
 # Authentication
 gem 'devise', '~> 4'
@@ -52,7 +52,7 @@ gem 'pundit', '~> 1'
 gem 'discard'
 
 # Pretty admin dashboards
-gem 'administrate'
+gem 'administrate', github: 'mattgillooly/administrate', branch: 'support-rails-5.2'
 
 gem 'receipts'
 # Stripe stuff
