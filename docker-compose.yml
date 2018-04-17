@@ -36,7 +36,7 @@ services:
     env_file:
       - '.env'
 
-  webpacker:
+  webpack:
     build: .
     env_file:
       - '.env'
@@ -72,4 +72,4 @@ services:
 volumes:
   redis:
   postgres:
-  webpacker:
+  webpack:
