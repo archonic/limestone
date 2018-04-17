@@ -22,7 +22,7 @@ gem 'sass-rails', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker'
+gem 'webpacker', '~> 3.4'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
@@ -34,7 +34,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 
 # Use Redis Rails to set up a Redis backed Cache and / or Session
-gem 'redis-rails', '~> 5.0'
+gem 'redis-rails', '~> 5'
 
 # Use Font Awesome Rails for Font Awesome icons
 # gem 'font-awesome-rails', '~> 4.7'
@@ -49,34 +49,34 @@ gem 'devise', '~> 4'
 gem 'pundit', '~> 1'
 
 # Soft deletes for ActiveRecord done right
-gem 'discard'
+gem 'discard', '~> 1'
 
 # Pretty admin dashboards
 gem 'administrate', github: 'mattgillooly/administrate', branch: 'support-rails-5.2'
 
 gem 'receipts'
 # Stripe stuff
-gem 'stripe'
-gem 'stripe_event', '~> 2.1.1'
+gem 'stripe', '~> 3'
+gem 'stripe_event', '~> 2.1'
 
 # Upload to S3 directly
-gem 'aws-sdk-s3'
+gem 'aws-sdk-s3', '~> 1'
 
 # Process images
-gem 'image_processing'
+gem 'image_processing', '~> 1'
 gem 'mini_magick', '>= 4.3.5'
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.1.0', require: false
+gem 'bootsnap', '>= 1.3', require: false
 
 # Impersonate other users
-gem 'pretender'
+gem 'pretender', '~> 0.3'
 
 # Search
-gem 'searchkick'
+gem 'searchkick', '~> 3'
 
 # Jerbs
-gem 'sidekiq', '~> 5.0'
+gem 'sidekiq', '~> 5'
 
 # Use Clockwork or Whenever for recurring background tasks
 # gem 'clockwork'

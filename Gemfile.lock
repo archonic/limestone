@@ -76,22 +76,22 @@ GEM
     ast (2.3.0)
     autoprefixer-rails (8.3.0)
       execjs
-    aws-partitions (1.21.0)
-    aws-sdk-core (3.5.0)
+    aws-partitions (1.80.0)
+    aws-sdk-core (3.19.0)
       aws-partitions (~> 1.0)
       aws-sigv4 (~> 1.0)
       jmespath (~> 1.0)
-    aws-sdk-kms (1.2.0)
+    aws-sdk-kms (1.5.0)
       aws-sdk-core (~> 3)
       aws-sigv4 (~> 1.0)
-    aws-sdk-s3 (1.4.0)
+    aws-sdk-s3 (1.9.0)
       aws-sdk-core (~> 3)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.0)
     aws-sigv4 (1.0.2)
     bcrypt (3.1.11)
     bindex (0.5.0)
-    bootsnap (1.1.8)
+    bootsnap (1.3.0)
       msgpack (~> 1.0)
     builder (3.2.3)
     capybara (2.15.1)
@@ -128,15 +128,15 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.3)
-    discard (0.2.0)
+    discard (1.0.0)
       activerecord (>= 4.2, < 6)
     docile (1.1.5)
-    elasticsearch (5.0.4)
-      elasticsearch-api (= 5.0.4)
-      elasticsearch-transport (= 5.0.4)
-    elasticsearch-api (5.0.4)
+    elasticsearch (6.0.2)
+      elasticsearch-api (= 6.0.2)
+      elasticsearch-transport (= 6.0.2)
+    elasticsearch-api (6.0.2)
       multi_json
-    elasticsearch-transport (5.0.4)
+    elasticsearch-transport (6.0.2)
       faraday
       multi_json
     erubi (1.7.1)
@@ -173,15 +173,17 @@ GEM
       rake (>= 10, < 13)
       rubocop (>= 0.49.0)
       sysexits (~> 1.1)
-    hashie (3.5.6)
+    hashie (3.5.7)
     i18n (1.0.0)
       concurrent-ruby (~> 1.0)
-    image_processing (0.4.5)
+    image_processing (1.1.0)
+      mini_magick (~> 4.0)
+      ruby-vips (>= 2.0.10, < 3)
     io-like (0.3.0)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
-    jmespath (1.3.1)
+    jmespath (1.4.0)
     jquery-rails (4.3.1)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -218,7 +220,7 @@ GEM
     minitest (5.11.3)
     momentjs-rails (2.20.1)
       railties (>= 3.1)
-    msgpack (1.2.2)
+    msgpack (1.2.4)
     multi_json (1.13.1)
     multipart-post (2.0.0)
     nio4r (2.3.0)
@@ -236,7 +238,7 @@ GEM
       ttfunk (~> 1.5)
     prawn-table (0.2.2)
       prawn (>= 1.3.0, < 3.0.0)
-    pretender (0.3.1)
+    pretender (0.3.2)
       actionpack
     pry (0.11.0)
       coderay (~> 1.1.0)
@@ -246,9 +248,9 @@ GEM
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (2.0.4)
-    rack-protection (2.0.0)
+    rack-protection (2.0.1)
       rack
-    rack-proxy (0.6.3)
+    rack-proxy (0.6.4)
       rack
     rack-test (1.0.0)
       rack (>= 1.0, < 3)
@@ -290,7 +292,7 @@ GEM
     receipts (0.2.1)
       prawn (>= 1.3.0, < 3.0.0)
       prawn-table (~> 0.2.1)
-    redis (3.3.3)
+    redis (4.0.1)
     redis-actionpack (5.0.2)
       actionpack (>= 4.0, < 6)
       redis-rack (>= 1, < 3)
@@ -305,7 +307,7 @@ GEM
       redis-actionpack (>= 5.0, < 6)
       redis-activesupport (>= 5.0, < 6)
       redis-store (>= 1.2, < 2)
-    redis-store (1.4.1)
+    redis-store (1.5.0)
       redis (>= 2.2, < 5)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
@@ -335,6 +337,8 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.8.1)
+    ruby-vips (2.0.10)
+      ffi (~> 1.9)
     ruby_dep (1.5.0)
     rubyzip (1.2.1)
     sass (3.5.6)
@@ -348,9 +352,9 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    searchkick (2.3.2)
-      activemodel (>= 4.1)
-      elasticsearch (>= 1)
+    searchkick (3.0.2)
+      activemodel (>= 4.2)
+      elasticsearch (>= 5)
       hashie
     selectize-rails (0.12.4.1)
     selenium-webdriver (3.5.2)
@@ -358,11 +362,11 @@ GEM
       rubyzip (~> 1.0)
     shoulda-matchers (3.1.2)
       activesupport (>= 4.0.0)
-    sidekiq (5.0.4)
+    sidekiq (5.1.3)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
-      redis (~> 3.3, >= 3.3.3)
+      redis (>= 3.3.5, < 5)
     simple_form (4.0.0)
       actionpack (> 4)
       activemodel (> 4)
@@ -383,7 +387,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    stripe (3.10.0)
+    stripe (3.13.0)
       faraday (~> 0.10)
     stripe_event (2.1.1)
       activesupport (>= 3.1)
@@ -394,9 +398,9 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.8)
     ttfunk (1.5.1)
-    turbolinks (5.0.1)
-      turbolinks-source (~> 5)
-    turbolinks-source (5.0.3)
+    turbolinks (5.1.1)
+      turbolinks-source (~> 5.1)
+    turbolinks-source (5.1.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     tzinfo-data (1.2017.3)
@@ -411,7 +415,7 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
-    webpacker (3.2.0)
+    webpacker (3.4.3)
       activesupport (>= 4.2)
       rack-proxy (>= 0.6.1)
       railties (>= 4.2)
@@ -426,14 +430,14 @@ PLATFORMS
 
 DEPENDENCIES
   administrate!
-  aws-sdk-s3
-  bootsnap (>= 1.1.0)
+  aws-sdk-s3 (~> 1)
+  bootsnap (>= 1.3)
   capybara (~> 2.15)
   chromedriver-helper
   coffee-rails (~> 4.2)
   database_cleaner (~> 1.6)
   devise (~> 4)
-  discard
+  discard (~> 1)
   factory_bot_rails (~> 4.8)
   ffaker (~> 2.7)
   flipper
@@ -441,12 +445,12 @@ DEPENDENCIES
   flipper-ui
   haml (~> 5)
   haml-lint
-  image_processing
+  image_processing (~> 1)
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   mini_magick (>= 4.3.5)
   pg (~> 0.21)
-  pretender
+  pretender (~> 0.3)
   pry
   puma (~> 3.11)
   pundit (~> 1)
@@ -454,26 +458,26 @@ DEPENDENCIES
   rails (~> 5.2)
   rails-controller-testing (~> 1)
   receipts
-  redis-rails (~> 5.0)
+  redis-rails (~> 5)
   rspec-rails (~> 3.6)
   rubocop
   sass-rails (~> 5)
-  searchkick
+  searchkick (~> 3)
   selenium-webdriver
   shoulda-matchers (~> 3.1)
-  sidekiq (~> 5.0)
+  sidekiq (~> 5)
   simple_form (~> 4)
   simplecov
   spring
   spring-watcher-listen (~> 2.0.0)
-  stripe
+  stripe (~> 3)
   stripe-ruby-mock!
-  stripe_event (~> 2.1.1)
+  stripe_event (~> 2.1)
   turbolinks (~> 5)
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
-  webpacker
+  webpacker (~> 3.4)
 
 RUBY VERSION
    ruby 2.5.1p57
