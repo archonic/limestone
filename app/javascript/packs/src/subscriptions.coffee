@@ -24,33 +24,34 @@ addFieldToPaymentForm = (form, token, field) ->
   form.appendChild hiddenInput
 
 document.addEventListener 'turbolinks:load', ->
-  public_key = document.querySelector('meta[name=\'stripe-public-key\']').content
-  stripe = Stripe(public_key)
-  elements = stripe.elements()
-  # Custom styling can be passed to options when creating an Element.
-  style = base:
-    fontSize: '16px'
-    color: '#32325d'
-  # Create an instance of the card Element
-  card = elements.create('card', style: style)
-  # Add an instance of the card Element into the `card-element` <div>
-  card.mount '#card-element'
-  card.addEventListener 'change', (event) ->
-    displayError = document.getElementById('card-errors')
-    if event.error
-      displayError.textContent = event.error.message
-    else
-      displayError.textContent = ''
-
-  # Create a token or display an error when the form is submitted.
-  form = document.getElementById('payment_form')
-  form.addEventListener 'submit', (event) ->
-    event.preventDefault()
-    stripe.createToken(card).then (result) ->
-      if result.error
-        # Inform the customer that there was an error
-        errorElement = document.getElementById('card-errors')
-        errorElement.textContent = result.error.message
+  if document.querySelector('#card-element') != null
+    public_key = document.querySelector('meta[name=\'stripe-public-key\']').content
+    stripe = Stripe(public_key)
+    elements = stripe.elements()
+    # Custom styling can be passed to options when creating an Element.
+    style = base:
+      fontSize: '16px'
+      color: '#32325d'
+    # Create an instance of the card Element
+    card = elements.create('card', style: style)
+    # Add an instance of the card Element into the `card-element` <div>
+    card.mount '#card-element'
+    card.addEventListener 'change', (event) ->
+      displayError = document.getElementById('card-errors')
+      if event.error
+        displayError.textContent = event.error.message
       else
-        # Send the token to your server
-        stripeTokenHandler result.token
+        displayError.textContent = ''
+
+    # Create a token or display an error when the form is submitted.
+    form = document.getElementById('payment_form')
+    form.addEventListener 'submit', (event) ->
+      event.preventDefault()
+      stripe.createToken(card).then (result) ->
+        if result.error
+          # Inform the customer that there was an error
+          errorElement = document.getElementById('card-errors')
+          errorElement.textContent = result.error.message
+        else
+          # Send the token to your server
+          stripeTokenHandler result.token
