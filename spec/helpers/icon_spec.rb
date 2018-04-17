@@ -13,7 +13,7 @@ describe IconHelper do
     end
 
     it "has text backup" do
-      expect(avatar(user)).to match user.full_name.initials
+      expect(avatar(user)).to match user.name.initials
     end
   end
 

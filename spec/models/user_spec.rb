@@ -16,9 +16,9 @@ RSpec.describe User, type: :model do
   it { is_expected.to_not allow_value("email@domain.a").for(:email) }
 
   # Callbacks
-  describe '#set_full_name' do
-    it 'sets the full_name' do
-      expect(create(:user).full_name).to_not be_empty
+  describe '#set_name' do
+    it 'sets the name' do
+      expect(create(:user).name).to_not be_empty
     end
   end
 

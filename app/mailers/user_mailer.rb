@@ -62,6 +62,6 @@ class UserMailer < ApplicationMailer
   private
 
   def email_with_name(user)
-    %("#{user.full_name}" <#{user.email}>)
+    %("#{user.name}" <#{user.email}>)
   end
 end

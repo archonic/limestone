@@ -15,10 +15,10 @@ module IconHelper
       image_tag(
         image_url,
         class: 'rounded-circle'
-      ) + user.full_name.initials,
+      ) + user.name.initials,
       style: size.to_s,
       class: "avatar-#{img_or_text}",
-      alt: user.full_name
+      alt: user.name
     )
   end
 

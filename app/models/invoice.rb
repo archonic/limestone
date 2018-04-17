@@ -17,7 +17,7 @@ class Invoice < ActiveRecord::Base
       },
       line_items: [
         ["Date",           formatted_invoice_date],
-        ["Account Billed", "#{user.full_name} (#{user.email})"],
+        ["Account Billed", "#{user.name} (#{user.email})"],
         ["Product",        "Example Product"],
         ["Amount",         formatted_amount],
         ["Charged to",     formatted_card]

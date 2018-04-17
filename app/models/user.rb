@@ -23,7 +23,7 @@ class User < ApplicationRecord
   delegate :cost, to: :plan
   delegate :name, to: :plan, prefix: true
 
-  before_save :set_full_name
+  before_save :set_name
 
   # Send mail through activejob
   def send_devise_notification(notification, *args)
@@ -52,7 +52,7 @@ class User < ApplicationRecord
     self.current_period_end = Time.current + $trial_period_days.days
   end
 
-  def set_full_name
-    self.full_name = [first_name, last_name].join(' ').strip
+  def set_name
+    self.name = [first_name, last_name].join(' ').strip
   end
 end
