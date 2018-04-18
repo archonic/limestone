@@ -1,5 +1,7 @@
-require 'flipper'
-require 'flipper/adapters/redis'
+# frozen_string_literal: true
+
+require "flipper"
+require "flipper/adapters/redis"
 
 # FEATURES:
 # public_registration

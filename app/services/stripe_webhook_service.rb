@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Manages all incoming stripe webhooks
 class StripeWebhookService
   def no_user_error(klass, user_stripe_id)
@@ -49,12 +51,12 @@ class StripeWebhookService
         amount: event_data.total,
         currency: event_data.currency,
         number: event_data.number,
-        paid_at: Time.at(event_data.date).to_datetime,
+        paid_at: Time.zone.at(event_data.date).to_datetime,
         lines: lines
       )
       invoice.save
       UserMailer.invoice_paid(user, invoice).deliver_later
-      return true
+      true
     end
   end
 
@@ -92,7 +94,7 @@ class StripeWebhookService
         elsif subscriptions.total_count == 1
           subscription = subscriptions.first
           process_subscription_status(subscription, user_attributes)
-          user_attributes[:current_period_end] = Time.at(subscription.current_period_end).to_datetime
+          user_attributes[:current_period_end] = Time.zone.at(subscription.current_period_end).to_datetime
         end
       else
         StripeLogger.error "UpdateCustomer ERROR: Customer #{event_data.id} has no subscription."
@@ -100,7 +102,7 @@ class StripeWebhookService
       user.update user_attributes
       # This event is fired on new trials. Only send email if the source is present.
       UserMailer.billing_updated(user).deliver_later if sources.try(:total_count) == 1
-      return true
+      true
     end
   end
 
@@ -112,8 +114,9 @@ class StripeWebhookService
       no_user_error(self, subscription.customer) { return } if user.nil?
       user_attributes = {}
       process_subscription_status(subscription, user_attributes)
-      user_attributes[:current_period_end] = Time.at(subscription.current_period_end).to_datetime
+      user_attributes[:current_period_end] = Time.zone.at(subscription.current_period_end).to_datetime
       user.update(user_attributes)
+      true
     end
   end
 
@@ -123,7 +126,7 @@ class StripeWebhookService
       user = User.find_by(stripe_id: event_data.customer)
       no_user_error(self, event_data.customer) { return } if user.nil?
       UserMailer.trial_will_end(user).deliver_later
-      return true
+      true
     end
   end
 
@@ -133,7 +136,7 @@ class StripeWebhookService
       user = User.find_by(stripe_id: card.customer)
       no_user_error(self, card.customer) { return } if user.nil?
       UserMailer.source_expiring(user, card).deliver_later
-      return true
+      true
     end
   end
 
@@ -147,7 +150,7 @@ class StripeWebhookService
         event_data.attempt_count,
         event_data.next_payment_attempt.to_i
       ).deliver_later
-      return true
+      true
     end
   end
 end

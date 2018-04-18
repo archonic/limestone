@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 # TODO This is formatting data for presentation in the model and violating MVC
 # Ditch the reciepts gem and just do a pdf view
-class Invoice < ActiveRecord::Base
+class Invoice < ApplicationRecord
   belongs_to :user
   serialize :lines, JSON
   include ActionView::Helpers::NumberHelper
@@ -33,7 +35,7 @@ class Invoice < ActiveRecord::Base
   end
 
   def formatted_invoice_date
-    paid_at.strftime('%l:%M %P, %B %d, %Y') << " UTC"
+    paid_at.strftime("%l:%M %P, %B %d, %Y") << " UTC"
   end
 
   def formatted_amount

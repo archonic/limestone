@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreatePlanService
   def initialize(plan_model)
     @plan_model = plan_model
@@ -7,12 +9,12 @@ class CreatePlanService
     stripe_plan = nil
     begin
       stripe_plan = Stripe::Plan.create(
-        id: [@plan_model.name.downcase, SecureRandom.uuid].join('_'),
+        id: [@plan_model.name.downcase, SecureRandom.uuid].join("_"),
         name: @plan_model.name,
         amount: @plan_model.amount,
         interval: @plan_model.interval,
         currency: @plan_model.currency,
-        trial_period_days: $trial_period_days
+        trial_period_days: TRIAL_PERIOD_DAYS
       )
     rescue Stripe::InvalidRequestError => e
       StripeLogger.error "Error creating plan #{@plan_model.name}: #{e}"

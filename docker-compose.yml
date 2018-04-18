@@ -22,7 +22,7 @@ services:
       # https://github.com/docker-library/redis/issues/35
       net.core.somaxconn: '511'
 
-  website:
+  web:
     depends_on:
       - 'postgres'
       - 'redis'

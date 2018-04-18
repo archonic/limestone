@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "administrate/base_dashboard"
 
 class UserDashboard < Administrate::BaseDashboard
@@ -34,47 +36,46 @@ class UserDashboard < Administrate::BaseDashboard
   #
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
-  COLLECTION_ATTRIBUTES = [
-    :id,
-    :email,
-    :full_name,
-    :role,
-    :sign_in_count,
-    :last_sign_in_ip,
-    :invoices,
-    :current_period_end,
-    :created_at,
-  ].freeze
+  COLLECTION_ATTRIBUTES = %i(
+    id
+    email
+    full_name
+    role
+    sign_in_count
+    last_sign_in_ip
+    invoices
+    current_period_end
+    created_at
+  ).freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
-  SHOW_PAGE_ATTRIBUTES = [
-    :id,
-    :email,
-    :full_name,
-    :role,
-    :sign_in_count,
-    :current_sign_in_at,
-    :current_sign_in_ip,
-    :current_period_end,
-    :created_at,
-    :invoices
-  ].freeze
+  SHOW_PAGE_ATTRIBUTES = %i(
+    id
+    email
+    full_name
+    role
+    sign_in_count
+    current_sign_in_at
+    current_sign_in_ip
+    current_period_end
+    created_at
+    invoices
+  ).freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
-  FORM_ATTRIBUTES = [
-    :email,
-    :first_name,
-    :last_name,
-    :current_period_end,
-    :role
-  ].freeze
+  FORM_ATTRIBUTES = %i(
+    email
+    first_name
+    last_name
+    current_period_end
+    role
+  ).freeze
 
   # Overwrite this method to customize how users are displayed
   # across all pages of the admin dashboard.
-  #
   def display_resource(user)
     user.name
   end

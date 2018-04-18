@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 # Custom Post logger
 require 'singleton'
 class StripeLogger < Logger
   include Singleton
 
   def initialize
-    super(Rails.root.join($stripe_log_path))
+    super(Rails.root.join(STRIPE_LOG_PATH))
     self.formatter = formatter()
     self
   end

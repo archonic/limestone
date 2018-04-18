@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # config/initializers/stripe.rb
 Rails.configuration.stripe = {
   :publishable_key => ENV['STRIPE_PUBLISHABLE_KEY'],

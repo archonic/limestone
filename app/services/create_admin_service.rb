@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateAdminService
   def self.call
     User.find_or_create_by!(

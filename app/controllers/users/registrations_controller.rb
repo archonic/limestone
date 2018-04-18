@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :check_public_registration, only: [:new, :create]
+  before_action :check_public_registration, only: %i(new create)
 
   # POST /resource
   def create
@@ -14,9 +16,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
         UserMailer.welcome_email(resource).deliver_later
         respond_with resource, location: after_sign_up_path_for(resource)
       else
-        set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
+        set_flash_message! :notice,
+          :"signed_up_but_#{resource.inactive_message}"
         expire_data_after_sign_in!
-        respond_with resource, location: after_inactive_sign_up_path_for(resource)
+        respond_with resource,
+          location: after_inactive_sign_up_path_for(resource)
       end
     else
       clean_up_passwords resource
@@ -41,17 +45,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   protected
 
-  def after_update_path_for(resource)
-    edit_user_registration_path
-  end
+    def after_update_path_for(resource)
+      edit_user_registration_path
+    end
 
-  def after_sign_up_path_for(resource)
-    dashboard_path
-  end
+    def after_sign_up_path_for(resource)
+      dashboard_path
+    end
 
   private
 
-  def check_public_registration
-    redirect_to root_path, flash: { warning: 'That feature is not enabled.' } unless Flipper.enabled?(:public_registration)
-  end
+    def check_public_registration
+      return true if Flipper.enabled?(:public_registration)
+      redirect_to root_path, flash: { warning: "That feature is not enabled." }
+    end
 end

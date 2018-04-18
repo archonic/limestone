@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   include Pundit
   include ActionView::Helpers::DateHelper
@@ -16,23 +18,25 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def configure_permitted_parameters
-    added_params = [:first_name, :last_name, :avatar, :plan_id]
-    devise_parameter_sanitizer.permit :sign_up, keys: added_params
-    devise_parameter_sanitizer.permit :account_update, keys: added_params
-  end
-
-  # Users are always allowed to manage their session, registration and subscription
-  def access_required?
-    user_signed_in? &&
-    !devise_controller? &&
-    controller_name != 'subscriptions'
-  end
-
-  # Redirect users in bad standing to billing page
-  def check_access
-    if current_user.removed?
-      redirect_to billing_path, flash: { error: 'Your access has been removed. Please update your card. Access will be restored once payment succeeds.' }
+    def configure_permitted_parameters
+      added_params = %i(first_name last_name avatar plan_id)
+      devise_parameter_sanitizer.permit :sign_up, keys: added_params
+      devise_parameter_sanitizer.permit :account_update, keys: added_params
     end
-  end
+
+    # Users are always allowed to manage their session, registration and subscription
+    def access_required?
+      user_signed_in? &&
+        !devise_controller? &&
+        controller_name != 'subscriptions'
+    end
+
+    # Redirect users in bad standing to billing page
+    def check_access
+      return false unless current_user.removed?
+      redirect_to billing_path,
+        flash: {
+          error: 'Your access has been removed. Please update your card. Access will be restored once payment succeeds.'
+        }
+    end
 end

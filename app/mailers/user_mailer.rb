@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserMailer < ApplicationMailer
   include Rails.application.routes.url_helpers
 
@@ -21,12 +23,12 @@ class UserMailer < ApplicationMailer
     @user = user
     @invoice = invoice
     attachments["limestone_invoice_#{@invoice.paid_at.strftime('%Y_%m_%d')}.pdf"] = {
-      mime_type: 'application/pdf',
+      mime_type: "application/pdf",
       content: invoice_path(@invoice, format: :pdf)
     }
     mail(
       to: email_with_name(user),
-      subject: '[Limestone] Payment Receipt'
+      subject: "[Limestone] Payment Receipt"
     )
   end
 
@@ -38,7 +40,7 @@ class UserMailer < ApplicationMailer
     @next_attempt_at = next_attempt_at
     mail(
       to: email_with_name(user),
-      subject: '[Limestone] Payment Failed'
+      subject: "[Limestone] Payment Failed"
     )
   end
 
@@ -47,7 +49,7 @@ class UserMailer < ApplicationMailer
     @source = source
     mail(
       to: email_with_name(user),
-      subject: '[Limestone] Your card is about to expire'
+      subject: "[Limestone] Your card is about to expire"
     )
   end
 
@@ -55,13 +57,13 @@ class UserMailer < ApplicationMailer
     @user = user
     mail(
       to: email_with_name(user),
-      subject: '[Limestone] Your trial is ending soon!'
+      subject: "[Limestone] Your trial is ending soon!"
     )
   end
 
   private
 
-  def email_with_name(user)
-    %("#{user.name}" <#{user.email}>)
-  end
+    def email_with_name(user)
+      %("#{user.name}" <#{user.email}>)
+    end
 end

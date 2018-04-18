@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Manages all calls to Stripe pertaining to subscriptions
 class SubscriptionService
   def initialize(current_user, params)
@@ -26,17 +28,7 @@ class SubscriptionService
       stripe_id: customer.id,
       stripe_subscription_id: subscription.id
     }
-
-    # Only update the card on file if we're adding a new one
-    # Limestone doesn't use this because we don't ask for a card upon registration
-    # but you could add the card form to the registration form
-    user_attributes_to_update.merge!(
-      card_last4: @params[:card_last4],
-      card_exp_month: @params[:card_exp_month],
-      card_exp_year: @params[:card_exp_year],
-      card_type: @params[:card_brand]
-    ) if @params[:card_last4]
-
+    assign_card_details(user_attributes_to_update, @params)
     @user.update(user_attributes_to_update)
   end
 
@@ -63,12 +55,7 @@ class SubscriptionService
     user_attributes_to_update = {}
     # This is updated by the stripe webhook customer.updated
     # But we can update it here for a faster optimistic 'response'
-    user_attributes_to_update.merge!(
-      card_last4: @params[:card_last4],
-      card_exp_month: @params[:card_exp_month],
-      card_exp_year: @params[:card_exp_year],
-      card_type: @params[:card_brand]
-    ) if @params[:card_last4] && @params[:stripeToken]
+    assign_card_details(user_attributes_to_update, @params)
     user_attributes_to_update.merge!(
       plan_id: @params[:plan_id].to_i
     ) if @params[:plan_id]
@@ -85,33 +72,43 @@ class SubscriptionService
 
   private
 
-  def customer
-    @customer ||= if @user.stripe_id?
-      Stripe::Customer.retrieve(@user.stripe_id)
-    else
-      Stripe::Customer.create(email: @user.email)
+    def customer
+      @customer ||= if @user.stripe_id?
+                      Stripe::Customer.retrieve(@user.stripe_id)
+                    else
+                      Stripe::Customer.create(email: @user.email)
+                    end
     end
-  end
 
-  def stripe_call(&block)
-    stripe_success = false
-    begin
-      block.call
-      stripe_success = true
-    # https://stripe.com/docs/api?lang=ruby#errors
-    rescue Stripe::CardError => e
-      StripeLogger.error(e.json_body[:error])
-    rescue Stripe::RateLimitError => e
-      StripeLogger.error 'Too many requests made to the API too quickly.'
-    rescue Stripe::InvalidRequestError => e
-      StripeLogger.error 'Invalid parameters were supplied to Stripe\'s API.'
-    rescue Stripe::AuthenticationError => e
-      StripeLogger.error 'Authentication with Stripe\'s API failed. Maybe you changed API keys recently.'
-    rescue Stripe::APIConnectionError => e
-      StripeLogger.error 'Network communication with Stripe failed.'
-    rescue Stripe::StripeError => e
-      StripeLogger.error 'Genric Stripe error.'
+    def assign_card_details(user_attributes_to_update, params)
+      return unless params[:card_last4] && params[:stripeToken]
+      user_attributes_to_update.merge!(
+        card_last4: params[:card_last4],
+        card_exp_month: params[:card_exp_month],
+        card_exp_year: params[:card_exp_year],
+        card_type: params[:card_brand]
+      )
     end
-    return stripe_success
-  end
+
+    def stripe_call(&block)
+      stripe_success = false
+      begin
+        yield
+        stripe_success = true
+      # https://stripe.com/docs/api?lang=ruby#errors
+      rescue Stripe::CardError => e
+        StripeLogger.error(e.json_body[:error])
+      rescue Stripe::RateLimitError
+        StripeLogger.error "Too many requests made to the API too quickly."
+      rescue Stripe::InvalidRequestError
+        StripeLogger.error "Invalid parameters were supplied to Stripe's API."
+      rescue Stripe::AuthenticationError
+        StripeLogger.error("Authentication with Stripe's API failed. Maybe you changed API keys recently. sdfgdfg")
+      rescue Stripe::APIConnectionError
+        StripeLogger.error "Network communication with Stripe failed."
+      rescue Stripe::StripeError
+        StripeLogger.error "Genric Stripe error."
+      end
+      stripe_success
+    end
 end

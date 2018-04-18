@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CurrencyHelper
   def invoice_pdf_link(invoice)
     link_to(

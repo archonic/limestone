@@ -1,33 +1,66 @@
+inherit_from: .rubocop.relaxed.yml
+
 AllCops:
   TargetRubyVersion: 2.5
+
+  Include:
+    - 'config.ru'
+    - 'Gemfile'
+    - 'Guardfile'
+    - 'Rakefile'
+
+  Exclude:
+    - 'bin/*'
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+    - 'log/**/*'
+    - 'node_modules/**/*'
+    - 'public/**/*'
+    - 'scripts/**/*'
+    - 'vendor/**/*'
+    - 'tmp/**/*'
 
 Documentation:
   # Skips checking to make sure top level modules / classes have a comment.
   Enabled: false
 
-Style/PercentLiteralDelimiters:
-  PreferredDelimiters:
-    default: ()
-    '%r': '{}'
-    '%w': '()'
-    '%W': '()'
-    '%i': '()'
-    '%I': '()'
+IndentationConsistency:
+  EnforcedStyle: 'rails'
 
-Style/ClassAndModuleChildren:
-  # Skips checking the style of children definitions at classes and modules.
-  #
-  # Basically there are two different styles:
-  #
-  # `nested` - have each child on a separate line
-  #   class Foo
-  #     class Bar
-  #     end
-  #   end
-  #
-  # `compact` - combine definitions as much as possible
-  #   class Foo::Bar
-  #   end
-  #
-  # With it disabled, either or is valid.
-  Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - 'Guardfile'
+
+Naming/FileName:
+  Exclude:
+    - 'Gemfile'
+    - 'Guardfile'
+    - 'Rakefile'
+
+Rails:
+  Enabled: true
+
+Style:
+  PreferredDelimiters:
+    Enabled: false
+
+  ClassAndModuleChildren:
+    Enabled: false
+
+  SymbolArray:
+    Enabled: false
+
+StringLiterals:
+  EnforcedStyle: double_quotes
+  Exclude:
+    - './*_helper.rb'
+
+Metrics/MethodLength:
+  Enabled: true
+  Max: 20
+
+Metrics/LineLength:
+  Max: 100
+
+Layout/AlignParameters:
+  EnforcedStyle: with_fixed_indentation

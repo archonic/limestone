@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AvatarsController < ApplicationController
   before_action :set_user, only: [:update, :destroy]
   before_action :set_avatar, only: [:update, :destroy]

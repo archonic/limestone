@@ -1,6 +1,7 @@
-require_relative 'boot'
+# frozen_string_literal: true
 
-require 'rails/all'
+require_relative "boot"
+require "rails/all"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -52,10 +53,5 @@ module Limestone
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-
-    # Write stripe events to seperate log
-    $stripe_log_path = 'log/stripe.log'
-
-    $trial_period_days = ENV['TRIAL_PERIOD_DAYS'] || 14
   end
 end

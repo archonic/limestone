@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   include Discard::Model
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
-  has_many :invoices
+    :recoverable, :rememberable, :trackable, :validatable
+  has_many :invoices, dependent: :destroy
   has_one_attached :avatar
   # set optional: true if you don't want the default Rails 5 belongs_to presence validation
   belongs_to :plan
@@ -37,7 +39,7 @@ class User < ApplicationRecord
 
   def trial_expired?
     trialing? &&
-    current_period_end < Time.current
+      current_period_end < Time.current
   end
 
   # Allows features to be flipped for individuals
@@ -47,12 +49,12 @@ class User < ApplicationRecord
 
   private
 
-  def setup_new_user
-    self.role ||= :basic
-    self.current_period_end = Time.current + $trial_period_days.days
-  end
+    def setup_new_user
+      self.role ||= :basic
+      self.current_period_end = Time.current + TRIAL_PERIOD_DAYS.days
+    end
 
-  def set_name
-    self.name = [first_name, last_name].join(' ').strip
-  end
+    def set_name
+      self.name = [first_name, last_name].join(' ').strip
+    end
 end

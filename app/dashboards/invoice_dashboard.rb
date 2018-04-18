@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "administrate/base_dashboard"
 
 class InvoiceDashboard < Administrate::BaseDashboard
@@ -29,38 +31,38 @@ class InvoiceDashboard < Administrate::BaseDashboard
   #
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
-  COLLECTION_ATTRIBUTES = [
-    :id,
-    :user,
-    :stripe_id,
-    :amount,
-    :currency,
-    :card_type,
-    :card_last4,
-    :card_exp_month,
-    :card_exp_year,
-    :number,
-    :paid_at,
-    :created_at,
-  ].freeze
+  COLLECTION_ATTRIBUTES = %i(
+    id
+    user
+    stripe_id
+    amount
+    currency
+    card_type
+    card_last4
+    card_exp_month
+    card_exp_year
+    number
+    paid_at
+    created_at
+  ).freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
-  SHOW_PAGE_ATTRIBUTES = [
-    :id,
-    :user,
-    :stripe_id,
-    :amount,
-    :currency,
-    :card_type,
-    :card_last4,
-    :card_exp_month,
-    :card_exp_year,
-    :number,
-    :paid_at,
-    :lines,
-    :created_at,
-  ].freeze
+  SHOW_PAGE_ATTRIBUTES = %i(
+    id
+    user
+    stripe_id
+    amount
+    currency
+    card_type
+    card_last4
+    card_exp_month
+    card_exp_year
+    number
+    paid_at
+    lines
+    created_at
+  ).freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed

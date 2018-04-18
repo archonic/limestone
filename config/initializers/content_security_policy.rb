@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This is required in Rails 5.2 due to it being a restricted CSP environment
 # https://github.com/rails/webpacker#development
 # https://github.com/rails/rails/pull/31162
