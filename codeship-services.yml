@@ -3,8 +3,13 @@ web:
   links:
     - postgres
     - redis
+    - webpack
   encrypted_env_file: .env.encrypted
   cached: true
+webpack:
+  build: ./
+  encrypted_env_file: .env.encrypted
+  command: ./bin/webpack-dev-server --inline true
 postgres:
   image: 'postgres:10-alpine'
   environment:
