@@ -5,7 +5,7 @@ web:
     - redis
     - webpack
   encrypted_env_file: .env.encrypted
-  cached: false
+  cached: true
 
 webpack:
   build: .
@@ -13,19 +13,21 @@ webpack:
   command: ./bin/webpack-dev-server --inline true
   volumes:
     - '.:/app'
-  cached: false
+  cached: true
 
 postgres:
   image: 'postgres:10-alpine'
   environment:
     POSTGRES_USER: 'limestone'
     POSTGRES_PASSWORD: 'yourpassword'
+  cached: true
 
 redis:
   image: 'redis:3.2-alpine'
   command: redis-server --requirepass yourpassword
   volumes:
     - 'redis:/data'
+  cached: true
 
 # codeship_heroku_deployment:
 #   image: codeship/heroku-deployment
