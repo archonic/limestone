@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :invoice do
     association :user
@@ -17,28 +19,29 @@ FactoryBot.define do
         "livemode": false,
         "metadata": {},
         "period": {
-          "start": 1517179826,
-          "end": 1518389426},
-          "plan": {
-            "id": "example-plan-id",
-            "object": "plan",
-            "amount": 1500,
-            "created": 1517179573,
-            "currency": "usd",
-            "interval": "month",
-            "interval_count": 1,
-            "livemode": false,
-            "metadata": {},
-            "name": "Pro",
-            "statement_descriptor": nil,
-            "trial_period_days": 14
-          },
-          "proration": false,
-          "quantity": 1,
-          "subscription": nil,
-          "subscription_item": "si_00000000000000",
-          "type": "subscription"
-        }
-      ]
+          "start": 151_717_982_6,
+          "end": 151_838_942_6
+        },
+        "plan": {
+          "id": "example-plan-id",
+          "object": "plan",
+          "amount": 1500,
+          "created": 151_717_957_3,
+          "currency": "usd",
+          "interval": "month",
+          "interval_count": 1,
+          "livemode": false,
+          "metadata": {},
+          "name": "Pro",
+          "statement_descriptor": nil,
+          "trial_period_days": 14
+        },
+        "proration": false,
+        "quantity": 1,
+        "subscription": nil,
+        "subscription_item": "si_00000000000000",
+        "type": "subscription"
+      }
+    ]
   end
 end

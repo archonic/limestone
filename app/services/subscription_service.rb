@@ -40,11 +40,7 @@ class SubscriptionService
       subscription.source = @params[:stripeToken] if @params[:stripeToken]
       # Update plan if one is provided, otherwise use user's existing plan
       # TODO providing plan_id is untested
-      plan_stripe_id = if @params[:plan_id]
-        Plan.find(@params[:plan_id]).stripe_id
-      else
-        @user.plan.stripe_id
-      end
+      plan_stripe_id = @params[:plan_id] ? Plan.find(@params[:plan_id]).stripe_id : @user.plan.stripe_id
       subscription.items = [{
         id: subscription.items.data[0].id,
         plan: plan_stripe_id
@@ -56,9 +52,7 @@ class SubscriptionService
     # This is updated by the stripe webhook customer.updated
     # But we can update it here for a faster optimistic 'response'
     assign_card_details(user_attributes_to_update, @params)
-    user_attributes_to_update.merge!(
-      plan_id: @params[:plan_id].to_i
-    ) if @params[:plan_id]
+    user_attributes_to_update[:plan_id] = @params[:plan_id].to_i if @params[:plan_id]
     @user.update(user_attributes_to_update) if user_attributes_to_update.any?
     return true if success
   end
@@ -93,7 +87,7 @@ class SubscriptionService
     def stripe_call(&block)
       stripe_success = false
       begin
-        yield
+        yield if block
         stripe_success = true
       # https://stripe.com/docs/api?lang=ruby#errors
       rescue Stripe::CardError => e

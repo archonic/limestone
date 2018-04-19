@@ -7,12 +7,29 @@ RSpec.describe InvoicesController, type: :request do
   let(:stripe_helper) { StripeMock.create_test_helper }
   before do
     StripeMock.start
-    stripe_helper.create_plan(id: 'example-plan-id', name: 'World Domination', amount: 100000, trial_period_days: TRIAL_PERIOD_DAYS)
+    stripe_helper.create_plan(
+      id: 'example-plan-id',
+      name: 'World Domination',
+      amount: 100_000,
+      trial_period_days: TRIAL_PERIOD_DAYS
+    )
   end
   after { StripeMock.stop }
   let(:mock_customer) { Stripe::Customer.create }
-  let(:mock_subscription) { mock_customer.subscriptions.create(plan: 'example-plan-id') }
-  let(:user_subscribed) { create(:user, :subscribed, stripe_id: mock_customer.id, stripe_subscription_id: mock_subscription.id) }
+  let(:mock_subscription) do
+    mock_customer.subscriptions.create(
+      plan: 'example-plan-id'
+    )
+  end
+  let(:user_subscribed) do
+    create(
+      :user,
+      :subscribed,
+      stripe_id:
+      mock_customer.id,
+      stripe_subscription_id: mock_subscription.id
+    )
+  end
   let(:user) { create(:user, :trialing) }
   let(:invoice) { create(:invoice) }
 

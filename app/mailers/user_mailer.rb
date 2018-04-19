@@ -7,7 +7,7 @@ class UserMailer < ApplicationMailer
     @user = user
     mail(
       to: email_with_name(user),
-      subject: '[Limestone] Welcome!'
+      subject: "[Limestone] Welcome!"
     )
   end
 
@@ -15,7 +15,7 @@ class UserMailer < ApplicationMailer
     @user = user
     mail(
       to: email_with_name(user),
-      subject: '[Limestone] Billing Updated'
+      subject: "[Limestone] Billing Updated"
     )
   end
 

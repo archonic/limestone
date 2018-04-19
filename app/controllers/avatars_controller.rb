@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class AvatarsController < ApplicationController
-  before_action :set_user, only: [:update, :destroy]
-  before_action :set_avatar, only: [:update, :destroy]
+  before_action :set_user, only: %i(update destroy)
+  before_action :set_avatar, only: %i(update destroy)
   respond_to :json
   layout false
 
@@ -10,7 +10,7 @@ class AvatarsController < ApplicationController
     if params.try(:[], :user).try(:[], :avatar).present?
       avatar_uploaded = params[:user][:avatar]
     else
-      head :unauthorized and return
+      head :unauthorized && return
     end
 
     respond_to do |format|
@@ -33,16 +33,16 @@ class AvatarsController < ApplicationController
 
   private
 
-  def set_user
-    @user = current_user
-    raise Pundit::NotAuthorizedError unless @user.present?
-  end
+    def set_user
+      @user = current_user
+      raise Pundit::NotAuthorizedError if @user.blank?
+    end
 
-  def set_avatar
-    @avatar = @user.avatar || @user.avatar.new
-  end
+    def set_avatar
+      @avatar = @user.avatar || @user.avatar.new
+    end
 
-  def avatar_params
-    params.require(:user).permit(:avatar)
-  end
+    def avatar_params
+      params.require(:user).permit(:avatar)
+    end
 end

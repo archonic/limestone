@@ -28,14 +28,7 @@ IndentationConsistency:
   EnforcedStyle: 'rails'
 
 Metrics/BlockLength:
-  Exclude:
-    - 'Guardfile'
-
-Naming/FileName:
-  Exclude:
-    - 'Gemfile'
-    - 'Guardfile'
-    - 'Rakefile'
+  Enabled: false
 
 Rails:
   Enabled: true
@@ -55,9 +48,9 @@ StringLiterals:
   Exclude:
     - './*_helper.rb'
 
-Metrics/MethodLength:
-  Enabled: true
-  Max: 20
+# Metrics/MethodLength:
+#   Enabled: true
+#   Max: 20
 
 Metrics/LineLength:
   Max: 100

@@ -1,6 +1,6 @@
 test:
   service: Disk
-  root: <%= Rails.root.join("tmp/storage") %>
+  root: <%= Rails.root.join("tmp", "storage") %>
 
 local:
   service: Disk
@@ -18,7 +18,7 @@ amazon:
 # google:
 #   service: GCS
 #   project: your_project
-#   keyfile: <%= Rails.root.join("path/to/gcs.keyfile") %>
+#   keyfile: <%= Rails.root.join("path", "to", "gcs.keyfile") %>
 #   bucket: your_own_bucket
 
 # Use rails credentials:edit to set the Azure Storage secret (as azure_storage:storage_access_key)

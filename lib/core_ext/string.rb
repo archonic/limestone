@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class String
-  def initials(n = 3)
+  def initials(length = 3)
     return nil if blank?
-    split.map(&:first)[0..(n - 1)].join('').upcase
+    split.map(&:first)[0..(length - 1)].join('').upcase
   end
 end

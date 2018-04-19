@@ -35,7 +35,7 @@ module Limestone
     config.cache_store = :redis_store, "#{ENV['REDIS_BASE_URL']}cache"
 
     # Load/require lib/core_ext
-    config.autoload_paths += Dir[File.join(Rails.root, "lib", "core_ext", "*.rb")].each {|l| require l }
+    config.autoload_paths += Dir[Rails.root.join("lib", "core_ext", "*.rb")].each { |l| require l }
 
     # Set Sidekiq as the back-end for Active Job.
     config.active_job.queue_adapter = :sidekiq
@@ -48,7 +48,7 @@ module Limestone
     # origins = ENV['ACTION_CABLE_ALLOWED_REQUEST_ORIGINS'].split(',')
     # origins.map! { |url| /#{url}/ }
     # config.action_cable.allowed_request_origins = origins
-    config.action_cable.allowed_request_origins = /http:\/\/localhost*/
+    config.action_cable.allowed_request_origins = %r http:\/\/localhost*
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

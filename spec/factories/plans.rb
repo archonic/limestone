@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'stripe_mock'
 
 FactoryBot.define do
   factory :plan do
     name 'World Domination'
-    amount 100000
+    amount 100_000
     interval 'month'
     currency 'usd'
     associated_role 'basic'

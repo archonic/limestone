@@ -15,7 +15,7 @@ class Invoice < ApplicationRecord
         name: "Limestone Inc.",
         address: "123 Example St\nSuite 42\nNew York City, NY 10012",
         email: "support@example.com",
-        logo: Rails.root.join("app/assets/images/logo.png")
+        logo: Rails.root.join("app", "assets", "images", "logo.png")
       },
       line_items: [
         ["Date",           formatted_invoice_date],

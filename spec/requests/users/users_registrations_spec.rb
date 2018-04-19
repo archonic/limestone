@@ -14,7 +14,7 @@ RSpec.describe Users::RegistrationsController, type: :request do
       trial_period_days: TRIAL_PERIOD_DAYS
     )
     # Allow public registration before testing it
-    $flipper.enable :public_registration
+    Flipper.enable :public_registration
   end
   after { StripeMock.stop }
 
