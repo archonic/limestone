@@ -29,7 +29,7 @@ plans = Plan.create(
     }
   ]
 )
-Rails.logger "CREATED PLANS #{plans.map(&:name).join(', ')}"
+puts "CREATED PLANS #{plans.map(&:name).join(', ')}"
 
 admin_user = CreateAdminService.call
-Rails.logger "CREATED ADMIN USER: " << admin_user.email
+puts "CREATED ADMIN USER: " << admin_user.email
