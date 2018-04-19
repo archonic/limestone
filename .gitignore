@@ -17,9 +17,13 @@
 /yarn-error.log
 
 .byebug_history
+
+# Webpacker ignores
 /public/packs
 /public/packs-test
-/node_modules/*
+/node_modules
+yarn-debug.log*
+.yarn-integrity
 
 /config/secrets.yml
 .env

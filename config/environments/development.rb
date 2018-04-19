@@ -2,6 +2,11 @@
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  # Verifies that versions and hashed value of the package contents in the project's package.json
+  config.webpacker.check_yarn_integrity = true
+
+  # Verifies that versions and hashed value of the package contents in the project's package.json
+  config.webpacker.check_yarn_integrity = true
 
   # Allow rendering console from outside docker network
   config.web_console.whiny_requests = false
