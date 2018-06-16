@@ -46,14 +46,14 @@ The gemset has been chosen to be modern, performant, and take care of a number o
 
 ## Notes
 * RSpec controller tests have been omitted in favour of requests tests.
-* You can run tests locally with `docker-compose run website rspec`
+* You can run tests locally with `docker-compose run web rspec`
 
 ## Getting Started
 * Install [Docker](https://docs.docker.com/engine/installation/)
 * Customize .env from .env-example
 * run `docker-compose run webpacker yarn install --pure-lockfile` to install all node modules. See issue #3 about this.
 * run `docker-compose up --build` to create and run the various images, volumes, containers and a network
-* run `docker-compose exec website rails db:setup` to create DB, load schema and seed. Seeding will also create your plan(s) in Stripe.
+* run `docker-compose exec web rails db:setup` to create DB, load schema and seed. Seeding will also create your plan(s) in Stripe.
 * Visit localhost:3000 and rejoice
 
 ### Bonus points
@@ -62,4 +62,4 @@ The gemset has been chosen to be modern, performant, and take care of a number o
 * Create the feature `public_registration` as a boolean and enable it. Now anyone can register :clap:
 
 ### Setting up production
-A wiki will be written about this.
+A wiki will be written about this. Need to learn more about Kubernetes. Feel free to help out here if you're familiar with Docker/Kubernetes.
