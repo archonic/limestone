@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.5.1'
 
 # Pretty admin dashboards
-gem 'administrate', github: 'mattgillooly/administrate', branch: 'support-rails-5.2'
+gem 'administrate', '~> 0.10'
 
 # Upload to S3 directly
 gem 'aws-sdk-s3', '~> 1'
@@ -100,7 +100,7 @@ end
 
 group :test do
   gem 'database_cleaner', '~> 1.6'
-  gem 'ffaker', '~> 2.7'
+  gem 'faker', '~> 1.8'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'simplecov', require: false
 end
