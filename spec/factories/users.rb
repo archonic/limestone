@@ -2,9 +2,9 @@
 
 FactoryBot.define do
   factory :user do
-    first_name { FFaker::Name.first_name }
-    last_name { FFaker::Name.last_name }
-    email {  FFaker::Internet.email }
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
+    email {  Faker::Internet.email }
     password 'password'
     password_confirmation 'password'
     association :plan

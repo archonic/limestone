@@ -23,10 +23,10 @@ RSpec.describe Users::RegistrationsController, type: :request do
       let(:plan) { create(:plan) }
       let(:valid_user_params) do
         {
-          email: FFaker::Internet.email,
+          email: Faker::Internet.email,
           password: "password",
-          first_name: FFaker::Name.first_name,
-          last_name: FFaker::Name.last_name,
+          first_name: Faker::Name.first_name,
+          last_name: Faker::Name.last_name,
           plan_id: plan.id
         }
       end
@@ -64,9 +64,9 @@ RSpec.describe Users::RegistrationsController, type: :request do
     context "with invalid parameters" do
       let(:invalid_user_params) do
         {
-          email: FFaker::Internet.email,
+          email: Faker::Internet.email,
           password: "password",
-          first_name: FFaker::Name.first_name
+          first_name: Faker::Name.first_name
         }
       end
       let(:user) { User.find_by(email: invalid_user_params[:email]) }
