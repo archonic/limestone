@@ -12,8 +12,8 @@ Rails.application.routes.draw do
       end
       get :stop_impersonating, to: :stop_impersonating, controller: "users"
       resources :invoices
-
-      mount Flipper::UI.app(Flipper.instance) => "/flipper", as: "flipper"
+      mount Flipper::UI.app(Flipper) => '/flipper', as: 'flipper'
+      mount Sidekiq::Web => '/sidekiq', as: 'sidekiq'
     end
   end
 
@@ -38,11 +38,6 @@ Rails.application.routes.draw do
   authenticated :user do
     root to: "dashboard#show", as: "dashboard"
     get "pro", to: "pages#pro"
-
-    # This will check user from DB on every poll from /admin/sidekiq. May not want that.
-    authenticate :user, lambda { |u| u.admin? } do
-      mount Sidekiq::Web => "/sidekiq"
-    end
   end
 
   # Avatars

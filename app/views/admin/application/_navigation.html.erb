@@ -11,6 +11,6 @@ as defined by the routes in the `admin/` namespace
   <% Administrate::Namespace.new(namespace).resources.each do |resource| %>
     <%= link_to(display_resource_name(resource), [namespace, resource.path], class: "navigation__link navigation__link--#{nav_link_state(resource)}") %>
   <% end %>
-  <%= link_to 'Sidekiq', sidekiq_web_path, class: 'navigation__link navigation__link--sidekiq', target: :_blank %>
+  <%= link_to 'Sidekiq', admin_sidekiq_path, class: 'navigation__link navigation__link--sidekiq', target: :_blank %>
   <%= link_to 'Features', admin_flipper_path, class: 'navigation__link navigation__link--features', target: :_blank  %>
 </nav>
