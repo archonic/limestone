@@ -14,10 +14,7 @@ class Plan < ApplicationRecord
   include ActionView::Helpers::NumberHelper
 
   def cost
-    [
-      number_to_currency(amount / 100),
-      currency.try(:upcase)
-    ].join(' ').strip
+    formatted_amount(amount, currency)
   end
 
   private

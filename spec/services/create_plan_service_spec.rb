@@ -4,7 +4,6 @@ require "rails_helper"
 require "stripe_mock"
 
 RSpec.describe CreatePlanService, type: :service do
-  let(:stripe_helper) { StripeMock.create_test_helper }
   let(:plan) { create(:plan) }
   before do
     Rails.stub(env: ActiveSupport::StringInquirer.new("development"))
