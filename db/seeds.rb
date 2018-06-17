@@ -15,14 +15,14 @@ if !Rails.env.test?
   plans = Plan.create(
     [
       {
-        name: "Basic",
+        name: "#{Rails.env}_Basic",
         amount: 900,
         interval: "month",
         associated_role: "basic",
         currency: "usd"
       },
       {
-        name: "Pro",
+        name: "#{Rails.env}_Pro",
         amount: 1500,
         interval: "month",
         associated_role: "pro",
