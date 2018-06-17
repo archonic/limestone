@@ -3,7 +3,7 @@
 set -e
 
 bin/wait-for-postgres
-
+export RAILS_ENV="test"
 time bundle exec rake db:create
 time bundle exec rake db:migrate
 time bundle exec rake db:seed
