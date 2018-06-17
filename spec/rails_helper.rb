@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-puts "#{ENV["RAILS_ENV"]}"
 ENV["RAILS_ENV"] = "test"
-puts "#{ENV["RAILS_ENV"]}"
 require "simplecov"
 SimpleCov.start "rails"
 require "spec_helper"
