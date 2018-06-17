@@ -11,25 +11,28 @@
 # This will create plans in your Stripe account. Check that you don't have duplicates
 # or comment out/remove if you want to manage plans manually.
 # https://stripe.com/docs/api#plan_object
-plans = Plan.create(
-  [
-    {
-      name: "Basic",
-      amount: 900,
-      interval: "month",
-      associated_role: "basic",
-      currency: "usd"
-    },
-    {
-      name: "Pro",
-      amount: 1500,
-      interval: "month",
-      associated_role: "pro",
-      currency: "usd"
-    }
-  ]
-)
-puts "CREATED PLANS #{plans.map(&:name).join(', ')}"
-
-admin_user = CreateAdminService.call
-puts "CREATED ADMIN USER: " << admin_user.email
+if !Rails.env.test?
+  plans = Plan.create(
+    [
+      {
+        name: "Basic",
+        amount: 900,
+        interval: "month",
+        associated_role: "basic",
+        currency: "usd"
+      },
+      {
+        name: "Pro",
+        amount: 1500,
+        interval: "month",
+        associated_role: "pro",
+        currency: "usd"
+      }
+    ]
+  )
+  puts "CREATED PLANS #{plans.map(&:name).join(', ')}."
+  admin_user = CreateAdminService.call
+  puts "CREATED ADMIN USER: #{admin_user.email}."
+else
+  puts "SKIPPED PLAN AND ADMIN CREATION BECAUSE WE'RE IN TEST."
+end
