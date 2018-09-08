@@ -50,7 +50,7 @@ The gemset has been chosen to be modern, performant, and take care of a number o
 ## Getting Started
 * Install [Docker](https://docs.docker.com/engine/installation/)
 * Customize .env from .env-example
-* run `docker-compose run webpacker yarn install --pure-lockfile` to install all node modules. See issue #3 about this.
+* run `docker-compose run webpack yarn install --pure-lockfile` to install all node modules. See issue #3 about this.
 * run `docker-compose up --build` to create and run the various images, volumes, containers and a network
 * run `docker-compose exec web rails db:setup` to create DB, load schema and seed. Seeding will also create your plan(s) in Stripe.
 * Visit localhost:3000 and rejoice
