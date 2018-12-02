@@ -1,22 +1,22 @@
 -# NOTE collapse behaviour in BS4 is less than ideal. Navbar collapsing will be revisited after 4.0 launches.
 %nav.navbar.navbar-expand-sm.navbar-light.bg-light.navbar-fixed-top
-  = link_to 'Brand', '/', class: 'navbar-brand'
-  %button.navbar-toggler{type: 'button', data: { toggle: 'collapse', target:'#nav_loggedin' }}
+  = link_to "Brand", "/", class: "navbar-brand"
+  %button.navbar-toggler{type: "button", data: { toggle: "collapse", target:"#nav_loggedin" }}
     %span.navbar-toggler-icon
   #nav_loggedin.collapse.navbar-collapse
     %ul.navbar-nav.mr-auto
-      %li.nav-item= link_to 'Dashboard', dashboard_path, class: 'nav-link'
+      %li.nav-item= link_to "Dashboard", dashboard_path, class: "nav-link"
       - if current_user.pro?
-        %li.nav-item= link_to 'Pro Page', pro_path, class: 'nav-link'
+        %li.nav-item= link_to "Pro Page", pro_path, class: "nav-link"
     %ul.navbar-nav.ml-auto
       .li.nav-item.dropdown
-        = link_to avatar(current_user, :sm), '#', {class: 'dropdown-toggle', 'data-toggle': 'dropdown', role: 'button', 'aria-haspopup': true, 'aria-expanded': false}
+        = link_to avatar(current_user, :sm), "#", {"data-toggle": "dropdown", role: "button", "aria-haspopup": true, "aria-expanded": false}
         .dropdown-menu.dropdown-menu-right
-          = link_to 'Account', edit_user_registration_path, class: 'dropdown-item'
+          = link_to "Account", edit_user_registration_path, class: "dropdown-item"
           - if current_user.admin?
-            = link_to 'Admin', admin_root_path, class: 'dropdown-item'
+            = link_to "Admin", admin_root_path, class: "dropdown-item"
           - else
-            = current_user.subscribed? ? link_to('Billing', billing_path, class: 'dropdown-item') : link_to('Subscribe ', subscribe_path, class: 'dropdown-item')
+            = current_user.subscribed? ? link_to("Billing", billing_path, class: "dropdown-item") : link_to("Subscribe ", subscribe_path, class: "dropdown-item")
           .dropdown-divider
-          = link_to "Stop Impersonating", admin_stop_impersonating_path, class: 'dropdown-item' if current_user != true_user
-          = link_to 'Logout', main_app.destroy_user_session_path, class: 'dropdown-item'
+          = link_to "Stop Impersonating", admin_stop_impersonating_path, class: "dropdown-item" if current_user != true_user
+          = link_to "Logout", main_app.destroy_user_session_path, class: "dropdown-item"
