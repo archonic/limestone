@@ -26,3 +26,5 @@ import '../packs/src/subscriptions'
 import '../packs/src/modals'
 import '../packs/src/global'
 console.log('Hello World from Webpacker')
+
+import "controllers"
