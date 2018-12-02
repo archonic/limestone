@@ -71,7 +71,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'simple_form', '~> 4'
 
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 3.4'
+gem 'webpacker', '>= 4.0.x'
 
 gem 'receipts'
 
