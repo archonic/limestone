@@ -12,10 +12,6 @@ module Limestone
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
-    # Set up logging to be the same in all environments but control the level
-    # through an environment variable.
-    config.log_level = ENV['LOG_LEVEL']
-
     # Log to STDOUT because Docker expects all processes to log here. You could
     # then redirect logs to a third party service on your own such as systemd,
     # or a third party host such as Loggly, etc..
