@@ -43,7 +43,7 @@ RSpec.describe InvoicesController, type: :request do
       before { sign_in user_subscribed }
 
       it 'serves an invoice PDF' do
-        expect(subject).to have_http_status(:success)
+        expect(subject).to have_http_status(200)
         expect(subject.header['Content-Type']).to eq 'application/pdf'
       end
     end

@@ -49,7 +49,7 @@ RSpec.describe SubscriptionsController, type: :request do
       before { sign_in user_subscribed }
 
       it "shows card on file" do
-        expect(subject).to have_http_status(:success)
+        expect(subject).to have_http_status(200)
         expect(subject.body).to include "Visa **** **** **** 4242"
         expect(subject.body).to include "Expires 12 / 2025"
       end

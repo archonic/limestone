@@ -16,7 +16,7 @@ RSpec.describe "Administrate Dashboards", type: :request do
       end
 
       it "allows admins to access /admin" do
-        expect(subject).to have_http_status(:success)
+        expect(subject).to have_http_status(200)
       end
 
       describe "impersonate" do
@@ -43,7 +43,7 @@ RSpec.describe "Administrate Dashboards", type: :request do
       end
 
       it "allows admins to access /admin" do
-        expect(subject).to have_http_status(:success)
+        expect(subject).to have_http_status(200)
       end
     end
   end
