@@ -21,7 +21,7 @@ The [gemset](https://github.com/archonic/limestone-accounts/blob/master/Gemfile)
 * Pretty modals using bootstrap integrated into rails_ujs data-confirm. Demonstrated with cancel account button.
 * Banner with a link to billing page users that are past due.
 * Opinionated search integration using Elasticsearch via Searchkick. Gem is in place but integration is up to you.
-* Feature control using the flipper gem. Demonstrated with public_registration.
+* Feature control using the [Flipper](https://github.com/jnunemaker/flipper) gem. Demonstrated with the `public_registration` feature.
 * 86% RSpec test coverage.
 
 ## Roadmap
@@ -33,19 +33,42 @@ The [gemset](https://github.com/archonic/limestone-accounts/blob/master/Gemfile)
 * You can run tests locally with `docker-compose run web rspec`
 * Because this is a boilerplate, there are no migrations. Rely on schema.rb and use `rails db:setup` to create the db and seed.
 
-## Getting Started
-* Install [Docker](https://docs.docker.com/engine/installation/)
-* Customize .env from .env-example
-* run `docker-compose run webpack yarn install --pure-lockfile` to install all node modules. See issue #3 about this.
-* run `docker-compose up --build` to create and run the various images, volumes, containers and a network
-* run `docker-compose exec web rails db:setup` to create DB, load schema and seed. Seeding will also create your plan(s) in Stripe.
-* Visit localhost:3000 and rejoice
-* See more about [development with Docker](https://github.com/archonic/limestone/wiki/Development-with-Docker)
+## Pre-requisites
+* Install [Docker](https://docs.docker.com/engine/installation/) and [Docker Compose](https://docs.docker.com/compose/install/)
+* A [Stripe](https://dashboard.stripe.com/register) account and a [Stripe API Key](https://stripe.com/docs/keys).
 
-### Bonus points
-* Login as the admin user that was created (from .env)
-* Visit /admin/flipper
-* Create the feature `public_registration` as a boolean and enable it. Now anyone can register :clap:
+## Getting Started
+1. Clone this repository to your local system and `cd` into it:
+    ```
+    git clone https://github.com/archonic/limestone.git
+    cd limestone
+    ```
+
+2. Make a copy of `.env-example` named `.env`:
+    ```
+    cp .env-example .env
+    ```
+
+3. Update the `.env` file - running the project in development mode requires you change the following:
+    - `STRIPE_API_KEY`
+    - `STRIPE_PUBLISHABLE_KEY`
+    - `STRIPE_SIGNING_SECRET` (This can be something random)
+
+    You may also want to update the `ADMIN_*` environment variables as well.
+
+4. Run `docker-compose run webpack yarn install --pure-lockfile` to install all node modules. See issue #3 about this.
+
+5. Run `docker-compose up --build` to create and run the various images, volumes, containers and a network
+
+6. Run `docker-compose exec web rails db:setup` to create DB, load schema and seed. Seeding will also create your plan(s) in Stripe.
+
+7. Visit [http://localhost:3000](http://localhost:3000) and rejoice :tada: You can login using the Admin user defined in `.env`
+
+8. See the [Limestone Wiki](https://github.com/archonic/limestone/wiki) more about [development with Docker](https://github.com/archonic/limestone/wiki/Development-with-Docker)
+
+### Enable Public User Registration
+1. Visit the `/admin/flipper` page
+2. Create a new Feature called `public_registration` enable it. Now anyone can register :clap:
 
 ### Setting up production
 A wiki will be written about this. Need to learn more about Kubernetes. Feel free to help out here if you're familiar with Docker/Kubernetes.
