@@ -11,20 +11,20 @@ import 'jquery'
 window.$ = window.jQuery = require('jquery');
 
 import 'bootstrap'
+import './src/application'
 
 import Rails from 'rails-ujs';
 import Turbolinks from 'turbolinks';
 Rails.start();
 Turbolinks.start();
 
-import * as ActiveStorage from "activestorage"
+import * as ActiveStorage from 'activestorage'
 ActiveStorage.start()
 
-// Does not process requires when imported like this
-import '../../assets/javascripts/application'
-import '../packs/src/subscriptions'
-import '../packs/src/modals'
-import '../packs/src/global'
-console.log('Hello World from Webpacker')
+import './subscriptions'
+import './modals'
+import './global'
 
-import "controllers"
+import 'controllers'
+
+console.log('Hello World from Webpacker')

@@ -2,22 +2,20 @@
   "name": "limestone",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "^4.0.0-pre.3",
-    "activestorage": "^0.1.1",
+    "@rails/webpacker": "^4.0.7",
+    "activestorage": "5.2.3",
     "bootstrap": "4.3.1",
     "coffee-loader": "^0.9.0",
     "coffeescript": "1.12.7",
-    "font-awesome": "^4.7.0",
-    "jquery": "^3.2.1",
-    "popper.js": "1.15.0",
+    "font-awesome": "4.7.0",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.15.0",
     "postcss-smart-import": "^0.7.6",
-    "rails-ujs": "^5.1.4",
-    "stimulus": "^1.1.0",
-    "turbolinks": "^5.1.1"
+    "rails-ujs": "^5.2.3",
+    "stimulus": "^1.1.1",
+    "turbolinks": "^5.2.0"
   },
   "devDependencies": {
-    "webpack": "^4.8.3",
-    "webpack-cli": "^3.1.1",
-    "webpack-dev-server": "^3.1.4"
+    "webpack-dev-server": "^3.7.2"
   }
 }

@@ -15,6 +15,5 @@ environment.plugins.prepend(
   })
 )
 
-environment.loaders.append('coffee', coffee)
-// console.log(environment)
+environment.loaders.prepend('coffee', coffee)
 module.exports = environment
