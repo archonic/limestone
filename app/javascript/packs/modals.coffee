@@ -1,5 +1,3 @@
-# Not sure why this is needed after webpack update
-$ = require('jquery');
 # Modified from https://github.com/ifad/data-confirm-modal/blob/master/vendor/assets/javascripts/data-confirm-modal.js
 $ ->
   ###*
