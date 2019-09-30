@@ -135,7 +135,7 @@ GEM
     elasticsearch-transport (6.1.0)
       faraday
       multi_json
-    erubi (1.8.0)
+    erubi (1.9.0)
     erubis (2.7.0)
     execjs (2.7.0)
     factory_bot (4.10.0)
@@ -203,7 +203,7 @@ GEM
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
-    loofah (2.2.3)
+    loofah (2.3.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -215,7 +215,7 @@ GEM
     mini_magick (4.9.4)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
-    minitest (5.11.3)
+    minitest (5.12.2)
     momentjs-rails (2.20.1)
       railties (>= 3.1)
     msgpack (1.2.4)
@@ -365,7 +365,7 @@ GEM
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (>= 3.3.5, < 5)
-    simple_form (4.0.1)
+    simple_form (5.0.0)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
     simplecov (0.16.1)
@@ -464,7 +464,7 @@ DEPENDENCIES
   selenium-webdriver
   shoulda-matchers (~> 3.1)
   sidekiq (~> 5)
-  simple_form (~> 4)
+  simple_form (~> 5)
   simplecov
   spring
   spring-watcher-listen (~> 2.0.0)

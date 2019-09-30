@@ -68,7 +68,7 @@ gem 'uglifier', '>= 1.3.0'
 # TODO: Consider replacing with active_model_serializers
 gem 'jbuilder', '~> 2.5'
 
-gem 'simple_form', '~> 4'
+gem 'simple_form', '~> 5'
 
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '>= 4.0.x'
