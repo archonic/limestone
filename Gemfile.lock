@@ -242,7 +242,7 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
     public_suffix (3.0.2)
-    puma (3.11.4)
+    puma (3.12.2)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (2.0.7)
@@ -450,7 +450,7 @@ DEPENDENCIES
   pg (~> 0.21)
   pretender (~> 0.3)
   pry
-  puma (~> 3.11)
+  puma (~> 3.12)
   pundit (~> 1)
   rack-timeout (~> 0.4)
   rails (~> 5.2)
