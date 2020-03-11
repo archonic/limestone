@@ -71,7 +71,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'simple_form', '~> 5'
 
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '>= 4.0.x'
+gem 'webpacker', '>= 4'
 
 gem 'receipts'
 
@@ -84,10 +84,6 @@ gem 'sidekiq', '~> 5'
 # Stripe stuff
 gem 'stripe', '~> 3'
 gem 'stripe_event', '~> 2.1'
-
-# Use Clockwork or Whenever for recurring background tasks
-# gem 'clockwork'
-# gem 'whenever'
 
 group :development do
   gem 'haml-lint', require: false
