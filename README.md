@@ -24,10 +24,6 @@ The [gemset](https://github.com/archonic/limestone-accounts/blob/master/Gemfile)
 * Feature control using the [Flipper](https://github.com/jnunemaker/flipper) gem. Demonstrated with the `public_registration` feature.
 * 86% RSpec test coverage.
 
-## Roadmap
-* In-browser image cropping using jcrop or the likes.
-* Custom error pages.
-
 ## Notes
 * RSpec controller tests have been omitted in favour of requests tests.
 * You can run tests locally with `docker-compose run web rspec`
