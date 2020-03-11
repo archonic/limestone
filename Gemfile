@@ -12,7 +12,7 @@ gem 'administrate', '~> 0.10'
 gem 'aws-sdk-s3', '~> 1'
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.3', require: false
+gem 'bootsnap', '>= 1.4.2', require: false
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
@@ -45,7 +45,7 @@ gem 'pretender', '~> 0.3'
 gem 'pundit', '~> 1'
 
 # Use Puma as the app server
-gem 'puma', '~> 3.12'
+gem 'puma', '~> 4'
 
 # Use Rack Timeout. Read more: https://github.com/heroku/rack-timeout
 gem 'rack-timeout', '~> 0.4'
@@ -65,14 +65,15 @@ gem 'turbolinks', '~> 5'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
-# TODO: Consider replacing with active_model_serializers
-gem 'jbuilder', '~> 2.5'
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jbuilder', '~> 2.7'
 
 gem 'simple_form', '~> 5'
 
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '>= 4'
 
+# TODO remove - rely on stripe for this
 gem 'receipts'
 
 # Search
