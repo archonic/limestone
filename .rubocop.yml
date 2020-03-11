@@ -1,4 +1,5 @@
 inherit_from: .rubocop.relaxed.yml
+require: rubocop-rails
 
 AllCops:
   TargetRubyVersion: 2.5
@@ -20,13 +21,6 @@ AllCops:
     - 'vendor/**/*'
     - 'tmp/**/*'
 
-Documentation:
-  # Skips checking to make sure top level modules / classes have a comment.
-  Enabled: false
-
-IndentationConsistency:
-  EnforcedStyle: 'rails'
-
 Metrics/BlockLength:
   Enabled: false
 
@@ -34,6 +28,13 @@ Rails:
   Enabled: true
 
 Style:
+  Documentation:
+    Enabled: false
+
+  IndentationConsistency:
+    Enabled: true
+    EnforcedStyle: rails
+
   PreferredDelimiters:
     Enabled: false
 
@@ -43,17 +44,23 @@ Style:
   SymbolArray:
     Enabled: false
 
-StringLiterals:
-  EnforcedStyle: double_quotes
-  Exclude:
-    - './*_helper.rb'
+  StringLiterals:
+    EnforcedStyle: double_quotes
+    Exclude:
+      - './*_helper.rb'
 
-# Metrics/MethodLength:
-#   Enabled: true
-#   Max: 20
+  HashEachMethods:
+    Enabled: true
 
-Metrics/LineLength:
-  Max: 100
+  HashTransformKeys:
+    Enabled: true
 
-Layout/AlignParameters:
-  EnforcedStyle: with_fixed_indentation
+  HashTransformValues:
+    Enabled: true
+
+Layout:
+  LineLength:
+    Max: 100
+
+  ParameterAlignment:
+    EnforcedStyle: with_fixed_indentation

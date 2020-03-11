@@ -102,6 +102,9 @@ Layout/SpaceInsideParens:
   Enabled: false
   StyleGuide: http://relaxed.ruby.style/#layoutspaceinsideparens
 
+Layout/LineLength:
+  Enabled: true
+
 Style/SpecialGlobalVars:
   Enabled: false
   StyleGuide: http://relaxed.ruby.style/#stylespecialglobalvars
@@ -151,9 +154,6 @@ Metrics/ModuleLength:
   Enabled: false
 
 Metrics/CyclomaticComplexity:
-  Enabled: false
-
-Metrics/LineLength:
   Enabled: false
 
 Metrics/MethodLength:

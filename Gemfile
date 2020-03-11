@@ -89,7 +89,6 @@ gem 'stripe_event', '~> 2.1'
 group :development do
   gem 'haml-lint', require: false
   gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'rubocop'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
@@ -109,6 +108,8 @@ group :development, :test do
   gem 'pry'
   gem 'rails-controller-testing', '~> 1'
   gem 'rspec-rails', '~> 3.6'
+  gem 'rubocop'
+  gem 'rubocop-rails'
   gem 'rubocop-rspec'
   gem 'selenium-webdriver'
   gem 'stripe-ruby-mock', github: 'archonic/stripe-ruby-mock', require: 'stripe_mock'
