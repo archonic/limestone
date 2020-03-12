@@ -6,7 +6,7 @@ Limestone is a boilerplate SaaS app built with Rails 6 on Ruby 2.7 and has an op
 Limestone assumes you want each user to pay for access to your SaaS. If you instead want users to belong to accounts and have billing scoped to accounts, try [Limestone Accounts](https://github.com/archonic/limestone-accounts).
 
 ## Versions
-v0.1 is Rails 5.2
+v0.1 is Rails 5.2  
 v0.2+ is Rails 6
 
 ## The Stack
