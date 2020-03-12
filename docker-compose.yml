@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 services:
   postgres:
@@ -26,48 +26,31 @@ services:
     depends_on:
       - 'postgres'
       - 'redis'
-      - 'webpack'
       - 'elasticsearch'
     build: .
+    image: 'limestone-rails'
     tty: true
     stdin_open: true
     ports:
       - '3000:3000'
     volumes:
       - .:/app
+      # don't mount tmp directory
+      - /app/tmp
     env_file:
       - '.env'
-
-  webpack:
-    build: .
-    env_file:
-      - '.env'
-    command: ./bin/webpack-dev-server --inline true
-    volumes:
-      - '.:/app'
-    ports:
-      - '3035:3035'
 
   sidekiq:
     depends_on:
       - 'postgres'
       - 'redis'
     build: .
+    image: 'limestone-rails'
     command: sidekiq -C config/sidekiq.yml.erb
     volumes:
       - .:/app
-    env_file:
-      - '.env'
-
-  cable:
-    depends_on:
-      - 'redis'
-    build: .
-    command: puma -p 28080 cable/config.ru
-    ports:
-      - '28080:28080'
-    volumes:
-      - .:/app
+      # don't mount tmp directory
+      - /app/tmp
     env_file:
       - '.env'
 
@@ -90,5 +73,4 @@ volumes:
   redis:
   postgres:
   web:
-  webpack:
   esdata:
