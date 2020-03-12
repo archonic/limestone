@@ -28,7 +28,7 @@ RSpec.describe AvatarsController, type: :request do
       it "creates avatar for user" do
         expect(subject).to have_http_status(:redirect)
         expect(flash[:notice]).to match "Avatar updated"
-        expect(user.avatar.variant(:xs).blob.filename.to_s).to eq file.original_filename
+        expect(user.avatar.variant(resize: "100x100").blob.filename.to_s).to eq file.original_filename
       end
     end
   end

@@ -1,12 +1,15 @@
 # Limestone
 [ ![Codeship Status for archonic/limestone](https://app.codeship.com/projects/0e5987c0-e048-0135-9d79-3ee50941199c/status?branch=master)](https://app.codeship.com/projects/266527)
 
-Limestone is a boilerplate SaaS app built with Rails 5.2 and has an opinionated integration with NPM using [Webpacker](https://github.com/rails/webpacker) and [Stimulus](https://stimulusjs.org/).
+Limestone is a boilerplate SaaS app built with Rails 6 and has an opinionated integration with NPM using [Webpacker](https://github.com/rails/webpacker) and [Stimulus](https://stimulusjs.org/).
 
-Limestone assumes you want each user to pay for access to your SaaS. If you instead want users to belong to accounts and have billing scopes to accounts, try [Limestone Accounts](https://github.com/archonic/limestone-accounts).
+Limestone assumes you want each user to pay for access to your SaaS. If you instead want users to belong to accounts and have billing scoped to accounts, try [Limestone Accounts](https://github.com/archonic/limestone-accounts).
+
+v0.1 is Rails 5.2
+v0.2+ is Rails 6
 
 ## The Stack
-The [gemset](https://github.com/archonic/limestone-accounts/blob/master/Gemfile) has been chosen to be modern, performant, and take care of a number of business concerns common to SaaS.
+The [gemset](https://github.com/archonic/limestone/blob/master/Gemfile) has been chosen to be modern, performant, and take care of a number of business concerns common to SaaS.
 
 ## Features
 * Free trial begins upon registration without credit card. Number of days is configurable with ENV var.
@@ -22,7 +25,7 @@ The [gemset](https://github.com/archonic/limestone-accounts/blob/master/Gemfile)
 * Banner with a link to billing page users that are past due.
 * Opinionated search integration using Elasticsearch via Searchkick. Gem is in place but integration is up to you.
 * Feature control using the [Flipper](https://github.com/jnunemaker/flipper) gem. Demonstrated with the `public_registration` feature.
-* 86% RSpec test coverage.
+* 82% RSpec test coverage.
 
 ## Notes
 * RSpec controller tests have been omitted in favour of requests tests.
@@ -30,8 +33,17 @@ The [gemset](https://github.com/archonic/limestone-accounts/blob/master/Gemfile)
 * Because this is a boilerplate, there are no migrations. Rely on schema.rb and use `rails db:setup` to create the db and seed.
 
 ## Pre-requisites
+
+### Development
 * Install [Docker](https://docs.docker.com/engine/installation/) and [Docker Compose](https://docs.docker.com/compose/install/)
 * A [Stripe](https://dashboard.stripe.com/register) account and a [Stripe API Key](https://stripe.com/docs/keys).
+
+### Test
+* A Codeship account. Other CI/CD is possible of course but Codeship is already setup.
+
+### Production
+* A cloud storage account compatible with ActiveStorage (AWS S3 is the default).
+* Because Docker is already configured, you probably want a Kubernetes host (GKE, AKS or DigitalOcean).
 
 ## Getting Started
 1. Clone this repository to your local system and `cd` into it:

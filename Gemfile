@@ -15,7 +15,7 @@ gem 'aws-sdk-s3', '~> 1'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 # Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.2'
+gem 'coffee-rails', '~> 5'
 
 # Authentication
 gem 'devise', '~> 4'
@@ -36,7 +36,7 @@ gem 'image_processing', '~> 1'
 gem 'mini_magick', '>= 4.3.5'
 
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 0.21'
+gem 'pg', '~> 1.2'
 
 # Impersonate other users
 gem 'pretender', '~> 0.3'
@@ -51,10 +51,7 @@ gem 'puma', '~> 4'
 gem 'rack-timeout', '~> 0.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2'
-
-# Use Redis Rails to set up a Redis backed Cache and / or Session
-gem 'redis-rails', '~> 5'
+gem 'rails', '~> 6'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5'

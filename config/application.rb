@@ -28,7 +28,7 @@ module Limestone
     }
 
     # Set Redis as the back-end for the cache.
-    config.cache_store = :redis_store, "#{ENV['REDIS_BASE_URL']}cache"
+    config.cache_store = :redis_cache_store, { url: "#{ENV['REDIS_BASE_URL']}cache" }
 
     # Load/require lib/core_ext
     config.autoload_paths += Dir[Rails.root.join("lib", "core_ext", "*.rb")].each { |l| require l }
