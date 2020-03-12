@@ -10,14 +10,14 @@ Bundler.require(*Rails.groups)
 module Limestone
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
+    config.load_defaults 6.0
 
     # Log to STDOUT because Docker expects all processes to log here. You could
     # then redirect logs to a third party service on your own such as systemd,
     # or a third party host such as Loggly, etc..
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
-    config.log_tags  = %i[subdomain uuid]
+    config.log_tags  = %i[uuid]
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
 
     config.action_mailer.default_url_options = {

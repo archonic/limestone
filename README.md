@@ -1,10 +1,11 @@
 # Limestone
 [ ![Codeship Status for archonic/limestone](https://app.codeship.com/projects/0e5987c0-e048-0135-9d79-3ee50941199c/status?branch=master)](https://app.codeship.com/projects/266527)
 
-Limestone is a boilerplate SaaS app built with Rails 6 and has an opinionated integration with NPM using [Webpacker](https://github.com/rails/webpacker) and [Stimulus](https://stimulusjs.org/).
+Limestone is a boilerplate SaaS app built with Rails 6 on Ruby 2.7 and has an opinionated integration with NPM using [Webpacker](https://github.com/rails/webpacker) and [Stimulus](https://stimulusjs.org/).
 
 Limestone assumes you want each user to pay for access to your SaaS. If you instead want users to belong to accounts and have billing scoped to accounts, try [Limestone Accounts](https://github.com/archonic/limestone-accounts).
 
+## Versions
 v0.1 is Rails 5.2
 v0.2+ is Rails 6
 

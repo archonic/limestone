@@ -1,4 +1,4 @@
-FROM ruby:2.5.5-alpine
+FROM ruby:2.7-alpine
 
 RUN apk update && apk add build-base git nodejs python2 postgresql-dev postgresql-client graphicsmagick --no-cache yarn
 
@@ -25,4 +25,4 @@ ENV DATABASE_URL postgresql://just@start:5432/theserver
 ENV REDIS_BASE_URL redis://please:6379/0
 RUN RAILS_ENV=production bin/bundle exec rake assets:precompile
 
-CMD puma -C config/puma.rb
+CMD ["rails", "server", "-b", "0.0.0.0"]

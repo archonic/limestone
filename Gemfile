@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.5'
+ruby '2.7'
 
 # Pretty admin dashboards
 gem 'administrate', '~> 0.12'
@@ -82,6 +82,8 @@ gem 'sidekiq', '~> 5'
 # Stripe stuff
 gem 'stripe', '~> 3'
 gem 'stripe_event', '~> 2.1'
+
+gem 'minitest', '~> 5.14'
 
 group :development do
   gem 'haml-lint', require: false
