@@ -3,6 +3,6 @@
     - name: rspec
       service: web
       command: bin/ci rspec
-    # - name: rubocop
-    #   service: web
-    #   command: rubocop
+    - name: rubocop
+      service: web
+      command: rubocop

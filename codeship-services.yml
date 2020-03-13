@@ -3,16 +3,7 @@ web:
   links:
     - postgres
     - redis
-    - webpack
   encrypted_env_file: .env.encrypted
-  cached: true
-
-webpack:
-  build: .
-  encrypted_env_file: .env.encrypted
-  command: ./bin/webpack-dev-server --inline true
-  volumes:
-    - '.:/app'
   cached: true
 
 postgres:
@@ -22,8 +13,16 @@ postgres:
     POSTGRES_PASSWORD: 'yourpassword'
   cached: true
 
+elasticsearch:
+  image: healthcheck/elasticsearch
+  mem_limit: 2g
+  environment:
+    - cluster.name=docker-cluster
+    - bootstrap.memory_lock=true
+    - logger.org.elasticsearch=error
+
 redis:
-  image: 'redis:3.2-alpine'
+  image: 'redis:4.0.11-alpine'
   command: redis-server --requirepass yourpassword
   volumes:
     - 'redis:/data'
