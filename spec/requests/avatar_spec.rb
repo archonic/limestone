@@ -15,10 +15,7 @@ RSpec.describe AvatarsController, type: :request do
 
     context "as some rando" do
       it "responds with unauthorized" do
-        # Wish this worked
-        # expect(controller).to raise_error(Pundit::NotAuthorizedError)
-        expect(subject).to have_http_status(:redirect)
-        expect(flash[:alert]).to match "Access denied"
+        expect{ subject }.to raise_error(Pundit::NotAuthorizedError)
       end
     end
 

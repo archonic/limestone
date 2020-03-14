@@ -49,7 +49,7 @@ RSpec.describe SubscriptionsController, type: :request do
       before { sign_in user_subscribed }
 
       it "shows card on file" do
-        expect(subject).to have_http_status(200)
+        expect(subject).to have_http_status(:success)
         expect(subject.body).to include "Visa **** **** **** 4242"
         expect(subject.body).to include "Expires 12 / 2025"
       end
@@ -76,7 +76,7 @@ RSpec.describe SubscriptionsController, type: :request do
 
     context "as a not subscribed user" do
       before { sign_in user_trial }
-      it "redirects to root with access denied" do
+      it "redirects to billing page with access denied" do
         expect(StripeLogger).to receive(:error).once.with("Invalid parameters were supplied to Stripe's API.")
         expect(subject).to redirect_to subscribe_path
         expect(flash[:error]).to match "There was an error updating your subscription"

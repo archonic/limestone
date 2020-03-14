@@ -13,21 +13,17 @@ class AvatarsController < ApplicationController
       head :unauthorized && return
     end
 
-    respond_to do |format|
-      if @user.save && avatar_uploaded
-        @avatar.attach(avatar_uploaded)
-        format.html { redirect_to edit_user_registration_path, notice: 'Avatar updated' }
-      end
+    if @user.save && avatar_uploaded
+      @avatar.attach(avatar_uploaded)
+      redirect_to edit_user_registration_path, notice: 'Avatar updated'
     end
   end
 
   def destroy
     @avatar.purge
 
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to edit_user_registration_path, notice: 'Avatar deleted' }
-      end
+    if @user.save
+      redirect_to edit_user_registration_path, notice: 'Avatar deleted'
     end
   end
 
@@ -35,7 +31,7 @@ class AvatarsController < ApplicationController
 
     def set_user
       @user = current_user
-      raise Pundit::NotAuthorizedError if @user.blank?
+      raise Pundit::NotAuthorizedError if @user.nil?
     end
 
     def set_avatar

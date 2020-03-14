@@ -82,7 +82,7 @@ RSpec.describe Users::RegistrationsController, type: :request do
       end
 
       it "redirects to registration" do
-        expect(subject).to have_http_status(200)
+        expect(subject).to have_http_status(:success)
         expect(subject).to render_template :new
       end
     end
