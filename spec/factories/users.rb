@@ -18,16 +18,17 @@ FactoryBot.define do
       role { :basic }
       trialing { true }
     end
-    trait :subscribed do
+    trait :subscribed_basic do
       role { :basic }
       trialing { false }
       stripe_subscription_id { 'test_su_2' }
       card_last4 { '4242' }
     end
-    trait :pro do
+    trait :subscribed_pro do
       role { :pro }
       trialing { false }
       stripe_subscription_id { 'test_su_2' }
+      card_last4 { '4242' }
     end
     trait :removed do
       role { :removed }

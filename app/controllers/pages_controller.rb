@@ -5,10 +5,12 @@ class PagesController < ApplicationController
   # or serve static pages with a nginx / apache / whatever directly
 
   def pro
-    return false unless current_user.pro?
-    redirect_to billing_path,
-      flash: {
-        warning: "Upgrade to the Pro plan to get access to that page."
-      }
+    unless current_user.pro?
+      redirect_to( billing_path,
+        flash: {
+          warning: "Upgrade to the Pro plan to get access to that page."
+        }
+      ) && return
+    end
   end
 end

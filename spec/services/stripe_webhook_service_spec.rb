@@ -11,7 +11,7 @@ RSpec.describe StripeWebhookService, type: :service do
   end
   let(:mock_customer) { Stripe::Customer.create }
   let(:mock_subscription) { mock_customer.subscriptions.create(plan: "example-plan-id") }
-  let!(:user_subscribed) { create(:user, :subscribed, stripe_id: mock_customer.id, stripe_subscription_id: mock_subscription.id) }
+  let!(:user_subscribed) { create(:user, :subscribed_basic, stripe_id: mock_customer.id, stripe_subscription_id: mock_subscription.id) }
   after { StripeMock.stop }
 
   describe StripeWebhookService::RecordInvoicePaid do

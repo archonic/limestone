@@ -21,7 +21,7 @@ RSpec.describe SubscriptionsController, type: :request do
   let(:user_subscribed) {
     create(
       :user,
-      :subscribed,
+      :subscribed_basic,
       stripe_id: mock_customer.id,
       stripe_subscription_id: mock_subscription.id,
       card_last4: "4242",

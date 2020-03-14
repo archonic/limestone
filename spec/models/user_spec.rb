@@ -47,7 +47,7 @@ RSpec.describe User, type: :model do
     end
 
     it "returns true for users subscribed" do
-      expect(create(:user, :subscribed).subscribed?).to be true
+      expect(create(:user, :subscribed_basic).subscribed?).to be true
     end
   end
 
@@ -61,8 +61,8 @@ RSpec.describe User, type: :model do
     end
 
     it "returns false for subscribed user even if trial over" do
-      expect(create(:user, :subscribed).trial_expired?).to be false
-      expect(create(:user, :subscribed, current_period_end: 1.hour.ago).trial_expired?).to be false
+      expect(create(:user, :subscribed_basic).trial_expired?).to be false
+      expect(create(:user, :subscribed_basic, current_period_end: 1.hour.ago).trial_expired?).to be false
     end
   end
 
