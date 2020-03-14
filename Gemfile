@@ -101,16 +101,12 @@ group :test do
 end
 
 group :development, :test do
-  gem 'capybara', '~> 2.15'
-  gem 'chromedriver-helper'
   gem 'factory_bot_rails', '~> 4.8'
   gem 'pry'
-  gem 'rails-controller-testing', '~> 1'
+  gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 3.6'
   gem 'rubocop'
   gem 'rubocop-rails'
-  gem 'rubocop-rspec'
-  gem 'selenium-webdriver'
   gem 'stripe-ruby-mock', github: 'archonic/stripe-ruby-mock', require: 'stripe_mock'
 end
 
