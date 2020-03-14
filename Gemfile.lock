@@ -65,7 +65,7 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2)
-    administrate (0.12.0)
+    administrate (0.13.0)
       actionpack (>= 4.2)
       actionview (>= 4.2)
       activerecord (>= 4.2)
@@ -411,7 +411,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  administrate (~> 0.12)
+  administrate (~> 0.13)
   aws-sdk-s3 (~> 1)
   bootsnap (>= 1.4.2)
   coffee-rails (~> 5)
