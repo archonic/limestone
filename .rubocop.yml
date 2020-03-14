@@ -2,7 +2,7 @@ inherit_from: .rubocop.relaxed.yml
 require: rubocop-rails
 
 AllCops:
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 2.7
 
   Include:
     - 'config.ru'
