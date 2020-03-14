@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "application_helper"
+
 class ApplicationController < ActionController::Base
   include Pundit
   include ActionView::Helpers::DateHelper

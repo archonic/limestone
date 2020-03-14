@@ -78,4 +78,7 @@ Rails.application.configure do
 
   # Use AWS for active storage as a default
   config.active_storage.service = :local
+
+  # In case you want to use subdomains
+  config.hosts << "lvh.me"
 end

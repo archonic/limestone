@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-  include IconHelper
-  include CurrencyHelper
-
   # Appends to body tag if content_for :no_turbolink present
   def turbolinks?
     if content_for(:no_turbolink)

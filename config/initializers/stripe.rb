@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "stripe_webhook_service"
+
 # config/initializers/stripe.rb
 Rails.configuration.stripe = {
   publishable_key: ENV['STRIPE_PUBLISHABLE_KEY'],

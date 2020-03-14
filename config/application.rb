@@ -51,3 +51,6 @@ module Limestone
     # -- all .rb files in that directory are automatically loaded.
   end
 end
+
+# Enable to debug autoloading problems
+# Rails.autoloaders.log!

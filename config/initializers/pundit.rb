@@ -18,5 +18,3 @@ module PunditHelper
       redirect_to(request.referer || root_path)
     end
 end
-
-ApplicationController.send :include, PunditHelper
