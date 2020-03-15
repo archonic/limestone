@@ -44,7 +44,7 @@ jobs: # a collection of steps
       # Install yarn
       - run:
           name: Install yarn
-          command: apt-get install yarn
+          command: sudo apt-get update && sudo apt-get install -y yarn
 
 
       # Only necessary if app uses webpacker or yarn in some other way
