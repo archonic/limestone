@@ -11,7 +11,7 @@ jobs: # a collection of steps
           PGHOST: 127.0.0.1
           PGUSER: circleci-limestone
           RAILS_ENV: test
-          DATABASE_URL: postgresql://circleci-limestone:circleci-limestone@postgres:5432/limestone
+          DATABASE_URL: postgresql://circleci-limestone:circleci-limestone@localhost:5432/limestone
       - image: circleci/postgres:9.5-alpine # database image
         environment: # environment variables for database
           POSTGRES_USER: circleci-limestone
