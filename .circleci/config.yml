@@ -12,6 +12,12 @@ jobs: # a collection of steps
           PGUSER: circleci-limestone
           RAILS_ENV: test
           DATABASE_URL: postgresql://circleci-limestone:circleci-limestone@localhost:5432/limestone?encoding=utf8&pool=5&timeout=5000
+          ACTION_MAILER_HOST: localhost:3000
+          REDIS_BASE_URL: redis://:yourpassword@redis:6379/0/
+          ADMIN_EMAIL: someone@example.com
+          ADMIN_PASSWORD: password
+          ADMIN_FIRST_NAME: Firsty
+          ADMIN_LAST_NAME: McLast
       - image: circleci/postgres:9.5-alpine # database image
         environment: # environment variables for database
           POSTGRES_USER: circleci-limestone
@@ -78,12 +84,11 @@ jobs: # a collection of steps
 
       - run:
           name: Run rspec in parallel
-          command: bundle exec rspec
-      # --profile 10 \
-      # --format RspecJunitFormatter \
-      # --out test_results/rspec.xml \
-      # --format progress \
-      # $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+          command: bundle exec rspec --profile 10 \
+                    --format RspecJunitFormatter \
+                    --out test_results/rspec.xml \
+                    --format progress
+                    # $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
 
       # Save test results for timing analysis
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
