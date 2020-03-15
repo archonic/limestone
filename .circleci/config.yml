@@ -46,6 +46,12 @@ jobs: # a collection of steps
           name: Install yarn
           command: sudo apt-get update && sudo apt-get install -y yarn
 
+      # Set ENV for yarn
+      - run:
+          name: Setup Environment Variables
+          command: |
+            echo "export TERM=linux" >> $BASH_ENV
+            echo "export TERMINFO=/etc/terminfo" >> $BASH_ENV
 
       # Only necessary if app uses webpacker or yarn in some other way
       - restore_cache:
