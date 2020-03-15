@@ -61,7 +61,9 @@ jobs: # a collection of steps
 
       - run:
           name: Yarn Install
-          command: yarn config set cache-folder ~/.cache/yarn && yarn install --pure-lockfile
+          command: |
+            yarn config set cache-folder ~/.cache/yarn
+            yarn install --pure-lockfile
 
       # Store yarn / webpacker cache
       - save_cache:
