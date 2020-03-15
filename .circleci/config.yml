@@ -43,8 +43,8 @@ jobs: # a collection of steps
 
       # Install yarn
       - run:
-        name: Install yarn
-        command: apt-get install yarn
+          name: Install yarn
+          command: apt-get install yarn
 
 
       # Only necessary if app uses webpacker or yarn in some other way
