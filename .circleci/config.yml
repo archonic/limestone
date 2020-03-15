@@ -41,6 +41,12 @@ jobs: # a collection of steps
           paths:
             - vendor/bundle
 
+      # Install yarn
+      - run:
+        name: Install yarn
+        command: apt-get install yarn
+
+
       # Only necessary if app uses webpacker or yarn in some other way
       - restore_cache:
           keys:
