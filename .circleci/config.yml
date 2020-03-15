@@ -1,0 +1,99 @@
+version: 2 # use CircleCI 2.0
+jobs: # a collection of steps
+  build: # runs not using Workflows must have a `build` job as entry point
+    parallelism: 3 # run three instances of this job in parallel
+    docker: # run the steps with Docker
+      - image: circleci/ruby:2.7.0
+        environment: # environment variables for primary container
+          BUNDLE_JOBS: 3
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
+          PGHOST: 127.0.0.1
+          PGUSER: circleci-limestone
+          RAILS_ENV: test
+          # These ENV vars are needed for rspec to run
+          DATABASE_URL: postgresql://circleci-limestone:circleci-limestone@localhost:5432/limestone?encoding=utf8&pool=5&timeout=5000
+          ACTION_MAILER_HOST: localhost:3000
+          REDIS_BASE_URL: redis://localhost:6379/0/
+          ADMIN_EMAIL: someone@example.com
+          ADMIN_PASSWORD: password
+          ADMIN_FIRST_NAME: Firsty
+          ADMIN_LAST_NAME: McLast
+      - image: circleci/postgres:9.5-alpine # database image
+        environment: # environment variables for database
+          POSTGRES_USER: circleci-limestone
+          POSTGRES_DB: limestone_test
+          POSTGRES_PASSWORD: circleci-limestone
+      - image: circleci/redis:4-alpine
+    steps: # a collection of executable commands
+      - checkout # special step to check out source code to working directory
+
+      # Which version of bundler?
+      - run:
+          name: Which bundler?
+          command: bundle -v
+
+      # Restore bundle cache
+      # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
+      - restore_cache:
+          keys:
+            - limestone-bundle-v2-{{ checksum "Gemfile.lock" }}
+            - limestone-bundle-v2-
+
+      - run: # Install Ruby dependencies
+          name: Bundle Install
+          command: bundle check --path vendor/bundle || bundle install --deployment
+
+      # Store bundle cache for Ruby dependencies
+      - save_cache:
+          key: limestone-bundle-v2-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      # Install yarn
+      - run:
+          name: Install yarn
+          command: |
+            curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+            echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+            sudo apt update && sudo apt install yarn
+
+      # Only necessary if app uses webpacker or yarn in some other way
+      - restore_cache:
+          keys:
+            - limestone-yarn-{{ checksum "yarn.lock" }}
+            - limestone-yarn-
+
+      - run:
+          name: Yarn Install
+          command: |
+            yarn config set cache-folder ~/.cache/yarn
+            yarn install --frozen-lockfile --no-install-recommends --production
+
+      # Store yarn / webpacker cache
+      - save_cache:
+          key: limestone-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      - run:
+          name: Database setup
+          command: bin/rails db:schema:load --trace
+
+      - run:
+          name: Run rspec in parallel
+          command: |
+            bundle exec rspec --profile 10 \
+                              --format RspecJunitFormatter \
+                              --out test_results/rspec.xml \
+                              --format progress \
+                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+
+      # Save test results for timing analysis
+      - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
+          path: test_results
+      # See https://circleci.com/docs/2.0/deployment-integrations/ for example deploy configs
