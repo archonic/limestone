@@ -67,7 +67,7 @@ jobs: # a collection of steps
           command: |
             yarn config set cache-folder ~/.cache/yarn
             yarn config list
-            yarn install --frozen-lockfile --production
+            yarn install --frozen-lockfile --no-install-recommends --production
 
       # Store yarn / webpacker cache
       - save_cache:
