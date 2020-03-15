@@ -14,8 +14,8 @@ jobs: # a collection of steps
       - image: circleci/postgres:9.5-alpine # database image
         environment: # environment variables for database
           POSTGRES_USER: circleci-limestone
-          POSTGRES_DB: rails_limestone
-          POSTGRES_PASSWORD: ""
+          POSTGRES_DB: limestone_test
+          POSTGRES_PASSWORD: circleci-limestone
     steps: # a collection of executable commands
       - checkout # special step to check out source code to working directory
 
@@ -49,13 +49,6 @@ jobs: # a collection of steps
             echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
             sudo apt update && sudo apt install yarn
 
-      # Set ENV for yarn
-      - run:
-          name: Setup Environment Variables
-          command: |
-            echo "export TERM=linux" >> $BASH_ENV
-            echo "export TERMINFO=/etc/terminfo" >> $BASH_ENV
-
       # Only necessary if app uses webpacker or yarn in some other way
       - restore_cache:
           keys:
@@ -66,7 +59,6 @@ jobs: # a collection of steps
           name: Yarn Install
           command: |
             yarn config set cache-folder ~/.cache/yarn
-            yarn config list
             yarn install --frozen-lockfile --no-install-recommends --production
 
       # Store yarn / webpacker cache
