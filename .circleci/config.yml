@@ -73,12 +73,12 @@ jobs: # a collection of steps
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
       - run:
-          name: Print ENV
-          command: printenv
-
-      - run:
           name: Database setup
           command: bin/rails db:schema:load --trace
+
+      - run:
+          name: RSPEC WHERE YOU AT
+          command: bundle show rspec
 
       - run:
           name: Run rspec in parallel
