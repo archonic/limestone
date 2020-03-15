@@ -11,6 +11,7 @@ jobs: # a collection of steps
           PGHOST: 127.0.0.1
           PGUSER: circleci-limestone
           RAILS_ENV: test
+          # These ENV vars are needed for rspec to run
           DATABASE_URL: postgresql://circleci-limestone:circleci-limestone@localhost:5432/limestone?encoding=utf8&pool=5&timeout=5000
           ACTION_MAILER_HOST: localhost:3000
           REDIS_BASE_URL: redis://localhost:6379/0/
