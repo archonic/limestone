@@ -86,11 +86,12 @@ jobs: # a collection of steps
 
       - run:
           name: Run rspec in parallel
-          command: bundle exec rspec
-                    --out test_results/rspec.xml \
-                    --format RspecJunitFormatter \
-                    $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-                    # --format progress
+          command: |
+            bundle exec rspec --profile 10 \
+                              --format RspecJunitFormatter \
+                              --out test_results/rspec.xml \
+                              --format progress \
+                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
 
       # Save test results for timing analysis
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
