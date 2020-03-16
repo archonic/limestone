@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7'
 
 # Pretty admin dashboards
-gem 'administrate', '~> 0.12'
+gem 'administrate', '~> 0.13'
 
 # Upload to S3 directly
 gem 'aws-sdk-s3', '~> 1'
@@ -107,6 +107,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.6'
   gem 'rubocop'
   gem 'rubocop-rails'
+  gem 'rubocop-performance'
   gem 'stripe-ruby-mock', github: 'archonic/stripe-ruby-mock', require: 'stripe_mock'
 end
 
