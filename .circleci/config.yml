@@ -77,8 +77,8 @@ jobs: # a collection of steps
             - ~/.cache/yarn
 
       - run:
-        name: rubocop
-        command: rubocop
+          name: rubocop
+          command: rubocop
 
       - run:
           name: Wait for DB
