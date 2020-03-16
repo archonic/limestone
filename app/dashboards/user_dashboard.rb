@@ -13,7 +13,7 @@ class UserDashboard < Administrate::BaseDashboard
     invoices: Field::HasMany,
     id: Field::Number,
     email: Field::String,
-    full_name: Field::String,
+    name: Field::String,
     first_name: Field::String,
     last_name: Field::String,
     role: Field::String,
@@ -39,7 +39,7 @@ class UserDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i(
     id
     email
-    full_name
+    name
     role
     sign_in_count
     last_sign_in_ip
@@ -53,7 +53,7 @@ class UserDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i(
     id
     email
-    full_name
+    name
     role
     sign_in_count
     current_sign_in_at
