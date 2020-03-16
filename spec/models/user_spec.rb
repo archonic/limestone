@@ -68,7 +68,7 @@ RSpec.describe User, type: :model do
 
   describe "#flipped_id" do
     it "returns namespaced id" do
-      expect(create(:user).flipper_id).to match /User;/
+      expect(create(:user).flipper_id).to match "User;"
     end
   end
 end

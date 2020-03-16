@@ -54,7 +54,7 @@ RSpec.describe PagesController, type: :request do
 
       it "denies access at the controller level" do
         expect(subject).to redirect_to(billing_path)
-        expect(flash[:warning]).to match /Upgrade to the Pro plan/
+        expect(flash[:warning]).to match "Upgrade to the Pro plan"
       end
     end
 
