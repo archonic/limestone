@@ -1,5 +1,5 @@
 # Limestone
-[ ![Codeship Status for archonic/limestone](https://app.codeship.com/projects/0e5987c0-e048-0135-9d79-3ee50941199c/status?branch=master)](https://app.codeship.com/projects/266527)
+[![<archonic>](https://circleci.com/gh/archonic/limestone.svg?style=svg)]()
 
 Limestone is a boilerplate SaaS app built with Rails 6 on Ruby 2.7 and has an opinionated integration with NPM using [Webpacker](https://github.com/rails/webpacker) and [Stimulus](https://stimulusjs.org/).
 
@@ -40,11 +40,12 @@ The [gemset](https://github.com/archonic/limestone/blob/master/Gemfile) has been
 * A [Stripe](https://dashboard.stripe.com/register) account and a [Stripe API Key](https://stripe.com/docs/keys).
 
 ### Test
-* A Codeship account. Other CI/CD is possible of course but Codeship is already setup.
+* [Codeship](https://codeship.com/) files are in place - just create an account and integrate with your repo.
+* [CircleCI](https://circleci.com/) files are in place - just create an account and integrate with your repo.
 
 ### Production
 * A cloud storage account compatible with ActiveStorage (AWS S3 is the default).
-* Because Docker is already configured, you probably want a Kubernetes host (GKE, AKS or DigitalOcean).
+* Because Docker is already configured, you probably want a Kubernetes host ([GKE](https://cloud.google.com/kubernetes-engine/), [AWS](https://aws.amazon.com/kubernetes/) or [DigitalOcean](https://www.digitalocean.com/products/kubernetes/)).
 
 ## Getting Started
 1. Clone this repository to your local system and `cd` into it:
@@ -63,13 +64,13 @@ The [gemset](https://github.com/archonic/limestone/blob/master/Gemfile) has been
     - `STRIPE_PUBLISHABLE_KEY`
     - `STRIPE_SIGNING_SECRET` (This can be something random)
 
-    You may also want to update the `ADMIN_*` environment variables as well.
+    You probably want to update the `ADMIN_*` environment variables as well.
 
-4. Run `docker-compose run webpack yarn install --pure-lockfile` to install all node modules. See issue #3 about this.
+4. Run `docker-compose run webpack yarn install --pure-lockfile` to install all node modules.
 
 5. Run `docker-compose up --build` to create and run the various images, volumes, containers and a network
 
-6. Run `docker-compose exec web rails db:setup` to create DB, load schema and seed. Seeding will also create your plan(s) in Stripe.
+6. Once the build is done and everything is up, run `docker-compose exec web rails db:setup` to create DB, load schema and seed. Seeding will also create your plan(s) in Stripe.
 
 7. Visit [http://localhost:3000](http://localhost:3000) and rejoice :tada: You can login using the Admin user defined in `.env`
 
