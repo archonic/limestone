@@ -7,12 +7,12 @@ module CurrencyHelper
     [
       number_to_currency(amount / 100),
       currency.try(:upcase)
-    ].join(' ').strip
+    ].join(" ").strip
   end
 
   def invoice_pdf_link(invoice)
     link_to(
-      icon('file-pdf-o', :sm),
+      icon("file-pdf-o", :sm),
       invoice_path(invoice, format: :pdf),
       target: :_blank
     )

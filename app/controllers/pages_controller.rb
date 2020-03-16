@@ -6,7 +6,7 @@ class PagesController < ApplicationController
 
   def pro
     unless current_user.pro?
-      redirect_to( billing_path,
+      redirect_to(billing_path,
         flash: {
           warning: "Upgrade to the Pro plan to get access to that page."
         }

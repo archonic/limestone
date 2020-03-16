@@ -3,11 +3,11 @@
 FactoryBot.define do
   factory :invoice do
     association :user
-    stripe_id { 'asdf' }
+    stripe_id { "asdf" }
     amount { 900 }
-    currency { 'usd' }
-    number { 'd1a9e076f5-0001' }
-    paid_at { '2018-01-28 22:50:26' }
+    currency { "usd" }
+    number { "d1a9e076f5-0001" }
+    paid_at { "2018-01-28 22:50:26" }
     lines {
       [
         {

@@ -65,13 +65,12 @@ class SubscriptionService
   end
 
   private
-
     def customer
       @customer ||= if @user.stripe_id?
-                      Stripe::Customer.retrieve(@user.stripe_id)
-                    else
-                      Stripe::Customer.create(email: @user.email)
-                    end
+        Stripe::Customer.retrieve(@user.stripe_id)
+      else
+        Stripe::Customer.create(email: @user.email)
+      end
     end
 
     def assign_card_details(user_attributes_to_update, params)

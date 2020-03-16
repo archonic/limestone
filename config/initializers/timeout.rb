@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Set timeouts via ENV vars
 # service_timeout:   15     # RACK_TIMEOUT_SERVICE_TIMEOUT
 # wait_timeout:      30     # RACK_TIMEOUT_WAIT_TIMEOUT

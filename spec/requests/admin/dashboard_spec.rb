@@ -58,7 +58,7 @@ RSpec.describe "Administrate Dashboards", type: :request do
       end
 
       it "raises no route matches" do
-        expect{ subject }.to raise_error(ActionController::RoutingError)
+        expect { subject }.to raise_error(ActionController::RoutingError)
       end
     end
 
@@ -69,7 +69,7 @@ RSpec.describe "Administrate Dashboards", type: :request do
       end
 
       it "raises no route matches" do
-        expect{ subject }.to raise_error(ActionController::RoutingError)
+        expect { subject }.to raise_error(ActionController::RoutingError)
       end
     end
   end

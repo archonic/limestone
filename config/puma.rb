@@ -15,7 +15,7 @@ bind "tcp://#{ENV['BIND_ON']}"
 # it based on your app's demands.
 #
 # RAILS_MAX_THREADS will match the default thread size for Active Record.
-threads_count = ENV.fetch('RAILS_MAX_THREADS') { 5 }
+threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
 threads threads_count, threads_count
 
 # Puma supports spawning multiple workers. It will fork out a process at the
@@ -32,7 +32,7 @@ threads threads_count, threads_count
 #
 # If using threads and workers together, the concurrency of your application
 # will be THREADS * WORKERS.
-workers ENV.fetch('WEB_CONCURRENCY') { 2 }
+workers ENV.fetch("WEB_CONCURRENCY") { 2 }
 
 # An internal health check to verify that workers have checked in to the master
 # process within a specific time frame. If this time is exceeded, the worker
@@ -43,7 +43,7 @@ workers ENV.fetch('WEB_CONCURRENCY') { 2 }
 worker_timeout 30
 
 # The path to the puma binary without any arguments.
-restart_command 'puma'
+restart_command "puma"
 
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together

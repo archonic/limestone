@@ -42,6 +42,6 @@ class Invoice < ApplicationRecord
     [
       number_to_currency(amount / 100),
       currency.try(:upcase)
-    ].join(' ').strip
+    ].join(" ").strip
   end
 end

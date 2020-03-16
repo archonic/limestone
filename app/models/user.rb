@@ -48,13 +48,12 @@ class User < ApplicationRecord
   end
 
   private
-
     def setup_new_user
       self.role ||= :basic
       self.current_period_end = Time.current + TRIAL_PERIOD_DAYS.days
     end
 
     def set_name
-      self.name = [first_name, last_name].join(' ').strip
+      self.name = [first_name, last_name].join(" ").strip
     end
 end

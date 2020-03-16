@@ -15,7 +15,7 @@ RSpec.describe AvatarsController, type: :request do
 
     context "as some rando" do
       it "responds with unauthorized" do
-        expect{ subject }.to raise_error(Pundit::NotAuthorizedError)
+        expect { subject }.to raise_error(Pundit::NotAuthorizedError)
       end
     end
 

@@ -12,8 +12,8 @@ Rails.application.routes.draw do
       end
       get :stop_impersonating, to: :stop_impersonating, controller: "users"
       resources :invoices
-      mount Flipper::UI.app(Flipper) => '/flipper', as: 'flipper'
-      mount Sidekiq::Web => '/sidekiq', as: 'sidekiq'
+      mount Flipper::UI.app(Flipper) => "/flipper", as: "flipper"
+      mount Sidekiq::Web => "/sidekiq", as: "sidekiq"
     end
   end
 

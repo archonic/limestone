@@ -19,12 +19,12 @@ describe IconHelper do
     end
   end
 
-  describe 'icon' do
-    it 'defaults to small' do
+  describe "icon" do
+    it "defaults to small" do
       expect(icon(:beer)).to match "font-size: #{IconHelper::AVATAR_SIZES[:sm]}px"
     end
 
-    it 'returns a font awesome icon' do
+    it "returns a font awesome icon" do
       expect(icon(:beer)).to match "fa fa-beer"
     end
   end

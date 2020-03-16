@@ -11,7 +11,7 @@ class CreatePlanService
       product: {
         name: @plan_model.name
       },
-      id: @plan_model.name.downcase.tr(' ', '-'),
+      id: @plan_model.name.downcase.tr(" ", "-"),
       amount: @plan_model.amount,
       interval: @plan_model.interval,
       currency: @plan_model.currency,

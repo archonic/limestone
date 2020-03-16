@@ -15,7 +15,7 @@ class AvatarsController < ApplicationController
 
     if @user.save && avatar_uploaded
       @avatar.attach(avatar_uploaded)
-      redirect_to edit_user_registration_path, notice: 'Avatar updated'
+      redirect_to edit_user_registration_path, notice: "Avatar updated"
     end
   end
 
@@ -23,12 +23,11 @@ class AvatarsController < ApplicationController
     @avatar.purge
 
     if @user.save
-      redirect_to edit_user_registration_path, notice: 'Avatar deleted'
+      redirect_to edit_user_registration_path, notice: "Avatar deleted"
     end
   end
 
   private
-
     def set_user
       @user = current_user
       raise Pundit::NotAuthorizedError if @user.nil?

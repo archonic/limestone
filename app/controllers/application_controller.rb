@@ -19,7 +19,6 @@ class ApplicationController < ActionController::Base
   end
 
   protected
-
     def configure_permitted_parameters
       added_params = %i(first_name last_name avatar plan_id)
       devise_parameter_sanitizer.permit :sign_up, keys: added_params
@@ -30,7 +29,7 @@ class ApplicationController < ActionController::Base
     def access_required?
       user_signed_in? &&
         !devise_controller? &&
-        controller_name != 'subscriptions'
+        controller_name != "subscriptions"
     end
 
     # Redirect users in bad standing to billing page
@@ -38,7 +37,7 @@ class ApplicationController < ActionController::Base
       return false unless current_user.removed?
       redirect_to billing_path,
         flash: {
-          error: 'Your access has been removed. Please update your card. Access will be restored once payment succeeds.'
+          error: "Your access has been removed. Please update your card. Access will be restored once payment succeeds."
         }
     end
 end

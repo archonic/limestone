@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddStripeDataToUsers < ActiveRecord::Migration[5.0]
   def change
     add_column :users, :stripe_id, :string

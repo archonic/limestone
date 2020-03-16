@@ -8,7 +8,7 @@ class StripeWebhookService
   end
 
   def assign_role(user_attributes, stripe_plan)
-    plan = Plan.find_by( stripe_id: stripe_plan.id )
+    plan = Plan.find_by(stripe_id: stripe_plan.id)
     if plan.present?
       user_attributes[:role] = plan.associated_role
     else
@@ -18,19 +18,19 @@ class StripeWebhookService
 
   def process_subscription_status(subscription, user_attributes)
     case subscription.status
-    when 'trialing'
+    when "trialing"
       user_attributes[:trialing] = true
       user_attributes[:past_due] = false
       assign_role(user_attributes, subscription.plan)
-    when 'active'
+    when "active"
       user_attributes[:trialing] = false
       user_attributes[:past_due] = false
       assign_role(user_attributes, subscription.plan)
-    when 'past_due'
+    when "past_due"
       user_attributes[:past_due] = true
       assign_role(user_attributes, subscription.plan)
-    when 'cancelled', 'unpaid'
-      user_attributes[:role] = 'removed'
+    when "cancelled", "unpaid"
+      user_attributes[:role] = "removed"
     else
       StripeLogger.error "#{self.class.name} ERROR: Unknown subscription status #{subscription.status}."
     end

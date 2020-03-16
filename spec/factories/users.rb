@@ -5,11 +5,11 @@ FactoryBot.define do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
     email {  Faker::Internet.email }
-    password { 'password' }
-    password_confirmation { 'password' }
+    password { "password" }
+    password_confirmation { "password" }
     association :plan
     initialize_with { User.where(email: email).first_or_initialize }
-    stripe_id { 'asdf' } # registration creates subscription on trial creation
+    stripe_id { "asdf" } # registration creates subscription on trial creation
 
     trait :admin do
       role { :admin }
@@ -21,14 +21,14 @@ FactoryBot.define do
     trait :subscribed_basic do
       role { :basic }
       trialing { false }
-      stripe_subscription_id { 'test_su_2' }
-      card_last4 { '4242' }
+      stripe_subscription_id { "test_su_2" }
+      card_last4 { "4242" }
     end
     trait :subscribed_pro do
       role { :pro }
       trialing { false }
-      stripe_subscription_id { 'test_su_2' }
-      card_last4 { '4242' }
+      stripe_subscription_id { "test_su_2" }
+      card_last4 { "4242" }
     end
     trait :removed do
       role { :removed }

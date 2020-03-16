@@ -48,7 +48,6 @@ module Users
     end
 
     protected
-
       def after_update_path_for(_resource)
         edit_user_registration_path
       end
@@ -58,7 +57,6 @@ module Users
       end
 
     private
-
       def check_public_registration
         return true if Flipper.enabled?(:public_registration)
         redirect_to root_path, flash: { warning: "That feature is not enabled." }

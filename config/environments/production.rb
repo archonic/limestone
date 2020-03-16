@@ -25,7 +25,7 @@ Rails.application.configure do
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
-  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+  config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = Uglifier.new(harmony: true)
@@ -71,13 +71,13 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:              ENV['SMTP_ADDRESS'],
-    port:                 ENV['SMTP_PORT'].to_i,
-    domain:               ENV['SMTP_DOMAIN'],
-    user_name:            ENV['SMTP_USERNAME'],
-    password:             ENV['SMTP_PASSWORD'],
-    authentication:       ENV['SMTP_AUTH'],
-    enable_starttls_auto: ENV['SMTP_ENABLE_STARTTLS_AUTO'] == 'true'
+    address:              ENV["SMTP_ADDRESS"],
+    port:                 ENV["SMTP_PORT"].to_i,
+    domain:               ENV["SMTP_DOMAIN"],
+    user_name:            ENV["SMTP_USERNAME"],
+    password:             ENV["SMTP_PASSWORD"],
+    authentication:       ENV["SMTP_AUTH"],
+    enable_starttls_auto: ENV["SMTP_ENABLE_STARTTLS_AUTO"] == "true"
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to

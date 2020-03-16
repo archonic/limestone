@@ -21,10 +21,10 @@ module Limestone
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
 
     config.action_mailer.default_url_options = {
-      host: ENV['ACTION_MAILER_HOST']
+      host: ENV["ACTION_MAILER_HOST"]
     }
     config.action_mailer.default_options = {
-      from: ENV['ACTION_MAILER_DEFAULT_FROM']
+      from: ENV["ACTION_MAILER_DEFAULT_FROM"]
     }
 
     # Set Redis as the back-end for the cache.
@@ -38,7 +38,7 @@ module Limestone
     config.active_job.queue_name_prefix = "#{ENV['ACTIVE_JOB_QUEUE_PREFIX']}_#{Rails.env}"
 
     # Action Cable setting to de-couple it from the main Rails process.
-    config.action_cable.url = ENV['ACTION_CABLE_FRONTEND_URL']
+    config.action_cable.url = ENV["ACTION_CABLE_FRONTEND_URL"]
 
     # Action Cable setting to allow connections from these domains.
     # origins = ENV['ACTION_CABLE_ALLOWED_REQUEST_ORIGINS'].split(',')
