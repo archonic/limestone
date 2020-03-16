@@ -1,5 +1,5 @@
 # Limestone
-[![<archonic>](https://circleci.com/gh/archonic/limestone.svg?style=svg)]()
+[![<archonic>](https://circleci.com/gh/archonic/limestone.svg?style=svg)](https://circleci.com/gh/archonic/workflows/limestone/tree/master)
 
 Limestone is a boilerplate SaaS app built with Rails 6 on Ruby 2.7 and has an opinionated integration with NPM using [Webpacker](https://github.com/rails/webpacker) and [Stimulus](https://stimulusjs.org/).
 
@@ -26,7 +26,7 @@ The [gemset](https://github.com/archonic/limestone/blob/master/Gemfile) has been
 * Banner with a link to billing page users that are past due.
 * Opinionated search integration using Elasticsearch via Searchkick. Gem is in place but integration is up to you.
 * Feature control using the [Flipper](https://github.com/jnunemaker/flipper) gem. Demonstrated with the `public_registration` feature.
-* 82% RSpec test coverage.
+* 87.85% RSpec test coverage.
 
 ## Notes
 * RSpec controller tests have been omitted in favour of requests tests.
