@@ -28,11 +28,6 @@ jobs: # a collection of steps
     steps: # a collection of executable commands
       - checkout # special step to check out source code to working directory
 
-      # Which version of bundler?
-      - run:
-          name: Which bundler?
-          command: bundle -v
-
       # Restore bundle cache
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
       - restore_cache:
