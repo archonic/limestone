@@ -40,8 +40,9 @@ The [gemset](https://github.com/archonic/limestone/blob/master/Gemfile) has been
 * A [Stripe](https://dashboard.stripe.com/register) account and a [Stripe API Key](https://stripe.com/docs/keys).
 
 ### Test
-* [Codeship](https://codeship.com/) files are in place - just create an account and integrate with your repo.
+* [Codeship](https://codeship.com/) files are in place - just create an account and integrate with your repo. You will need to create your [codeship.aes file](https://documentation.codeship.com/pro/builds-and-configuration/environment-variables/#downloading-your-aes-key), [install jet](https://documentation.codeship.com/pro/jet-cli/installation/) and run `jet encrypt .env .env.encrypted`.
 * [CircleCI](https://circleci.com/) files are in place - just create an account and integrate with your repo.
+* You could also just run test locally with `docker-compose run web rspec` or `docker-compose exec web rspec` if you've already run `docker-compose up`.
 
 ### Production
 * A cloud storage account compatible with ActiveStorage (AWS S3 is the default).
@@ -64,11 +65,11 @@ The [gemset](https://github.com/archonic/limestone/blob/master/Gemfile) has been
     - `STRIPE_PUBLISHABLE_KEY`
     - `STRIPE_SIGNING_SECRET` (This can be something random)
 
-    You probably want to update the `ADMIN_*` environment variables as well.
+    You probably want to update the `ADMIN_*` environment variables. If you want a different `COMPOSE_PROJECT_NAME` and database name, now is the best time to do that.
 
-4. Run `docker-compose run webpack yarn install --pure-lockfile` to install all node modules.
+4. Run `docker-compose run web yarn install --pure-lockfile` to create download images, build your development image and install node_modules. This will take a while.
 
-5. Run `docker-compose up --build` to create and run the various images, volumes, containers and a network
+5. Run `docker-compose run web rails db:prepare` to create the database, load schema and seed.
 
 6. Once the build is done and everything is up, run `docker-compose exec web rails db:setup` to create DB, load schema and seed. Seeding will also create your plan(s) in Stripe.
 
