@@ -11,8 +11,8 @@ class ApplicationController < ActionController::Base
   before_action :check_access, if: :access_required?
 
   def after_sign_in_path_for(resource)
-    if resource.trialing?
-      time_left = distance_of_time_in_words(Time.current, current_user.current_period_end)
+    if resource.on_trial?
+      time_left = distance_of_time_in_words(Time.current, current_user.trial_ends_at)
       flash[:notice] = "You have #{time_left} left in your trial!"
     end
     dashboard_path
@@ -34,7 +34,6 @@ class ApplicationController < ActionController::Base
 
     # Redirect users in bad standing to billing page
     def check_access
-      return false unless current_user.removed?
       redirect_to billing_path,
         flash: {
           error: "Your access has been removed. Please update your card. Access will be restored once payment succeeds."

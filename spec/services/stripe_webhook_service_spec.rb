@@ -150,7 +150,7 @@ RSpec.describe StripeWebhookService, type: :service do
           role: "basic",
           trialing: true,
           past_due: false,
-          current_period_end: Time.zone.at(subscription.current_period_end).to_datetime
+          trial_ends_at Time.zone.at(subscription.current_period_end).to_datetime
         )
         expect(user_subscribed).to receive(:save).once.and_return(true)
         subject
@@ -185,7 +185,7 @@ RSpec.describe StripeWebhookService, type: :service do
             role: "basic",
             past_due: false,
             trialing: true,
-            current_period_end: Time.zone.at(@subscription.current_period_end).to_datetime
+            trial_ends_at Time.zone.at(@subscription.current_period_end).to_datetime
           )
           expect(user_subscribed).to receive(:save).once.and_return(true)
           subject
@@ -215,7 +215,7 @@ RSpec.describe StripeWebhookService, type: :service do
               role: "basic",
               past_due: false,
               trialing: false,
-              current_period_end: Time.zone.at(@subscription.current_period_end).to_datetime
+              trial_ends_at Time.zone.at(@subscription.current_period_end).to_datetime
             )
             expect(user_subscribed).to receive(:save).once.and_return(true)
             subject
@@ -235,7 +235,7 @@ RSpec.describe StripeWebhookService, type: :service do
               role: "pro",
               past_due: false,
               trialing: false,
-              current_period_end: Time.zone.at(@subscription.current_period_end).to_datetime
+              trial_ends_at Time.zone.at(@subscription.current_period_end).to_datetime
             )
             expect(user_subscribed).to receive(:save).once.and_return(true)
             subject
@@ -256,7 +256,7 @@ RSpec.describe StripeWebhookService, type: :service do
             card_exp_year: @source.exp_year,
             role: "basic",
             past_due: true,
-            current_period_end: Time.zone.at(@subscription.current_period_end).to_datetime
+            trial_ends_at Time.zone.at(@subscription.current_period_end).to_datetime
           )
           expect(user_subscribed).to receive(:save).once.and_return(true)
           subject
@@ -275,7 +275,7 @@ RSpec.describe StripeWebhookService, type: :service do
             card_exp_month: @source.exp_month,
             card_exp_year: @source.exp_year,
             role: "removed",
-            current_period_end: Time.zone.at(@subscription.current_period_end).to_datetime
+            trial_ends_at Time.zone.at(@subscription.current_period_end).to_datetime
           )
           expect(user_subscribed).to receive(:save).once.and_return(true)
           subject
@@ -294,7 +294,7 @@ RSpec.describe StripeWebhookService, type: :service do
             card_exp_month: @source.exp_month,
             card_exp_year: @source.exp_year,
             role: "removed",
-            current_period_end: Time.zone.at(@subscription.current_period_end).to_datetime
+            trial_ends_at Time.zone.at(@subscription.current_period_end).to_datetime
           )
           expect(user_subscribed).to receive(:save).once.and_return(true)
           subject
@@ -325,7 +325,7 @@ RSpec.describe StripeWebhookService, type: :service do
         role: "basic",
         past_due: false,
         trialing: false,
-        current_period_end: Time.zone.at(@subscription.current_period_end).to_datetime
+        trial_ends_at Time.zone.at(@subscription.current_period_end).to_datetime
       )
       expect(user_subscribed).to receive(:save).once.and_return(true)
       subject

@@ -17,6 +17,7 @@ FactoryBot.define do
     trait :trialing do
       role { :basic }
       trialing { true }
+      trial_ends_at { 1.hour.from_now }
     end
     trait :subscribed_basic do
       role { :basic }
@@ -36,7 +37,7 @@ FactoryBot.define do
     trait :expired do
       role { :basic }
       trialing { true }
-      current_period_end { 1.hour.ago }
+      trial_ends_at { 1.hour.ago }
     end
   end
 end

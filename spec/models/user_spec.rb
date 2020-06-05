@@ -30,10 +30,6 @@ RSpec.describe User, type: :model do
       expect(user.role).to eq "basic"
       expect(user.trialing).to eq true
     end
-
-    it "sets current_period_end" do
-      expect(user.current_period_end).to be_present
-    end
   end
 
   # Methods
@@ -62,7 +58,7 @@ RSpec.describe User, type: :model do
 
     it "returns false for subscribed user even if trial over" do
       expect(create(:user, :subscribed_basic).trial_expired?).to be false
-      expect(create(:user, :subscribed_basic, current_period_end: 1.hour.ago).trial_expired?).to be false
+      expect(create(:user, :subscribed_basic, trial_ends_at: 1.hour.ago).trial_expired?).to be false
     end
   end
 

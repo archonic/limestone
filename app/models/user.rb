@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  include Pay::Billable
   include Discard::Model
 
   # Include default devise modules. Others available are:
@@ -19,7 +20,7 @@ class User < ApplicationRecord
 
   # If you create new roles and have existing data,
   # add the role at the end so you don't corrupt existing role integers
-  enum role: %i[removed basic pro admin]
+  enum role: %i(basic pro admin)
   after_initialize :setup_new_user, if: :new_record?
 
   delegate :cost, to: :plan
@@ -32,25 +33,17 @@ class User < ApplicationRecord
     devise_mailer.send(notification, self, *args).deliver_later
   end
 
-  # Only checks that they have a source, not that their in good standing
-  def subscribed?
-    card_last4.present?
-  end
-
-  def trial_expired?
-    trialing? &&
-      current_period_end < Time.current
-  end
-
   # Allows features to be flipped for individuals
   def flipper_id
-    "User;#{id}"
+    "User:#{id}"
   end
 
   private
+
     def setup_new_user
+      # TODO set default in PG
       self.role ||= :basic
-      self.current_period_end = Time.current + TRIAL_PERIOD_DAYS.days
+
     end
 
     def set_name

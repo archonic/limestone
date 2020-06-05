@@ -8,6 +8,8 @@ Limestone assumes you want each user to pay for access to your SaaS. If you inst
 ## Versions
 v0.1 is Rails 5.2  
 v0.2+ is Rails 6
+v0.3 introduces the [Pay gem](https://github.com/pay-rails/pay).
+See [CHANGELOG.md](https://github.com/archonic/limestone/blob/master/CHANGELOG.md) for more details.
 
 ## The Stack
 The [gemset](https://github.com/archonic/limestone/blob/master/Gemfile) has been chosen to be modern, performant, and take care of a number of business concerns common to SaaS.

@@ -70,18 +70,16 @@ gem "simple_form", "~> 5"
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem "webpacker", ">= 4"
 
-# TODO remove - rely on stripe for this
-gem "receipts"
-
 # Search
 gem "searchkick", "~> 3"
 
 # Jerbs
 gem "sidekiq", "~> 5"
 
-# Stripe stuff
-gem "stripe", "~> 3"
-gem "stripe_event", "~> 2.1"
+# Payment stuff
+gem "pay", "~> 2.0"
+gem "stripe", "< 6.0", ">= 2.8"
+gem "stripe_event", "~> 2.3"
 
 gem "minitest", "~> 5.14"
 

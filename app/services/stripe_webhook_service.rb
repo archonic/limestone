@@ -85,7 +85,7 @@ class StripeWebhookService
         StripeLogger.error "UpdateCustomer ERROR: Customer #{event_data.id} has no source."
       end
 
-      # Update role based on subscription status and current_period_end
+      # Update role based on subscription status and trial_ends_at
       # Each customer should have just one subscription. Log if that's not the case.
       subscriptions = event_data.subscriptions
       if subscriptions.present?
@@ -94,7 +94,7 @@ class StripeWebhookService
         elsif subscriptions.total_count == 1
           subscription = subscriptions.first
           process_subscription_status(subscription, user_attributes)
-          user_attributes[:current_period_end] = Time.zone.at(subscription.current_period_end).to_datetime
+          user_attributes[:trial_ends_at] = Time.zone.at(subscription.current_period_end).to_datetime
         end
       else
         StripeLogger.error "UpdateCustomer ERROR: Customer #{event_data.id} has no subscription."
@@ -114,7 +114,7 @@ class StripeWebhookService
       no_user_error(self, subscription.customer) { return } if user.nil?
       user_attributes = {}
       process_subscription_status(subscription, user_attributes)
-      user_attributes[:current_period_end] = Time.zone.at(subscription.current_period_end).to_datetime
+      user_attributes[:trial_ends_at] = Time.zone.at(subscription.current_period_end).to_datetime
       user.update(user_attributes)
       true
     end

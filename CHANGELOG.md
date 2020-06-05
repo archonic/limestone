@@ -1,5 +1,11 @@
 # Changelog
 
+# v0.3
+* Security updates
+* Updated readme with better Getting Started instructions.
+TODO
+* Now using Pay gem for all subscription management :tada:
+
 # v0.2
 * Rails updated to 6.0.2.1
 * Ruby upgraded to 2.7.0
