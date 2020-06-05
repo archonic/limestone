@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "2.7"
+ruby "2.7.1"
 
 # Pretty admin dashboards
 gem "administrate", "~> 0.13"
