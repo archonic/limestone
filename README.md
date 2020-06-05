@@ -69,13 +69,11 @@ The [gemset](https://github.com/archonic/limestone/blob/master/Gemfile) has been
 
 4. Run `docker-compose run web yarn install --pure-lockfile` to create download images, build your development image and install node_modules. This will take a while.
 
-5. Run `docker-compose run web rails db:prepare` to create the database, load schema and seed.
+5. Once the build is done and everything is up, run `docker-compose exec web rails db:prepare` to create DB, load schema and seed. Seeding will also create your plan(s) in Stripe.
 
-6. Once the build is done and everything is up, run `docker-compose exec web rails db:setup` to create DB, load schema and seed. Seeding will also create your plan(s) in Stripe.
+6. Visit [http://localhost:3000](http://localhost:3000) and rejoice :tada: You can login using the Admin user defined in `.env`
 
-7. Visit [http://localhost:3000](http://localhost:3000) and rejoice :tada: You can login using the Admin user defined in `.env`
-
-8. See the [Limestone Wiki](https://github.com/archonic/limestone/wiki) more about [development with Docker](https://github.com/archonic/limestone/wiki/Development-with-Docker)
+7. See the [Limestone Wiki](https://github.com/archonic/limestone/wiki) more about [development with Docker](https://github.com/archonic/limestone/wiki/Development-with-Docker)
 
 ### Enable Public User Registration
 1. Visit the `/admin/flipper` page
