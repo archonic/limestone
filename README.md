@@ -1,15 +1,19 @@
 # Limestone
 [![<archonic>](https://circleci.com/gh/archonic/limestone.svg?style=svg)](https://circleci.com/gh/archonic/workflows/limestone/tree/master)
 
-Limestone is a boilerplate SaaS app built with Rails 6 on Ruby 2.7 and has an opinionated integration with NPM using [Webpacker](https://github.com/rails/webpacker) and [Stimulus](https://stimulusjs.org/).
+Limestone is a boilerplate SaaS app built with Rails 6 on Ruby 2.7.1 and has an opinionated integration with NPM using [Webpacker](https://github.com/rails/webpacker) and [Stimulus](https://stimulusjs.org/).
 
 Limestone assumes you want each user to pay for access to your SaaS. If you instead want users to belong to accounts and have billing scoped to accounts, try [Limestone Accounts](https://github.com/archonic/limestone-accounts).
 
 ## Versions
+Versioning in this repo in intended to maintain and modernize the boilerplate. New versions are not intended to update existing forks, although looking through the commits serve as a good upgrade resource.
+
 v0.1 is Rails 5.2  
 v0.2+ is Rails 6
 v0.3 introduces the [Pay gem](https://github.com/pay-rails/pay).
 See [CHANGELOG.md](https://github.com/archonic/limestone/blob/master/CHANGELOG.md) for more details.
+
+See more in the [changelog](https://github.com/archonic/limestone/blob/master/CHANGELOG.md).
 
 ## The Stack
 The [gemset](https://github.com/archonic/limestone/blob/master/Gemfile) has been chosen to be modern, performant, and take care of a number of business concerns common to SaaS.
@@ -69,15 +73,15 @@ The [gemset](https://github.com/archonic/limestone/blob/master/Gemfile) has been
 
     You probably want to update the `ADMIN_*` environment variables. If you want a different `COMPOSE_PROJECT_NAME` and database name, now is the best time to do that.
 
-4. Run `docker-compose run web yarn install --pure-lockfile` to create download images, build your development image and install node_modules. This will take a while.
+4. Run `docker-compose run web yarn install --pure-lockfile` to download images, build your development image and install node_modules. This will take a while.
 
-5. Run `docker-compose run web rails db:prepare` to create the database, load schema and seed.
+5. Run `docker compose up` to run your project and it's dependencies.
 
-6. Once the build is done and everything is up, run `docker-compose exec web rails db:setup` to create DB, load schema and seed. Seeding will also create your plan(s) in Stripe.
+5. Once everything is up, run `docker-compose exec web rails db:prepare` to create DB, load schema and seed. Seeding will also create your plan(s) in Stripe.
 
-7. Visit [http://localhost:3000](http://localhost:3000) and rejoice :tada: You can login using the Admin user defined in `.env`
+6. Visit [http://localhost:3000](http://localhost:3000) and rejoice :tada: You can login using the Admin user defined in `.env`
 
-8. See the [Limestone Wiki](https://github.com/archonic/limestone/wiki) more about [development with Docker](https://github.com/archonic/limestone/wiki/Development-with-Docker)
+7. See the [Limestone Wiki](https://github.com/archonic/limestone/wiki) more about [development with Docker](https://github.com/archonic/limestone/wiki/Development-with-Docker)
 
 ### Enable Public User Registration
 1. Visit the `/admin/flipper` page
