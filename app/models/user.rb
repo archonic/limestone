@@ -18,11 +18,6 @@ class User < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
 
-  # If you create new roles and have existing data,
-  # add the role at the end so you don't corrupt existing role integers
-  enum role: %i(basic pro admin)
-  after_initialize :setup_new_user, if: :new_record?
-
   delegate :cost, to: :product
   delegate :name, to: :product, prefix: true
 
@@ -39,12 +34,6 @@ class User < ApplicationRecord
   end
 
   private
-
-    def setup_new_user
-      # TODO set default in PG
-      self.role ||= :basic
-
-    end
 
     def set_name
       self.name = [first_name, last_name].join(" ").strip

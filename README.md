@@ -79,7 +79,7 @@ The [gemset](https://github.com/archonic/limestone/blob/master/Gemfile) has been
 
 5. Once everything is up, run `docker-compose exec web rails db:prepare` to create DB, load schema and seed. Seeding will also create your plan(s) in Stripe.
 
-6. Visit [http://localhost:3000](http://localhost:3000) and rejoice :tada: You can login using the Admin user defined in `.env`
+6. Visit [http://localhost:3000](http://localhost:3000) and rejoice :tada: You can login using the Admin user defined in `.env`. Keep in mind your admin doesn't have active billing. Enter a [test card](https://stripe.com/docs/testing#cards) when prompted.
 
 7. See the [Limestone Wiki](https://github.com/archonic/limestone/wiki) more about [development with Docker](https://github.com/archonic/limestone/wiki/Development-with-Docker)
 

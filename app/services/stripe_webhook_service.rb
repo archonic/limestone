@@ -7,34 +7,25 @@ class StripeWebhookService
     yield
   end
 
-  def assign_role(user_attributes, stripe_product)
-    plan = Product.find_by(stripe_id: stripe_product.id)
-    if plan.present?
-      user_attributes[:role] = plan.associated_role
-    else
-      StripeLogger.error "AssignRole ERROR: No local plan found for #{stripe_product.id}"
-    end
-  end
-
-  def process_subscription_status(subscription, user_attributes)
-    case subscription.status
-    when "trialing"
-      user_attributes[:trialing] = true
-      user_attributes[:past_due] = false
-      assign_role(user_attributes, subscription.plan)
-    when "active"
-      user_attributes[:trialing] = false
-      user_attributes[:past_due] = false
-      assign_role(user_attributes, subscription.plan)
-    when "past_due"
-      user_attributes[:past_due] = true
-      assign_role(user_attributes, subscription.plan)
-    when "cancelled", "unpaid"
-      user_attributes[:role] = "removed"
-    else
-      StripeLogger.error "#{self.class.name} ERROR: Unknown subscription status #{subscription.status}."
-    end
-  end
+  # def process_subscription_status(subscription, user_attributes)
+  #   case subscription.status
+  #   when "trialing"
+  #     user_attributes[:trialing] = true
+  #     user_attributes[:past_due] = false
+  #     assign_role(user_attributes, subscription.plan)
+  #   when "active"
+  #     user_attributes[:trialing] = false
+  #     user_attributes[:past_due] = false
+  #     assign_role(user_attributes, subscription.plan)
+  #   when "past_due"
+  #     user_attributes[:past_due] = true
+  #     assign_role(user_attributes, subscription.plan)
+  #   when "cancelled", "unpaid"
+  #     user_attributes[:role] = "removed"
+  #   else
+  #     StripeLogger.error "#{self.class.name} ERROR: Unknown subscription status #{subscription.status}."
+  #   end
+  # end
 
   class RecordInvoicePaid < StripeWebhookService
     def call(event)

@@ -36,7 +36,6 @@ module Users
     def destroy
       if SubscriptionService.new(current_user, params).destroy_subscription
         resource.discard
-        resource.role = :removed
         Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
         set_flash_message! :notice, :destroyed
         yield resource if block_given?

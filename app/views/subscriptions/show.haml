@@ -19,7 +19,6 @@
     .form-group
       = "You are currently on the #{current_user.product_name} plan."
       = render 'plan_switch_form', locals: { current_product_id: current_user.product_id }
-      = "Your role is #{current_user.role}."
 
   - if current_user.subscribed?
     .col-md

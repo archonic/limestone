@@ -26,8 +26,7 @@ RSpec.describe User, type: :model do
 
   describe "#setup_new_user" do
     let(:user) { build(:user) }
-    it "sets role to basic and trialing to true" do
-      expect(user.role).to eq "basic"
+    it "sets trialing to true" do
       expect(user.trialing).to eq true
     end
   end
