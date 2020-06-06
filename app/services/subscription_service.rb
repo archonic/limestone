@@ -11,15 +11,15 @@ class SubscriptionService
   def create_subscription
     subscription = nil
     stripe_call do
-      local_plan = Plan.active.find(@params[:user][:plan_id])
+      local_plan = Product.active.find(@params[:user][:product_id])
       return false if local_plan.nil?
-      stripe_plan = Stripe::Plan.retrieve(local_plan.stripe_id)
+      stripe_product = Stripe::Product.retrieve(local_plan.stripe_id)
       # If the plan has a trial time, it does not need a stripe token to create a subscription
       # We assume you have a trial time > 0. Otherwise there will be 2 customers created for
       # each subscribed customer. One at registration and another when subscribing.
       subscription = customer.subscriptions.create(
         source: @params[:stripeToken],
-        plan: stripe_plan.id
+        plan: stripe_product.id
       )
     end
     return false if subscription.nil?
@@ -39,8 +39,8 @@ class SubscriptionService
       subscription = customer.subscriptions.retrieve(@user.stripe_subscription_id)
       subscription.source = @params[:stripeToken] if @params[:stripeToken]
       # Update plan if one is provided, otherwise use user's existing plan
-      # TODO providing plan_id is untested
-      plan_stripe_id = @params[:plan_id] ? Plan.find(@params[:plan_id]).stripe_id : @user.plan.stripe_id
+      # TODO providing product_id is untested
+      plan_stripe_id = @params[:product_id] ? Product.find(@params[:product_id]).stripe_id : @user.plan.stripe_id
       subscription.items = [{
         id: subscription.items.data[0].id,
         plan: plan_stripe_id
@@ -52,7 +52,7 @@ class SubscriptionService
     # This is updated by the stripe webhook customer.updated
     # But we can update it here for a faster optimistic 'response'
     assign_card_details(user_attributes_to_update, @params)
-    user_attributes_to_update[:plan_id] = @params[:plan_id].to_i if @params[:plan_id]
+    user_attributes_to_update[:product_id] = @params[:product_id].to_i if @params[:product_id]
     @user.update(user_attributes_to_update) if user_attributes_to_update.any?
     return true if success
   end

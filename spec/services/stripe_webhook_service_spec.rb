@@ -223,8 +223,8 @@ RSpec.describe StripeWebhookService, type: :service do
         end
 
         context "on pro plan" do
-          before { Plan.find(user_subscribed.plan_id).update(associated_role: "pro") }
-          after  { Plan.find(user_subscribed.plan_id).update(associated_role: "basic") }
+          before { Product.find(user_subscribed.product_id).update(associated_role: "pro") }
+          after  { Product.find(user_subscribed.product_id).update(associated_role: "basic") }
           it "updates and commits user attributes appropriately" do
             expect(User).to receive(:find_by).with(stripe_id: event_customer.data.object.id).and_return(user_subscribed)
             expect(user_subscribed).to receive(:assign_attributes).once.with(

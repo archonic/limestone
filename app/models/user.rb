@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_many :invoices, dependent: :destroy
   has_one_attached :avatar
   # set optional: true if you don't want the default Rails 5 belongs_to presence validation
-  belongs_to :plan
+  belongs_to :product
 
   validates :email, presence: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
@@ -23,8 +23,8 @@ class User < ApplicationRecord
   enum role: %i(basic pro admin)
   after_initialize :setup_new_user, if: :new_record?
 
-  delegate :cost, to: :plan
-  delegate :name, to: :plan, prefix: true
+  delegate :cost, to: :product
+  delegate :name, to: :product, prefix: true
 
   before_save :set_name
 

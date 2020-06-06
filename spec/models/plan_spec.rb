@@ -3,7 +3,7 @@
 require "rails_helper"
 require "stripe_mock"
 
-RSpec.describe Plan, type: :model do
+RSpec.describe Product, type: :model do
   let(:stripe_helper) { StripeMock.create_test_helper }
   before do
     StripeMock.start

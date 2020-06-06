@@ -1,25 +1,7 @@
 # frozen_string_literal: true
 
-require "stripe_webhook_service"
-
-# config/initializers/stripe.rb
-Rails.configuration.stripe = {
-  publishable_key: ENV["STRIPE_PUBLISHABLE_KEY"],
-  secret_key:      ENV["STRIPE_API_KEY"]
-}
+require "stripe"
 
 Stripe.api_key = ENV["STRIPE_API_KEY"]
-Stripe.api_version = "2018-01-23"
+Stripe.api_version = "2020-03-02"
 StripeEvent.signing_secret = ENV["STRIPE_SIGNING_SECRET"]
-
-StripeEvent.configure do |events|
-  # All webhooks are responded to with an empty 200 success, even if not subscribed to.
-  # When you have a webhook url configured in stripe, a success response is required
-  # to attempt payment shortly (1 hour) after invoice.created
-  events.subscribe "invoice.payment_succeeded", StripeWebhookService::RecordInvoicePaid.new
-  events.subscribe "customer.updated", StripeWebhookService::UpdateCustomer.new
-  events.subscribe "customer.subscription.updated", StripeWebhookService::UpdateSubscription.new
-  events.subscribe "customer.subscription.trial_will_end", StripeWebhookService::TrialWillEnd.new
-  events.subscribe "customer.source.expiring", StripeWebhookService::SourceExpiring.new
-  events.subscribe "invoice.payment_failed", StripeWebhookService::Dun.new
-end

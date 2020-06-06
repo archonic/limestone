@@ -27,7 +27,7 @@ RSpec.describe Users::RegistrationsController, type: :request do
           password: "password",
           first_name: Faker::Name.first_name,
           last_name: Faker::Name.last_name,
-          plan_id: plan.id
+          product_id: plan.id
         }
       end
       let(:user) { User.find_by(email: valid_user_params[:email]) }

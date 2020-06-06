@@ -7,12 +7,12 @@ class StripeWebhookService
     yield
   end
 
-  def assign_role(user_attributes, stripe_plan)
-    plan = Plan.find_by(stripe_id: stripe_plan.id)
+  def assign_role(user_attributes, stripe_product)
+    plan = Product.find_by(stripe_id: stripe_product.id)
     if plan.present?
       user_attributes[:role] = plan.associated_role
     else
-      StripeLogger.error "AssignRole ERROR: No local plan found for #{stripe_plan.id}"
+      StripeLogger.error "AssignRole ERROR: No local plan found for #{stripe_product.id}"
     end
   end
 

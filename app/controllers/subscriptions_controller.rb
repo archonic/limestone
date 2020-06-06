@@ -9,7 +9,7 @@ class SubscriptionsController < ApplicationController
 
   # GET '/billing'
   def show
-    @plans = Plan.all
+    @plans = Product.all
     redirect_to subscribe_path unless current_user.subscribed?
   end
 

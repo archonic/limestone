@@ -78,10 +78,9 @@ ActiveRecord::Schema.define(version: 2020_04_10_210020) do
     t.string "status"
   end
 
-  create_table "plans", force: :cascade do |t|
+  create_table "products", force: :cascade do |t|
     t.string "name", null: false
     t.integer "amount", null: false
-    t.string "associated_role", null: false
     t.string "stripe_id"
     t.boolean "active", default: true, null: false
   end
@@ -108,7 +107,7 @@ ActiveRecord::Schema.define(version: 2020_04_10_210020) do
     t.string "card_type"
     t.integer "role"
     t.datetime "discarded_at"
-    t.integer "plan_id"
+    t.integer "product_id"
     t.string "processor"
     t.string "processor_id"
     t.datetime "trial_ends_at"

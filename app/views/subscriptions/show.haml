@@ -15,10 +15,10 @@
       = render 'card_form', locals: { path: subscriptions_path, method: 'patch' }
 
   .col-md
-    %h3 Plan
+    %h3 Product
     .form-group
-      = "You are currently on the #{current_user.plan_name} plan."
-      = render 'plan_switch_form', locals: { current_plan_id: current_user.plan_id }
+      = "You are currently on the #{current_user.product_name} plan."
+      = render 'plan_switch_form', locals: { current_product_id: current_user.product_id }
       = "Your role is #{current_user.role}."
 
   - if current_user.subscribed?
