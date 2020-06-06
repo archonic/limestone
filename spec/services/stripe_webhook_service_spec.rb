@@ -232,7 +232,6 @@ RSpec.describe StripeWebhookService, type: :service do
               card_type: @source.brand,
               card_exp_month: @source.exp_month,
               card_exp_year: @source.exp_year,
-              role: "pro",
               past_due: false,
               trialing: false,
               trial_ends_at Time.zone.at(@subscription.current_period_end).to_datetime

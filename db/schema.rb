@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 2020_04_10_210020) do
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.string "name", null: false
+    t.boolean "admin", default: false, null: false
     t.string "encrypted_password", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -101,16 +102,10 @@ ActiveRecord::Schema.define(version: 2020_04_10_210020) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "card_last4"
-    t.integer "card_exp_month"
-    t.integer "card_exp_year"
-    t.string "card_type"
-    t.integer "role"
     t.datetime "discarded_at"
     t.integer "product_id"
     t.string "processor"
     t.string "processor_id"
-    t.datetime "trial_ends_at"
     t.text "extra_billing_info"
     t.index ["discarded_at"], name: "index_users_on_discarded_at"
     t.index ["email"], name: "index_users_on_email", unique: true

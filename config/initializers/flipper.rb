@@ -12,21 +12,4 @@ Flipper.configure do |config|
     adapter = Flipper::Adapters::Redis.new(client)
     Flipper.new adapter
   end
-
-  # Register each role as a group
-  Flipper.register(:admin) do |actor|
-    actor.respond_to?(:admin?) && actor.admin?
-  end
-
-  Flipper.register(:basic) do |actor|
-    actor.respond_to?(:basic?) && actor.basic?
-  end
-
-  Flipper.register(:pro) do |actor|
-    actor.respond_to?(:pro?) && actor.pro?
-  end
-
-  Flipper.register(:removed) do |actor|
-    actor.respond_to?(:removed?) && actor.removed?
-  end
 end

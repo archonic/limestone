@@ -117,11 +117,6 @@ RSpec.describe Users::RegistrationsController, type: :request do
         expect(user_subscribed.reload.discarded?).to be true
       end
 
-      it "marks the user role as removed" do
-        subject
-        expect(user_subscribed.reload.role).to eq "removed"
-      end
-
       it "signs the user out" do
         subject
         expect(controller.signed_in?).to be false

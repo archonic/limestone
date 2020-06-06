@@ -18,6 +18,11 @@ class Product < ApplicationRecord
     formatted_amount(amount, currency)
   end
 
+  # TODO Just an example, you'll want something more dependable
+  def pro?
+    name == "Pro"
+  end
+
   private
     def create_product_on_stripe
       # stripe_id is populated by factory in tests
