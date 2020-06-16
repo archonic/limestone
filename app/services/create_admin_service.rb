@@ -9,10 +9,8 @@ class CreateAdminService
       u.password_confirmation = ENV["ADMIN_PASSWORD"]
       u.first_name = ENV["ADMIN_FIRST_NAME"]
       u.last_name = ENV["ADMIN_LAST_NAME"]
-      # admins don't need a plan, but it's better to have the validation in place
       u.admin = true
       u.product_id = Product.first.id
-      u.admin!
     end
   end
 end

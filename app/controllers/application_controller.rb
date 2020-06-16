@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     if resource.on_trial?
-      time_left = distance_of_time_in_words(Time.current, current_user.trial_ends_at)
+      time_left = distance_of_time_in_words(Time.current, current_user.try(:trial_ends_at))
       flash[:notice] = "You have #{time_left} left in your trial!"
     end
     dashboard_path
