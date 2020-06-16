@@ -75,7 +75,7 @@ The [gemset](https://github.com/archonic/limestone/blob/master/Gemfile) has been
 
 4. Run `docker-compose run web yarn install --pure-lockfile` to download images, build your development image and install node_modules. This will take a while.
 
-5. Run `docker compose up` to run your project and it's dependencies.
+5. Run `docker-compose up` to run your project and it's dependencies.
 
 5. Once everything is up, run `docker-compose exec web rails db:prepare` to create DB, load schema and seed. Seeding will also create your plan(s) in Stripe.
 
