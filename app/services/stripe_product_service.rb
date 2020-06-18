@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateProductService
+class StripeProductService
   def initialize(product_model)
     @product_model = product_model
   end
@@ -21,10 +21,9 @@ class CreateProductService
     begin
       stripe_product = Stripe::Product.create stripe_product_attrs
     rescue Stripe::InvalidRequestError => e
-      StripeLogger.error "Error creating plan #{@product_model.name}: #{e}"
+      StripeLogger.error "Error creating Product #{@product_model.name}: #{e.json_body[:error]}"
     end
 
-    # Don't hit the DB here as this is performed in before_create
-    @product_model.stripe_id = stripe_product.id if stripe_product.present?
+    @product_model.update(stripe_id: stripe_product.id) if stripe_product.present?
   end
 end

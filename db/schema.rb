@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_10_210020) do
+ActiveRecord::Schema.define(version: 2020_06_18_161145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,9 +78,18 @@ ActiveRecord::Schema.define(version: 2020_04_10_210020) do
     t.string "status"
   end
 
-  create_table "products", force: :cascade do |t|
+  create_table "plans", force: :cascade do |t|
+    t.bigint "product_id"
     t.string "name", null: false
     t.integer "amount", null: false
+    t.string "currency", default: "USD", null: false
+    t.string "interval", default: "month", null: false
+    t.string "stripe_id"
+    t.index ["product_id"], name: "index_plans_on_product_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name", null: false
     t.string "stripe_id"
     t.boolean "active", default: true, null: false
   end
@@ -106,6 +115,7 @@ ActiveRecord::Schema.define(version: 2020_04_10_210020) do
     t.integer "product_id"
     t.string "processor"
     t.string "processor_id"
+    t.datetime "trial_ends_at"
     t.text "extra_billing_info"
     t.index ["discarded_at"], name: "index_users_on_discarded_at"
     t.index ["email"], name: "index_users_on_email", unique: true

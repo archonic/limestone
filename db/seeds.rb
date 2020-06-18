@@ -14,23 +14,54 @@
 if !Rails.env.test?
   products = Product.create(
     [
+      { name: "Basic" },
+      { name: "Pro" }
+    ]
+  )
+  products.each do |product|
+    StripeProductService.new(product).create
+  end
+  puts "CREATED PRODUCTS #{products.map(&:name).join(', ')}."
+
+  plans = Plan.create(
+    [
       {
-        name: "Basic",
+        product_id: products.first.id,
+        name: "Basic Monthly",
         amount: 900,
         interval: "month",
-        currency: "usd"
+        currency: "USD"
       },
       {
-        name: "Pro",
+        product_id: products.first.id,
+        name: "Basic Annual",
+        amount: 9900,
+        interval: "year",
+        currency: "USD"
+      },
+      {
+        product_id: products.second.id,
+        name: "Pro Monthly",
         amount: 1500,
         interval: "month",
-        currency: "usd"
+        currency: "USD"
+      },
+      {
+        product_id: products.second.id,
+        name: "Pro Annual",
+        amount: 16500,
+        interval: "year",
+        currency: "USD"
       }
     ]
   )
-  puts "CREATED PRODUCTS #{products.map(&:name).join(', ')}."
+  plans.each do |plan|
+    StripePlanService.new(plan).create
+  end
+  puts "CREATED PLANS #{plans.map(&:name).join(', ')}."
+
   admin_user = CreateAdminService.call
   puts "CREATED ADMIN USER: #{admin_user.email}."
 else
-  puts "SKIPPED PLAN AND ADMIN CREATION BECAUSE WE'RE IN TEST ENVIRONMENT."
+  puts "NOTE Skipped product/plan and admin creation because we're in the test ENV. Create your test product/plan and set their IDs in your .env file to have testing pass."
 end
