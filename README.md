@@ -37,7 +37,6 @@ The [gemset](https://github.com/archonic/limestone/blob/master/Gemfile) has been
 ## Notes
 * RSpec controller tests have been omitted in favour of requests tests.
 * You can run tests locally with `docker-compose run web rspec`
-* Because this is a boilerplate, there are no migrations. Rely on schema.rb and use `rails db:setup` to create the db and seed.
 
 ## Pre-requisites
 
