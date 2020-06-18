@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 2020_06_18_161145) do
     t.integer "amount", null: false
     t.string "currency", default: "USD", null: false
     t.string "interval", default: "month", null: false
+    t.boolean "active", default: true, null: false
     t.string "stripe_id"
     t.index ["product_id"], name: "index_plans_on_product_id"
   end

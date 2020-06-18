@@ -9,6 +9,7 @@ class CreatePlansAgain < ActiveRecord::Migration[6.0]
       t.string :currency, null: false, default: "USD"
       t.string :interval, null: false, default: "month"
       t.string :stripe_id
+      t.boolean :active, null: false, default: true
     end
   end
 end
