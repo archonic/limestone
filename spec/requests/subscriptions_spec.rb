@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require "stripe_mock"
 
 RSpec.describe SubscriptionsController, type: :request do
   let(:stripe_helper) { StripeMock.create_test_helper }

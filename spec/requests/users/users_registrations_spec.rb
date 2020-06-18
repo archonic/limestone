@@ -1,33 +1,24 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require "stripe_mock"
 
 RSpec.describe Users::RegistrationsController, type: :request do
-  let(:stripe_helper) { StripeMock.create_test_helper }
   before do
-    StripeMock.start
-    stripe_helper.create_plan(
-      id: "example-plan-id",
-      name: "World Domination",
-      amount: 100_000,
-      trial_period_days: TRIAL_PERIOD_DAYS
-    )
     # Allow public registration before testing it
     Flipper.enable :public_registration
   end
-  after { StripeMock.stop }
 
   describe "POST /profile" do
     context "with valid parameters" do
-      let(:plan) { create(:plan) }
+      let(:product) { create(:product) }
       let(:valid_user_params) do
         {
           email: Faker::Internet.email,
           password: "password",
           first_name: Faker::Name.first_name,
           last_name: Faker::Name.last_name,
-          product_id: plan.id
+          product_id: product.id,
+          plan_id: product.plan_id
         }
       end
       let(:user) { User.find_by(email: valid_user_params[:email]) }
@@ -37,10 +28,9 @@ RSpec.describe Users::RegistrationsController, type: :request do
         response
       end
 
-      it "creates a basic user with stripe subscription" do
+      it "creates a user with a stripe subscription" do
         subject
         expect(user).to be_present
-        expect(user.basic?).to be true
         expect(user.stripe_id?).to be_present
       end
 

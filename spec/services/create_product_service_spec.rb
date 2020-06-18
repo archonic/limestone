@@ -1,23 +1,14 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require "stripe_mock"
 
 RSpec.describe CreateProductService, type: :service do
-  let(:plan) { create(:plan) }
-  before do
-    allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new("development"))
-    StripeMock.start
-  end
-  after do
-    allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new("test"))
-    StripeMock.stop
-  end
+  let(:product) { create(:product) }
 
   describe "#call" do
-    it "creates the plan" do
+    it "creates the product" do
       expect(Stripe::Product).to receive(:create).once
-      CreateProductService.new(plan)
+      CreateProductService.new(product)
     end
   end
 end

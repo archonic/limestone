@@ -107,7 +107,6 @@ group :development, :test do
   gem "rubocop"
   gem "rubocop-rails"
   gem "rubocop-performance"
-  gem "stripe-ruby-mock", github: "archonic/stripe-ruby-mock", require: "stripe_mock"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

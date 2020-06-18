@@ -1,20 +1,16 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require "stripe_mock"
 
 RSpec.describe InvoicesController, type: :request do
-  let(:stripe_helper) { StripeMock.create_test_helper }
-  before do
-    StripeMock.start
-    stripe_helper.create_plan(
-      id: "example-plan-id",
-      name: "World Domination",
-      amount: 100_000,
-      trial_period_days: TRIAL_PERIOD_DAYS
-    )
-  end
-  after { StripeMock.stop }
+  # before do
+  #   stripe_helper.create_plan(
+  #     id: "example-plan-id",
+  #     name: "World Domination",
+  #     amount: 100_000,
+  #     trial_period_days: TRIAL_PERIOD_DAYS
+  #   )
+  # end
   let(:mock_customer) { Stripe::Customer.create }
   let(:mock_subscription) do
     mock_customer.subscriptions.create(

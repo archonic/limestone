@@ -1,15 +1,12 @@
 # frozen_string_literal: true
 
-require "stripe_mock"
-
 FactoryBot.define do
-  factory :plan do
+  factory :product do
     name { "World Domination" }
     amount { 100_000 }
     interval { "month" }
     currency { "usd" }
-    associated_role { "basic" }
-    stripe_id { "example-plan-id" }
+    stripe_id { STRIPE_TEST_PRODUCT_ID }
     initialize_with { Product.where(name: name).first_or_initialize }
   end
 end
