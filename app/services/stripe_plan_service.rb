@@ -6,7 +6,8 @@ class StripePlanService
   end
 
   def create
-    return false if @plan_model.product.stripe_id.blank?
+    # Don't contact Stripe if we already have a stripe_id
+    return false if @plan_model.product.stripe_id.blank? || @plan_model.stripe_id.present?
 
     stripe_plan = nil
     stripe_plan_attrs = {

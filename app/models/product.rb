@@ -5,6 +5,7 @@
 class Product < ApplicationRecord
   validates :name, presence: true
   has_many :users, dependent: :nullify
+  has_many :plans, dependent: :nullify
 
   scope :active, -> { where(active: true) }
 
