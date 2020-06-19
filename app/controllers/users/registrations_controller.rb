@@ -10,7 +10,11 @@ module Users
 
     # POST /resource
     def create
-      build_resource(sign_up_params)
+      build_resource(
+        sign_up_params.merge(
+          trial_ends_at: TRIAL_PERIOD_DAYS.days.from_now
+        )
+      )
       resource.save
       if resource.persisted?
         SubscriptionService.new(resource, params).create_subscription
