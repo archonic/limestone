@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe "Administrate Dashboards", type: :request do
   let(:admin) { create(:user, :admin) }
-  let(:user) { create(:user, :trialing) }
+  let(:user) { create(:user) }
 
   context "as admin" do
     before { sign_in admin }
@@ -35,34 +35,12 @@ RSpec.describe "Administrate Dashboards", type: :request do
         end
       end
     end
-
-    describe InvoiceDashboard do
-      subject do
-        get admin_users_path
-        response
-      end
-
-      it "allows admins to access /admin" do
-        expect(subject).to have_http_status(:success)
-      end
-    end
   end
 
   context "as user" do
     before { sign_in user }
 
     describe UserDashboard do
-      subject do
-        get admin_users_path
-        response
-      end
-
-      it "raises no route matches" do
-        expect { subject }.to raise_error(ActionController::RoutingError)
-      end
-    end
-
-    describe InvoiceDashboard do
       subject do
         get admin_users_path
         response
