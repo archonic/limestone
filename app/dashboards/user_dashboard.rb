@@ -10,7 +10,6 @@ class UserDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    invoices: Field::HasMany,
     id: Field::Number,
     email: Field::String,
     name: Field::String,
@@ -41,7 +40,6 @@ class UserDashboard < Administrate::BaseDashboard
     name
     sign_in_count
     last_sign_in_ip
-    invoices
     trial_ends_at
     created_at
   ).freeze
@@ -57,7 +55,6 @@ class UserDashboard < Administrate::BaseDashboard
     current_sign_in_ip
     trial_ends_at
     created_at
-    invoices
   ).freeze
 
   # FORM_ATTRIBUTES

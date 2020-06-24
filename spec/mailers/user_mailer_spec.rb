@@ -15,24 +15,7 @@ RSpec.describe UserMailer, type: :mailer do
   describe "billing_updated" do
     let(:mail) { UserMailer.billing_updated(user) }
     it "renders" do
-      expect(mail.body).to match "Your billing information has been updated"
-    end
-  end
-
-  describe "invoice_paid" do
-    let(:mail) { UserMailer.invoice_paid(user, invoice) }
-    let(:invoice) { create(:invoice) }
-    it "renders" do
-      expect(mail.body.parts.length).to eq 2
-      expect(mail.body.parts.first.body.raw_source).to match "We received your payment"
-      expect(mail.body.parts.last.content_type).to eq "application/pdf"
-    end
-  end
-
-  describe "invoice_failed" do
-    let(:mail) { UserMailer.invoice_failed(user, 1, 1.hour.from_now.to_s) }
-    it "renders" do
-      expect(mail.body).to match "Invoice payment failed"
+      expect(mail.body).to match "billing information has been updated"
     end
   end
 

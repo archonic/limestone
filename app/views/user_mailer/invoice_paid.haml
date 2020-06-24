@@ -1,20 +1,4 @@
-%h1 Invoice paid
 %p= "We received your payment for your Limestone subscription. Thanks #{@user.first_name}!"
-%hr
-  Limestone Receipt
-  %br
-  %br
-  Amount:
-  = @invoice.formatted_amount
-  %br
-  Charged to:
-  = @invoice.formatted_card
-  %br
-  Transaction ID:
-  = @invoice.number
-  %br
-  Date:
-  = @invoice.formatted_invoice_date
-%hr
+%p Attached is your invoice PDF.
 
 %p Questions? Feel free to contact support@example.com at anytime.
