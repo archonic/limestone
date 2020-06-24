@@ -73,15 +73,6 @@ RSpec.describe SubscriptionsController, type: :request do
         response
       end
 
-      # NOTE Don't think this is needed
-      # context "as a not subscribed user" do
-      #   before { sign_in user_trial }
-      #   it "redirects to subscribe page with access denied" do
-      #     expect(subject).to redirect_to subscribe_path
-      #     expect(flash[:error]).to match "There was an error updating your subscription"
-      #   end
-      # end
-
       context "as a subscribed user" do
         before { sign_in user_subscribed }
         it "updates card" do
