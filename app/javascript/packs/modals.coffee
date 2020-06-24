@@ -38,7 +38,7 @@ $ ->
     commit: 'Confirm'
     commitClass: 'btn-danger'
     cancel: 'Cancel'
-    cancelClass: 'btn-default'
+    cancelClass: 'btn-light'
     fade: true
     verifyClass: 'form-control'
     elements: [
@@ -47,7 +47,7 @@ $ ->
       'input[type=submit][data-confirm]'
     ]
     focus: 'commit'
-    zIndex: 1050
+    zIndex: 999
     modalClass: false
     show: true
     backdrop: 'static'
@@ -108,7 +108,6 @@ $ ->
     current = undefined
     fade = undefined
     focus_element = undefined
-    highest = undefined
     id = undefined
     isMatch = undefined
     modal = undefined
@@ -127,12 +126,7 @@ $ ->
     modalHeader = undefined
     modalHeader = modalTitle + modalClose
     modal = $('<div id="' + id + '" class="modal ' + modalClass + ' ' + fade + '" tabindex="-1" role="dialog" aria-labelledby="' + id + 'Label" aria-hidden="true">' + '<div class="modal-dialog" role="document">' + '<div class="modal-content">' + '<div class="modal-header">' + modalHeader + '</div>' + '<div class="modal-body"></div>' + '<div class="modal-footer">' + '<button class="btn cancel" data-dismiss="modal" aria-hidden="true"></button>' + '<button class="btn commit"></button>' + '</div>' + '</div>' + '</div>' + '</div>')
-    highest = current = settings.zIndex
-    $('.modal.in').not('#' + id).each ->
-      current = parseInt($(this).css('z-index'), 10)
-      if current > highest
-        return highest = current
-    modal.css 'z-index', parseInt(highest) + 1
+    modal.css 'z-index', settings.zIndex
     modal.find('.modal-title').text options.title or settings.title
     body = modal.find('.modal-body')
     $.each (options.text or '').split(/\n{2}/), (i, piece) ->
