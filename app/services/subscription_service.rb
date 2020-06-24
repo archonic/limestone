@@ -10,78 +10,26 @@ class SubscriptionService
   # Subscriptions are created when users complete the registration form.
   def create_subscription
     subscription = nil
+    @user.processor = "stripe"
     stripe_call do
-      local_plan = Product.active.find(@params[:user][:product_id])
-      return false if local_plan.nil?
-      stripe_product = Stripe::Product.retrieve(local_plan.stripe_id)
-      # If the plan has a trial time, it does not need a stripe token to create a subscription
-      # We assume you have a trial time > 0. Otherwise there will be 2 customers created for
-      # each subscribed customer. One at registration and another when subscribing.
-      subscription = customer.subscriptions.create(
-        source: @params[:stripeToken],
-        plan: stripe_product.id
-      )
+      local_product = Product.active.find(@params[:user][:product_id])
+      local_plan = local_product.plans.active.find(@params[:user][:plan_id])
+      return false if local_product.nil?
+      stripe_plan = Stripe::Plan.retrieve(local_plan.stripe_id)
+      @user.card_token = @params[:stripeToken]
+      # NOTE you need name to look up with subscribe? and on_trial_or_subscribed?
+      subscription = @user.subscribe(name: local_product.name, plan: stripe_plan.id)
     end
-    return false if subscription.nil?
-
-    user_attributes_to_update = {
-      stripe_id: customer.id,
-      stripe_subscription_id: subscription.id
-    }
-    assign_card_details(user_attributes_to_update, @params)
-    @user.update(user_attributes_to_update)
-  end
-
-  # Fires when users subscribe (/subscribe), update their card (/billing) and switch plans.
-  def update_subscription
-    success = stripe_call do
-      customer = Stripe::Customer.retrieve(@user.stripe_id)
-      subscription = customer.subscriptions.retrieve(@user.stripe_subscription_id)
-      subscription.source = @params[:stripeToken] if @params[:stripeToken]
-      # Update plan if one is provided, otherwise use user's existing plan
-      # TODO providing product_id is untested
-      plan_stripe_id = @params[:product_id] ? Product.find(@params[:product_id]).stripe_id : @user.plan.stripe_id
-      subscription.items = [{
-        id: subscription.items.data[0].id,
-        plan: plan_stripe_id
-      }]
-      subscription.save
-    end
-    return false unless success
-    user_attributes_to_update = {}
-    # This is updated by the stripe webhook customer.updated
-    # But we can update it here for a faster optimistic 'response'
-    assign_card_details(user_attributes_to_update, @params)
-    user_attributes_to_update[:product_id] = @params[:product_id].to_i if @params[:product_id]
-    @user.update(user_attributes_to_update) if user_attributes_to_update.any?
-    return true if success
+    subscription
   end
 
   def destroy_subscription
     stripe_call do
-      customer.subscriptions.retrieve(@user.stripe_subscription_id).delete
-      @user.update(stripe_subscription_id: nil)
+      @user.subscription.cancel
     end
   end
 
   private
-    def customer
-      @customer ||= if @user.stripe_id?
-        Stripe::Customer.retrieve(@user.stripe_id)
-      else
-        Stripe::Customer.create(email: @user.email)
-      end
-    end
-
-    def assign_card_details(user_attributes_to_update, params)
-      return unless params[:card_last4] && params[:stripeToken]
-      user_attributes_to_update.merge!(
-        card_last4: params[:card_last4],
-        card_exp_month: params[:card_exp_month],
-        card_exp_year: params[:card_exp_year],
-        card_type: params[:card_brand]
-      )
-    end
 
     def stripe_call(&block)
       stripe_success = false

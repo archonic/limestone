@@ -28,6 +28,7 @@ class ApplicationController < ActionController::Base
     # Users are always allowed to manage their session, registration and subscription
     def access_required?
       user_signed_in? &&
+        !current_user.on_trial_or_subscribed_to_any? &&
         !devise_controller? &&
         controller_name != "subscriptions"
     end
@@ -36,7 +37,7 @@ class ApplicationController < ActionController::Base
     def check_access
       redirect_to billing_path,
         flash: {
-          error: "Your access has been removed. Please update your card. Access will be restored once payment succeeds."
+          error: "Your trial has ended or your subscription has been cancelled. Please update your card - access will be restored once payment succeeds."
         }
     end
 end

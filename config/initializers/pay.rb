@@ -5,10 +5,10 @@ Pay.setup do |config|
   config.chargeable_table = 'pay_charges'
 
   # For use in the receipt/refund/renewal mailers
-  config.business_name = "Business Name"
-  config.business_address = "1600 Pennsylvania Avenue NW"
-  config.application_name = "My App"
-  config.support_email = "helpme@example.com"
+  config.business_name = "Limestone"
+  config.business_address = "1234 Whatever Street"
+  config.application_name = "Limestone App"
+  config.support_email = "support@example.com"
 
   config.send_emails = true
 

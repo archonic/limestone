@@ -10,20 +10,26 @@ class SubscriptionsController < ApplicationController
   # GET '/billing'
   def show
     @plans = Product.all
-    redirect_to subscribe_path unless current_user.subscribed?
+    redirect_to subscribe_path unless current_user.subscribed_to_any?
   end
 
   # GET '/subscribe'
   def new
-    redirect_to billing_path if current_user.subscribed?
+    redirect_to billing_path if current_user.subscribed_to_any?
   end
 
   # PATCH /subscriptions
   def update
-    if SubscriptionService.new(current_user, params).update_subscription
+    current_user.processor = "stripe"
+    success = if params[:plan_id].present?
+      current_user.get_subscription.swap(params[:plan_id])
+    elsif params[:payment_method_id].present?
+      current_user.update_card(params[:payment_method_id])
+    end
+    if success
       redirect_to billing_path,
         flash: {
-          success: "Subscription updated! If this change alters your abilities, please allow a moment for us to update them."
+          success: "Subscription updated!"
         }
     else
       redirect_to subscribe_path,

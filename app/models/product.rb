@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# NOTE This model is not meant to sync with Stripe -
-# just to hold the unique stripe_id as a convenience for retrieval.
+# NOTE This model is not meant to sync with Stripe
+# Products and plans rarely change - ensure accuracy at setup and when you change them
 class Product < ApplicationRecord
   validates :name, presence: true
   has_many :users, dependent: :nullify
@@ -9,7 +9,7 @@ class Product < ApplicationRecord
 
   scope :active, -> { where(active: true) }
 
-  # TODO Just an example, you'll want something more dependable
+  # TODO Just an example, you'll probably want something more dependable
   def pro?
     name == "Pro"
   end
