@@ -4,7 +4,6 @@
 * Security updates
 * Updated readme with better Getting Started instructions.
 * Upgraded to Ruby 2.7.1 and fixed version pinning.
-TODO
 * Integrated Pay gem for all subscription management :tada:
 
 ## v0.2
