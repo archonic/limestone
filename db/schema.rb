@@ -105,6 +105,10 @@ ActiveRecord::Schema.define(version: 2020_06_19_231343) do
     t.string "processor"
     t.string "processor_id"
     t.datetime "trial_ends_at"
+    t.string "card_type"
+    t.string "card_last4"
+    t.string "card_exp_month"
+    t.string "card_exp_year"
     t.text "extra_billing_info"
     t.index ["discarded_at"], name: "index_users_on_discarded_at"
     t.index ["email"], name: "index_users_on_email", unique: true
