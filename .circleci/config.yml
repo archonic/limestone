@@ -32,16 +32,14 @@ jobs: # a collection of steps
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
       - restore_cache:
           keys:
-            - limestone-bundle-v2-{{ checksum "Gemfile.lock" }}
-            - limestone-bundle-v2-
+            - limestone-bundle-v3-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - limestone-bundle-v3-{{ arch }}-{{ .Branch }}
+            - limestone-bundle-v3
 
-      - run: # Install Ruby dependencies
-          name: Bundle Install
-          command: bundle config set path 'vendor/bundle' || bundle install --deployment
+      - run: bundle config set path 'vendor/bundle' && bundle install
 
-      # Store bundle cache for Ruby dependencies
       - save_cache:
-          key: limestone-bundle-v2-{{ checksum "Gemfile.lock" }}
+          key: limestone-bundle-v3-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
 
