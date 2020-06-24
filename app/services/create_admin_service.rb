@@ -4,7 +4,7 @@ class CreateAdminService
   # NOTE This user will be on a trial upon creation
   # enter a test card when prompted: https://stripe.com/docs/testing#cards
   def self.call
-    User.find_or_create_by!( email: ENV["ADMIN_EMAIL"] ) do |u|
+    User.find_or_create_by!(email: ENV["ADMIN_EMAIL"]) do |u|
       u.password = ENV["ADMIN_PASSWORD"]
       u.password_confirmation = ENV["ADMIN_PASSWORD"]
       u.first_name = ENV["ADMIN_FIRST_NAME"]

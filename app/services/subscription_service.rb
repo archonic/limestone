@@ -30,7 +30,6 @@ class SubscriptionService
   end
 
   private
-
     def stripe_call(&block)
       stripe_success = false
       begin

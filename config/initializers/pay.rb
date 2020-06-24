@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 Pay.setup do |config|
-  config.chargeable_class = 'Pay::Charge'
-  config.chargeable_table = 'pay_charges'
+  config.chargeable_class = "Pay::Charge"
+  config.chargeable_table = "pay_charges"
 
   # For use in the receipt/refund/renewal mailers
   config.business_name = "Limestone"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddOwnerTypeToPay < ActiveRecord::Migration[6.0]
   def change
     # add_column :pay_charges, :owner_type, :string

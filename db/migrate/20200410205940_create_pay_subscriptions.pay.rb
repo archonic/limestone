@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This migration comes from pay (originally 20170205020145)
 class CreatePaySubscriptions < ActiveRecord::Migration[4.2]
   def change

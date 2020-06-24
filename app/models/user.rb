@@ -33,7 +33,6 @@ class User < ApplicationRecord
 
   # Assumes user has just one subscription
   def get_subscription
-    subscription = nil
     Product.find_each.map(&:name).each do |product_name|
       return subscription(name: product_name)
     end
@@ -52,7 +51,6 @@ class User < ApplicationRecord
   end
 
   private
-
     def set_name
       self.name = [first_name, last_name].join(" ").strip
     end

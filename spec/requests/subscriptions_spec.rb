@@ -28,8 +28,8 @@ RSpec.describe SubscriptionsController, type: :request do
   before do
     user_subscribed.processor = "stripe"
     stripe_plan = Stripe::Plan.retrieve(plan.stripe_id)
-     # NOTE We don't need a card token here because the plan has a trial.
-     # If plan has no trial, then a card token is required.
+    # NOTE We don't need a card token here because the plan has a trial.
+    # If plan has no trial, then a card token is required.
     user_subscribed.subscribe(name: product.name, plan: stripe_plan.id)
   end
 
