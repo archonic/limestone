@@ -2,9 +2,9 @@
 %html
   %head
     %title Limestone
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
-    %meta{name: "viewport", content: "width=device-width, initial-scale=1"}
-    %meta{"http-equiv": "x-ua-compatible", content: "ie=edge"}
+    %meta{ content: "text/html; charset=UTF-8", "http-equiv": "Content-Type" }
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1" }
+    %meta{ "http-equiv": "x-ua-compatible", content: "ie=edge" }
     = action_cable_meta_tag
     = tag :meta, name: "stripe-key", content: Pay::Stripe.public_key
     -# Sprockets application.js

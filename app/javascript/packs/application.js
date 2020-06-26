@@ -6,25 +6,31 @@
 //
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 
+require("@rails/ujs").start()
+import Rails from '@rails/ujs'
+window.Rails = Rails
+
+require("turbolinks").start()
+require("@rails/activestorage").start()
+require("channels")
+
+// External libs
 import 'jquery'
-window.$ = window.jQuery = require('jquery');
-
+window.$ = window.jQuery = require('jquery')
 import 'bootstrap'
-import './src/application'
-
-import Rails from 'rails-ujs';
-import Turbolinks from 'turbolinks';
-Rails.start();
-Turbolinks.start();
-
-import * as ActiveStorage from 'activestorage'
-ActiveStorage.start()
 
 import './subscriptions'
+// TODO why is $ undefined in modals?
 import './modals'
 import './global'
 
+// All Stimulus
 import 'controllers'
 
-console.log('Hello World from Webpacker')
+// All styles
+import './src/application'
+
+console.log('Hello World from Webpacker (app/javascript/packs/application.js)')
