@@ -5,19 +5,21 @@ class SubscriptionService
   def initialize(current_user, params)
     @user = current_user
     @params = params
+    @user.processor = "stripe"
   end
 
   # Subscriptions are created when users complete the registration form.
-  def create_subscription
-    subscription = nil
-    @user.processor = "stripe"
-    stripe_call do
+  def create_subscription!
+    subscription, local_product, local_plan = nil
+    begin
       local_product = Product.active.find(@params[:user][:product_id])
       local_plan = local_product.plans.active.find(@params[:user][:plan_id])
-      return false if local_product.nil?
+    rescue ActiveRecord::RecordNotFound => e
+      StripeLogger.error e.message
+    end
+    raise "Local Plan or Product not present." if local_product.nil? || local_plan.nil?
+    stripe_call do
       stripe_plan = Stripe::Plan.retrieve(local_plan.stripe_id)
-      @user.card_token = @params[:stripeToken]
-      # NOTE you need name to look up with subscribe? and on_trial_or_subscribed?
       subscription = @user.subscribe(name: local_product.name, plan: stripe_plan.id)
     end
     subscription

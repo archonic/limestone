@@ -15,9 +15,9 @@ module Users
           trial_ends_at: TRIAL_PERIOD_DAYS.days.from_now
         )
       )
-      resource.save
-      if resource.persisted?
-        SubscriptionService.new(resource, params).create_subscription
+      # NOTE It would be ideal to wrap user and subscription creation in a transaction block
+      # This is not possible due to Pay::Billable relations
+      if resource.save && SubscriptionService.new(resource, params).create_subscription!
         if resource.active_for_authentication?
           set_flash_message! :notice, :signed_up
           sign_up(resource_name, resource)
@@ -33,7 +33,7 @@ module Users
       else
         clean_up_passwords resource
         set_minimum_password_length
-        respond_with resource
+        respond_with resource, location: new_user_registration_path
       end
     end
 

@@ -9,9 +9,10 @@ RSpec.describe Users::RegistrationsController, type: :request do
   end
 
   describe "POST /profile" do
+    let!(:product) { create(:product) }
+    let!(:plan) { create(:plan, product: product) }
+
     context "with valid parameters" do
-      let!(:product) { create(:product) }
-      let!(:plan) { create(:plan, product: product) }
       let(:valid_user_params) do
         {
           email: Faker::Internet.email,
@@ -53,11 +54,14 @@ RSpec.describe Users::RegistrationsController, type: :request do
     end
 
     context "with invalid parameters" do
+      # Invalid due to missing last name
       let(:invalid_user_params) do
         {
           email: Faker::Internet.email,
           password: "password",
-          first_name: Faker::Name.first_name
+          first_name: Faker::Name.first_name,
+          product_id: product.id,
+          plan_id: product.plans.first.id
         }
       end
       let(:user) { User.find_by(email: invalid_user_params[:email]) }
