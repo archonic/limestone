@@ -18,9 +18,15 @@ Rails.application.routes.draw do
 
   mount StripeEvent::Engine, at: "/stripe/webhook"
 
-  devise_for :users, path: "",
-                     path_names: { sign_in: "login", sign_out: "logout", registration: "profile" },
-                     controllers: { registrations: "users/registrations" } # sessions: "users/sessions", passwords: "users/passwords"
+  devise_for :users,  path: "",
+                      path_names: {
+                        sign_in: "sign-in",
+                        sign_out: "sign-out",
+                        sign_up: "sign-up"
+                      },
+                      controllers: {
+                        registrations: "users/registrations"
+                      }
 
   unauthenticated :user do
     devise_scope :user do
