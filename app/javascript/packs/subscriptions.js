@@ -2,7 +2,7 @@ var addFieldToPaymentForm, stripeTokenHandler;
 
 stripeTokenHandler = function(token) {
   var form, hiddenInput;
-  form = document.getElementById('payment_form');
+  form = document.getElementById('payment-form');
   hiddenInput = document.createElement('input');
   hiddenInput.setAttribute('type', 'hidden');
   hiddenInput.setAttribute('name', 'stripeToken');
@@ -26,7 +26,7 @@ addFieldToPaymentForm = function(form, token, field) {
 document.addEventListener('turbolinks:load', function() {
   var card, elements, form, public_key, stripe, style;
   if (document.querySelector('#card-element') !== null) {
-    public_key = document.querySelector('meta[name=\'stripe-public-key\']').content;
+    public_key = document.querySelector("meta[name='stripe-key']").content;
     stripe = Stripe(public_key);
     elements = stripe.elements();
     style = {
@@ -48,7 +48,7 @@ document.addEventListener('turbolinks:load', function() {
         return displayError.textContent = '';
       }
     });
-    form = document.getElementById('payment_form');
+    form = document.getElementById('payment-form');
     return form.addEventListener('submit', function(event) {
       event.preventDefault();
       return stripe.createToken(card).then(function(result) {
