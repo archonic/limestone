@@ -19,8 +19,7 @@ RSpec.describe Users::RegistrationsController, type: :request do
           password: "password",
           first_name: Faker::Name.first_name,
           last_name: Faker::Name.last_name,
-          product_id: product.id,
-          plan_id: product.plans.first.id
+          plan_id: plan.id
         }
       end
       let(:user) { User.find_by(email: valid_user_params[:email]) }
@@ -60,8 +59,7 @@ RSpec.describe Users::RegistrationsController, type: :request do
           email: Faker::Internet.email,
           password: "password",
           first_name: Faker::Name.first_name,
-          product_id: product.id,
-          plan_id: product.plans.first.id
+          plan_id: plan.id
         }
       end
       let(:user) { User.find_by(email: invalid_user_params[:email]) }

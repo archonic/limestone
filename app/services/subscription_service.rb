@@ -12,8 +12,8 @@ class SubscriptionService
   def create_subscription!
     subscription, local_product, local_plan = nil
     begin
-      local_product = Product.active.find(@params[:user][:product_id])
-      local_plan = local_product.plans.active.find(@params[:user][:plan_id])
+      local_plan = Plan.active.find(@params[:user][:plan_id])
+      local_product = local_plan.product
     rescue ActiveRecord::RecordNotFound => e
       StripeLogger.error e.message
     end

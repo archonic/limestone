@@ -3,6 +3,7 @@
 module Users
   class RegistrationsController < Devise::RegistrationsController
     before_action :check_public_registration, only: %i(new create)
+    before_action :set_product, only: %i(create)
 
     def new
       super
@@ -12,7 +13,8 @@ module Users
     def create
       build_resource(
         sign_up_params.merge(
-          trial_ends_at: TRIAL_PERIOD_DAYS.days.from_now
+          trial_ends_at: TRIAL_PERIOD_DAYS.days.from_now,
+          product_id: @product.id
         )
       )
       # NOTE It would be ideal to wrap user and subscription creation in a transaction block
@@ -63,6 +65,10 @@ module Users
       def check_public_registration
         return true if Flipper.enabled?(:public_registration)
         redirect_to root_path, flash: { warning: "That feature is not enabled." }
+      end
+
+      def set_product
+        @product = Plan.active.find(params[:user][:plan_id]).product
       end
   end
 end
