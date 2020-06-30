@@ -102,6 +102,7 @@ RSpec.describe SubscriptionsController, type: :request do
         expect(stripe_subscription.plan.product).to eq product_pro.stripe_id
         expect(flash[:success]).to match "Subscription updated"
         expect(user_subscribed.get_subscription.processor_plan).to eq plan_pro.stripe_id
+        expect(user_subscribed.plan_id).to eq plan_pro.id
       end
     end
 
@@ -124,6 +125,7 @@ RSpec.describe SubscriptionsController, type: :request do
         expect(stripe_subscription.plan.product).to eq product.stripe_id
         expect(flash[:success]).to match "Subscription updated"
         expect(user_subscribed.get_subscription.processor_plan).to eq plan_annual.stripe_id
+        expect(user_subscribed.plan_id).to eq plan_annual.id
       end
     end
   end

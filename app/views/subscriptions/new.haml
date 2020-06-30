@@ -1,8 +1,6 @@
-%h1= 'Subscribe!'
+%h1 Subscribe!
 .row.justify-content-md-center
   .col-md-5
     - if current_user.trial_ends_at.present? && current_user.trial_ends_at > Time.current
-      %p
-        = "Your #{@current_user.product_name} trial ends in #{distance_of_time_in_words(Time.current, current_user.trial_ends_at)}. Subscribe now and billing will begin then. Yay no interruptions!"
-    %p
-      = render 'card_form', locals: { path: subscriptions_path, method: 'patch' }
+      %p= "Your #{@current_user.product_name} trial ends in #{distance_of_time_in_words(Time.current, current_user.trial_ends_at)}. Subscribe now and billing will begin then. Yay no interruptions!"
+    %p= render "card_form"

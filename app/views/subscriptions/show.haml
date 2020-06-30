@@ -1,13 +1,7 @@
 .row
   .col-md
-    %h3 Billing
-    .form-group
-      %button.btn{ class: "#{current_user.on_trial_or_subscribed? ? 'btn-outline-secondary' : 'btn-danger'}", type: 'button', 'data-toggle': 'collapse', 'data-target': '#new_card' }
-        Update your card
-    #new_card.collapse
-      = render 'card_form', locals: { path: subscriptions_path, method: 'patch' }
+    %h3 Payment source
+    = render "card_form"
   .col-md
-    %h3 Product
-    .form-group
-      = "You are currently on the #{current_user.product_name} plan."
-      = render 'plan_switch_form', locals: { current_product_id: current_user.product_id }
+    %h3 Plan
+    = render "plan_switch_form"
