@@ -1,11 +1,8 @@
 <%#
 # Collection
-
 This partial is used on the `index` and `show` pages
 to display a collection of resources in an HTML table.
-
 ## Local variables:
-
 - `collection_presenter`:
   An instance of [Administrate::Page::Collection][1].
   The table presenter uses `ResourceDashboard::COLLECTION_ATTRIBUTES` to determine
@@ -14,7 +11,6 @@ to display a collection of resources in an HTML table.
   An ActiveModel::Relation collection of resources to be displayed in the table.
   By default, the number of resources is limited by pagination
   or by a hard limit to prevent excessive page load times
-
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Collection
 %>
 
@@ -35,7 +31,6 @@ to display a collection of resources in an HTML table.
           "helpers.label.#{collection_presenter.resource_name}.#{attr_name}",
           default: attr_name.to_s,
         ).titleize %>
-
             <% if collection_presenter.ordered_by?(attr_name) %>
               <span class="cell-label__sort-indicator cell-label__sort-indicator--<%= collection_presenter.ordered_html_class(attr_name) %>">
                 <svg aria-hidden="true">
@@ -48,7 +43,7 @@ to display a collection of resources in an HTML table.
       <% end %>
       <% [valid_action?(:edit, collection_presenter.resource_name),
           valid_action?(:destroy, collection_presenter.resource_name),
-          valid_action?(:impersonate)].count(true).times do %>
+          true].count(true).times do %>
         <th scope="col"></th>
       <% end %>
     </tr>
@@ -70,7 +65,20 @@ to display a collection of resources in an HTML table.
                  >
                 <%= render_field attribute %>
               </a>
+            <% else %>
+              <%= render_field attribute %>
             <% end -%>
+          </td>
+        <% end %>
+
+        <% if resource.is_a? User %>
+          <td>
+            <%= link_to(
+              t("administrate.actions.impersonate"),
+              impersonate_admin_user_path(resource),
+              method: :post,
+              class: "action-edit"
+            ) %>
           </td>
         <% end %>
 
@@ -80,15 +88,6 @@ to display a collection of resources in an HTML table.
             [:edit, namespace, resource],
             class: "action-edit",
           ) if show_action? :edit, resource%></td>
-        <% end %>
-
-        <% if valid_action? :impersonate %>
-          <td><%= link_to(
-            t("administrate.actions.impersonate"),
-            impersonate_admin_user_path(resource),
-            method: :post,
-            class: "action-impersonate",
-          ) %></td>
         <% end %>
 
         <% if valid_action? :destroy, collection_presenter.resource_name %>
