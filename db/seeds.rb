@@ -10,29 +10,54 @@
 
 # This will create plans in your Stripe account. Check that you don't have duplicates
 # or comment out/remove if you want to manage plans manually.
-# https://stripe.com/docs/api#plan_object
-if !Rails.env.test?
-  plans = Plan.create(
-    [
-      {
-        name: "Basic",
-        amount: 900,
-        interval: "month",
-        associated_role: "basic",
-        currency: "usd"
-      },
-      {
-        name: "Pro",
-        amount: 1500,
-        interval: "month",
-        associated_role: "pro",
-        currency: "usd"
-      }
-    ]
-  )
-  puts "CREATED PLANS #{plans.map(&:name).join(', ')}."
-  admin_user = CreateAdminService.call
-  puts "CREATED ADMIN USER: #{admin_user.email}."
-else
-  puts "SKIPPED PLAN AND ADMIN CREATION BECAUSE WE'RE IN TEST."
+# https://stripe.com/docs/api/products
+products = Product.create(
+  [
+    { name: "[#{Rails.env}] Basic" },
+    { name: "[#{Rails.env}] Pro" }
+  ]
+)
+products.each do |product|
+  StripeProductService.new(product).create
 end
+puts "CREATED PRODUCTS #{products.map(&:name).join(', ')}."
+
+plans = Plan.create(
+  [
+    {
+      product_id: products.first.id,
+      name: "[#{Rails.env}] Basic Monthly",
+      amount: 900,
+      interval: "month",
+      currency: "USD"
+    },
+    {
+      product_id: products.first.id,
+      name: "[#{Rails.env}] Basic Annual",
+      amount: 9900,
+      interval: "year",
+      currency: "USD"
+    },
+    {
+      product_id: products.second.id,
+      name: "[#{Rails.env}] Pro Monthly",
+      amount: 1500,
+      interval: "month",
+      currency: "USD"
+    },
+    {
+      product_id: products.second.id,
+      name: "[#{Rails.env}] Pro Annual",
+      amount: 16500,
+      interval: "year",
+      currency: "USD"
+    }
+  ]
+)
+plans.each do |plan|
+  StripePlanService.new(plan).create
+end
+puts "CREATED PLANS #{plans.map(&:name).join(', ')}."
+
+admin_user = CreateAdminService.call
+puts "CREATED ADMIN USER: #{admin_user.email}."

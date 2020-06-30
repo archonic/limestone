@@ -2,11 +2,11 @@
 %html
   %head
     %title Limestone
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
-    %meta{name: "viewport", content: "width=device-width, initial-scale=1"}
-    %meta{"http-equiv": "x-ua-compatible", content: "ie=edge"}
+    %meta{ content: "text/html; charset=UTF-8", "http-equiv": "Content-Type" }
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1" }
+    %meta{ "http-equiv": "x-ua-compatible", content: "ie=edge" }
     = action_cable_meta_tag
-    = tag :meta, name: "stripe-public-key", content: ENV["STRIPE_PUBLISHABLE_KEY"]
+    = tag :meta, name: "stripe-key", content: Pay::Stripe.public_key
     -# Sprockets application.js
     = javascript_include_tag "application", "data-turbolinks-track": "reload"
     -# Webpacker application.js
@@ -16,7 +16,7 @@
     = javascript_include_tag "https://js.stripe.com/v3/"
     = csrf_meta_tags
   %body{ turbolinks? }
-    = render "layouts/past_due" if user_signed_in? && current_user.past_due? && !current_user.removed?
+    = render "layouts/past_due" if user_signed_in? && !current_user.on_trial_or_subscribed?
     = render user_signed_in? ? "layouts/navbar_loggedin" : "layouts/navbar_loggedout"
     .container
       - flash.each do |name, msg|

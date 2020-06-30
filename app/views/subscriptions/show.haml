@@ -1,58 +1,7 @@
 .row
   .col-md
-    %h3 Billing
-    -# Any user who can see this page should have a card_last4 populated by stripe webhook UpdateCustomer
-    - if current_user.card_last4.present?
-      %p Your card on file is:
-      %p
-        = "#{current_user.card_type} **** **** **** #{current_user.card_last4}"
-        %br
-        = "Expires #{current_user.card_exp_month} / #{current_user.card_exp_year}"
-    .form-group
-      %button.btn{class: "#{current_user.past_due? ? 'btn-danger' : 'btn-outline-secondary'}", type: 'button', 'data-toggle': 'collapse', 'data-target': '#new_card'}
-        Update your card
-    #new_card.collapse
-      = render 'card_form', locals: { path: subscriptions_path, method: 'patch' }
-
+    %h3 Payment source
+    = render "card_form"
   .col-md
     %h3 Plan
-    .form-group
-      = "You are currently on the #{current_user.plan_name} plan."
-      = render 'plan_switch_form', locals: { current_plan_id: current_user.plan_id }
-      = "Your role is #{current_user.role}."
-
-  - if current_user.subscribed?
-    .col-md
-      %h3 Next Payment
-      %p
-        Your card will be charged
-        %span{ data: { toggle: 'tooltip' }, title: 'This does not reflect proration or credits from plan switching', style: 'color: blue;' }
-          = current_user.cost
-        = "on #{current_user.current_period_end.strftime('%A, %B %e, %Y')}."
-
-%hr
-%h3 Your Invoices
-%table.table
-  %thead
-    %tr
-      %th{scope: 'col'}#
-      %th{scope: 'col'}Date
-      %th{scope: 'col'}Services
-      %th{scope: 'col'}Quanity
-      %th{scope: 'col'}Amount
-      %th{scope: 'col'}PDF
-  %tbody
-    - if current_user.invoices.any?
-      - current_user.invoices.each_with_index do |invoice, index|
-        %tr
-          %th{scope: 'row'}= index
-          %td= invoice.created_at.strftime("%B %d, %Y")
-          - invoice.lines.each do |line|
-            %td= line['description']
-            %td= "x #{line['quantity']}"
-          %td= invoice.formatted_amount
-          %td= invoice_pdf_link(invoice)
-    - else
-      %tr
-        %td{colspan: 6}
-          %h5.text-center.text-muted You have no invoices
+    = render "plan_switch_form"

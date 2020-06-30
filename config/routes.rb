@@ -11,7 +11,6 @@ Rails.application.routes.draw do
         post :impersonate, on: :member
       end
       get :stop_impersonating, to: :stop_impersonating, controller: "users"
-      resources :invoices
       mount Flipper::UI.app(Flipper) => "/flipper", as: "flipper"
       mount Sidekiq::Web => "/sidekiq", as: "sidekiq"
     end
@@ -19,9 +18,15 @@ Rails.application.routes.draw do
 
   mount StripeEvent::Engine, at: "/stripe/webhook"
 
-  devise_for :users, path: "",
-                     path_names: { sign_in: "login", sign_out: "logout", registration: "profile" },
-                     controllers: { registrations: "users/registrations" } # sessions: "users/sessions", passwords: "users/passwords"
+  devise_for :users,  path: "",
+                      path_names: {
+                        sign_in: "sign-in",
+                        sign_out: "sign-out",
+                        sign_up: "sign-up"
+                      },
+                      controllers: {
+                        registrations: "users/registrations"
+                      }
 
   unauthenticated :user do
     devise_scope :user do
@@ -48,6 +53,4 @@ Rails.application.routes.draw do
   get "billing", to: "subscriptions#show"
   get "subscribe", to: "subscriptions#new"
   patch "subscriptions", to: "subscriptions#update"
-  get "invoices", to: "invoices#index"
-  get "invoices/:id", to: "invoices#show", as: "invoice"
 end

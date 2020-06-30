@@ -1,8 +1,11 @@
-= form_tag locals[:path], id: 'payment_form', method: locals[:method] do
+= form_with url: subscriptions_path, local: true, id: "payment-form", method: :patch do |f|
   .form-group
-    %label{for: 'card-element'}
+    %label{ for: "card-element" }
       Credit or debit card
     #card-element.form-control
     -# Used to display Element errors
-    #card-errors{role: 'alert'}
-  %button.btn.btn-success= locals[:method] == 'patch' ? 'Update' : 'Subscribe'
+    #card-errors{ role: "alert" }
+  .form-group
+    = f.label :name_on_card
+    = f.text_field :name_on_card, id: "name_on_card", placeholder: "Full name", class: "form-control"
+  = f.submit "Update card", class: "btn btn-primary"

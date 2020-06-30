@@ -1,13 +1,8 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require "stripe_mock"
 
 RSpec.describe CreateAdminService, type: :service do
-  let(:stripe_helper) { StripeMock.create_test_helper }
-  before { StripeMock.start }
-  after { StripeMock.stop }
-
   describe "#call" do
     before { create(:plan) }
 

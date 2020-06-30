@@ -32,16 +32,14 @@ jobs: # a collection of steps
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
       - restore_cache:
           keys:
-            - limestone-bundle-v2-{{ checksum "Gemfile.lock" }}
-            - limestone-bundle-v2-
+            - limestone-bundle-v3-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - limestone-bundle-v3-{{ arch }}-{{ .Branch }}
+            - limestone-bundle-v3
 
-      - run: # Install Ruby dependencies
-          name: Bundle Install
-          command: bundle check --path vendor/bundle || bundle install --deployment
+      - run: bundle config set path 'vendor/bundle' && bundle install
 
-      # Store bundle cache for Ruby dependencies
       - save_cache:
-          key: limestone-bundle-v2-{{ checksum "Gemfile.lock" }}
+          key: limestone-bundle-v3-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
 
@@ -72,10 +70,6 @@ jobs: # a collection of steps
             - ~/.cache/yarn
 
       - run:
-          name: rubocop
-          command: bundle exec rubocop
-
-      - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
@@ -91,6 +85,10 @@ jobs: # a collection of steps
                               --out test_results/rspec.xml \
                               --format progress \
                               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+
+      - run:
+          name: rubocop
+          command: bundle exec rubocop
 
       # Save test results for timing analysis
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/

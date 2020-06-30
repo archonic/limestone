@@ -5,31 +5,34 @@ class SubscriptionsController < ApplicationController
   skip_before_action :check_access, only: :show
 
   # NOTE This isn't a controller for a typical model. Subscriptions live in Stripe.
-  # We use the columns on the user to know a users current subscription status.
 
   # GET '/billing'
   def show
-    @plans = Plan.all
-    redirect_to subscribe_path unless current_user.subscribed?
+    @plans = Plan.active.all.select(:id, :name)
+    redirect_to subscribe_path unless current_user.subscribed_to_any?
   end
 
   # GET '/subscribe'
   def new
-    redirect_to billing_path if current_user.subscribed?
+    redirect_to billing_path if current_user.subscribed_to_any?
   end
 
   # PATCH /subscriptions
   def update
-    if SubscriptionService.new(current_user, params).update_subscription
+    current_user.processor = "stripe"
+    success = if params[:plan_id].present?
+      stripe_plan_id = Plan.find(params[:plan_id]).try(:stripe_id)
+      current_user.get_subscription.swap(stripe_plan_id)
+      current_user.update(plan_id: params[:plan_id])
+    elsif params[:payment_method_id].present?
+      current_user.update_card(params[:payment_method_id])
+    end
+    if success
       redirect_to billing_path,
-        flash: {
-          success: "Subscription updated! If this change alters your abilities, please allow a moment for us to update them."
-        }
+        flash: { success: "Subscription updated!" }
     else
       redirect_to subscribe_path,
-        flash: {
-          error: "There was an error updating your subscription :("
-        }
+        flash: { error: "There was an error updating your subscription :(" }
     end
   end
 end

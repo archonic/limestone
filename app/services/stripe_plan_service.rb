@@ -1,30 +1,29 @@
 # frozen_string_literal: true
 
-class CreatePlanService
+class StripePlanService
   def initialize(plan_model)
     @plan_model = plan_model
   end
 
-  def call
+  def create
+    # Don't contact Stripe if we already have a stripe_id
+    return false if @plan_model.product.stripe_id.blank? || @plan_model.stripe_id.present?
+
     stripe_plan = nil
     stripe_plan_attrs = {
-      product: {
-        name: @plan_model.name
-      },
-      id: @plan_model.name.downcase.tr(" ", "-"),
+      product: @plan_model.product.stripe_id,
       amount: @plan_model.amount,
       interval: @plan_model.interval,
       currency: @plan_model.currency,
       trial_period_days: TRIAL_PERIOD_DAYS
     }
-    StripeLogger.info "Creating Plan/Product: #{stripe_plan_attrs}"
+    p "Creating Plan: #{stripe_plan_attrs}"
     begin
       stripe_plan = Stripe::Plan.create stripe_plan_attrs
     rescue Stripe::InvalidRequestError => e
-      StripeLogger.error "Error creating plan #{@plan_model.name}: #{e}"
+      p "Error creating Plan #{@plan_model.name}: #{ e.json_body[:error]}"
     end
 
-    # Don't hit the DB here as this is performed in before_create
-    @plan_model.stripe_id = stripe_plan.id if stripe_plan.present?
+    @plan_model.update(stripe_id: stripe_plan.id) if stripe_plan.present?
   end
 end

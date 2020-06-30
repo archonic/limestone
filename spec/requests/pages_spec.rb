@@ -49,7 +49,7 @@ RSpec.describe PagesController, type: :request do
     end
 
     context "logged in as basic user" do
-      let(:user) { create(:user, :subscribed_basic) }
+      let(:user) { create(:user) }
       before { sign_in user }
 
       it "denies access at the controller level" do
@@ -59,8 +59,10 @@ RSpec.describe PagesController, type: :request do
     end
 
     context "logged in as pro user" do
-      let(:user) { create(:user, :subscribed_pro) }
-      before { sign_in user }
+      let(:user) { create(:user, :pro) }
+      before do
+        sign_in user
+      end
 
       it "renders" do
         expect(subject).to have_http_status(:success)

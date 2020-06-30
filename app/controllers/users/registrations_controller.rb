@@ -3,6 +3,7 @@
 module Users
   class RegistrationsController < Devise::RegistrationsController
     before_action :check_public_registration, only: %i(new create)
+    before_action :set_product, only: %i(create)
 
     def new
       super
@@ -10,10 +11,15 @@ module Users
 
     # POST /resource
     def create
-      build_resource(sign_up_params)
-      resource.save
-      if resource.persisted?
-        SubscriptionService.new(resource, params).create_subscription
+      build_resource(
+        sign_up_params.merge(
+          trial_ends_at: TRIAL_PERIOD_DAYS.days.from_now,
+          plan_id: @plan.id
+        )
+      )
+      # NOTE It would be ideal to wrap user and subscription creation in a transaction block
+      # This is not possible due to Pay::Billable relations
+      if resource.save && SubscriptionService.new(resource, params).create_subscription!
         if resource.active_for_authentication?
           set_flash_message! :notice, :signed_up
           sign_up(resource_name, resource)
@@ -29,14 +35,13 @@ module Users
       else
         clean_up_passwords resource
         set_minimum_password_length
-        respond_with resource
+        respond_with resource, location: new_user_registration_path
       end
     end
 
     def destroy
       if SubscriptionService.new(current_user, params).destroy_subscription
         resource.discard
-        resource.role = :removed
         Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
         set_flash_message! :notice, :destroyed
         yield resource if block_given?
@@ -60,6 +65,10 @@ module Users
       def check_public_registration
         return true if Flipper.enabled?(:public_registration)
         redirect_to root_path, flash: { warning: "That feature is not enabled." }
+      end
+
+      def set_product
+        @plan = Plan.active.find(params[:user][:plan_id])
       end
   end
 end

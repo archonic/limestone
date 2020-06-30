@@ -1,26 +1,17 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require "stripe_mock"
 
 RSpec.describe Users::RegistrationsController, type: :request do
-  let(:stripe_helper) { StripeMock.create_test_helper }
   before do
-    StripeMock.start
-    stripe_helper.create_plan(
-      id: "example-plan-id",
-      name: "World Domination",
-      amount: 100_000,
-      trial_period_days: TRIAL_PERIOD_DAYS
-    )
     # Allow public registration before testing it
     Flipper.enable :public_registration
   end
-  after { StripeMock.stop }
 
   describe "POST /profile" do
+    let(:plan) { create(:plan) }
+
     context "with valid parameters" do
-      let(:plan) { create(:plan) }
       let(:valid_user_params) do
         {
           email: Faker::Internet.email,
@@ -37,23 +28,23 @@ RSpec.describe Users::RegistrationsController, type: :request do
         response
       end
 
-      it "creates a basic user with stripe subscription" do
+      it "creates a user on a trial" do
         subject
         expect(user).to be_present
-        expect(user.basic?).to be true
-        expect(user.stripe_id?).to be_present
+        expect(user.on_trial_or_subscribed?).to be true
+        expect(user.on_trial?).to be true
+        # NOTE User has a subscription but no payment source
+        expect(user.subscribed_to_any?).to be true
       end
 
-      it "populates subscription data" do
+      it "populates customer data" do
         subject
-        expect(user.stripe_id).to be_present
-        expect(user.stripe_subscription_id).to be_present
+        expect(user.customer).to be_present
       end
 
       it "sets the trial expiration date" do
         subject
-        expect(user.current_period_end).to be_present
-        expect(user.current_period_end).to be_within(1).of(Time.current + 14.days)
+        expect(user.trial_ends_at).to be_within(5.minutes).of(14.days.from_now)
       end
 
       it "redirects to dashboard" do
@@ -62,11 +53,13 @@ RSpec.describe Users::RegistrationsController, type: :request do
     end
 
     context "with invalid parameters" do
+      # Invalid due to missing last name
       let(:invalid_user_params) do
         {
           email: Faker::Internet.email,
           password: "password",
-          first_name: Faker::Name.first_name
+          first_name: Faker::Name.first_name,
+          plan_id: plan.id
         }
       end
       let(:user) { User.find_by(email: invalid_user_params[:email]) }
@@ -89,22 +82,12 @@ RSpec.describe Users::RegistrationsController, type: :request do
   end
 
   describe "DELETE /profile" do
-    let(:mock_customer) { Stripe::Customer.create }
-    let(:mock_subscription) do
-      mock_customer.subscriptions.create(
-        plan: "example-plan-id"
-      )
-    end
-    let!(:user_subscribed) do
-      create(
-        :user,
-        :subscribed_basic,
-        stripe_id: mock_customer.id,
-        stripe_subscription_id: mock_subscription.id
-      )
-    end
+    let!(:user) { create(:user) }
+    let(:subscription) { double(Pay::Subscription) }
     before do
-      sign_in user_subscribed
+      allow(user).to receive(:subscription) { subscription }
+      allow(subscription).to receive(:cancel) { true }
+      sign_in user
     end
     subject do
       delete user_registration_path
@@ -112,18 +95,14 @@ RSpec.describe Users::RegistrationsController, type: :request do
     end
 
     context "subscription cancellation succeeds" do
-      it "discards the user account" do
+      it "cancels the subscription, and signs out + discards the user" do
+        expect(subscription).to receive(:cancel).once
         subject
-        expect(user_subscribed.reload.discarded?).to be true
       end
 
-      it "marks the user role as removed" do
+      it "discards and logs out the user" do
         subject
-        expect(user_subscribed.reload.role).to eq "removed"
-      end
-
-      it "signs the user out" do
-        subject
+        expect(user.reload.discarded?).to be true
         expect(controller.signed_in?).to be false
       end
 

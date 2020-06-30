@@ -10,6 +10,8 @@ Versioning in this repo in intended to maintain and modernize the boilerplate. N
 
 v0.1 is Rails 5.2  
 v0.2+ is Rails 6
+v0.3 introduces the [Pay gem](https://github.com/pay-rails/pay).
+See [CHANGELOG.md](https://github.com/archonic/limestone/blob/master/CHANGELOG.md) for more details.
 
 See more in the [changelog](https://github.com/archonic/limestone/blob/master/CHANGELOG.md).
 
@@ -35,7 +37,6 @@ The [gemset](https://github.com/archonic/limestone/blob/master/Gemfile) has been
 ## Notes
 * RSpec controller tests have been omitted in favour of requests tests.
 * You can run tests locally with `docker-compose run web rspec`
-* Because this is a boilerplate, there are no migrations. Rely on schema.rb and use `rails db:setup` to create the db and seed.
 
 ## Pre-requisites
 
@@ -77,7 +78,7 @@ The [gemset](https://github.com/archonic/limestone/blob/master/Gemfile) has been
 
 5. Once everything is up, run `docker-compose exec web rails db:prepare` to create DB, load schema and seed. Seeding will also create your plan(s) in Stripe.
 
-6. Visit [http://localhost:3000](http://localhost:3000) and rejoice :tada: You can login using the Admin user defined in `.env`
+6. Visit [http://localhost:3000](http://localhost:3000) and rejoice :tada: You can login using the Admin user defined in `.env`. Keep in mind your admin doesn't have active billing. Enter a [test card](https://stripe.com/docs/testing#cards) when prompted.
 
 7. See the [Limestone Wiki](https://github.com/archonic/limestone/wiki) more about [development with Docker](https://github.com/archonic/limestone/wiki/Development-with-Docker)
 

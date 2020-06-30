@@ -10,13 +10,11 @@ class UserDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    invoices: Field::HasMany,
     id: Field::Number,
     email: Field::String,
     name: Field::String,
     first_name: Field::String,
     last_name: Field::String,
-    role: Field::String,
     encrypted_password: Field::String,
     reset_password_token: Field::String,
     reset_password_sent_at: Field::DateTime,
@@ -26,7 +24,7 @@ class UserDashboard < Administrate::BaseDashboard
     last_sign_in_at: Field::DateTime,
     current_sign_in_ip: Field::String,
     last_sign_in_ip: Field::String,
-    current_period_end: Field::DateTime,
+    trial_ends_at: Field::DateTime,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -40,11 +38,9 @@ class UserDashboard < Administrate::BaseDashboard
     id
     email
     name
-    role
     sign_in_count
     last_sign_in_ip
-    invoices
-    current_period_end
+    trial_ends_at
     created_at
   ).freeze
 
@@ -54,13 +50,11 @@ class UserDashboard < Administrate::BaseDashboard
     id
     email
     name
-    role
     sign_in_count
     current_sign_in_at
     current_sign_in_ip
-    current_period_end
+    trial_ends_at
     created_at
-    invoices
   ).freeze
 
   # FORM_ATTRIBUTES
@@ -70,8 +64,7 @@ class UserDashboard < Administrate::BaseDashboard
     email
     first_name
     last_name
-    current_period_end
-    role
+    trial_ends_at
   ).freeze
 
   # Overwrite this method to customize how users are displayed

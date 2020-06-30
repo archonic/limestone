@@ -14,9 +14,6 @@ gem "aws-sdk-s3", "~> 1"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.2", require: false
 
-# Use CoffeeScript for .coffee assets and views
-gem "coffee-rails", "~> 5"
-
 # Authentication
 gem "devise", "~> 4"
 
@@ -70,18 +67,16 @@ gem "simple_form", "~> 5"
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem "webpacker", ">= 4"
 
-# TODO remove - rely on stripe for this
-gem "receipts"
-
 # Search
 gem "searchkick", "~> 3"
 
 # Jerbs
 gem "sidekiq", "~> 5"
 
-# Stripe stuff
-gem "stripe", "~> 3"
-gem "stripe_event", "~> 2.1"
+# Payment stuff
+gem "pay", "~> 2.0"
+gem "stripe", "< 6.0", ">= 2.8"
+gem "stripe_event", "~> 2.3"
 
 gem "minitest", "~> 5.14"
 
@@ -95,7 +90,7 @@ end
 
 group :test do
   gem "database_cleaner", "~> 1.6"
-  gem "faker", "~> 1.8"
+  gem "faker", "~> 2.13"
   gem "shoulda-matchers", "~> 3.1"
   gem "simplecov", require: false
 end
@@ -109,7 +104,6 @@ group :development, :test do
   gem "rubocop"
   gem "rubocop-rails"
   gem "rubocop-performance"
-  gem "stripe-ruby-mock", github: "archonic/stripe-ruby-mock", require: "stripe_mock"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
