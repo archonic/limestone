@@ -22,7 +22,6 @@ The [gemset](https://github.com/archonic/limestone/blob/master/Gemfile) has been
 * Free trial begins upon registration without credit card. Number of days is configurable with ENV var.
 * Subscription management. Card update form and cancel account button.
 * Emails for welcome, billing updated, invoice paid, invoice failed and trial expiring. All except welcome are controlled by Stripe webhooks.
-* Invoice PDF attached to invoice paid email.
 * Mail sends through Sidekiq with deliver_later. Devise mailing also configured for Sidekiq dispatch.
 * Direct uploading to S3 with ActiveStorage. Lazy transform for resizing. Demonstrated with user avatars.
 * Icon helper for user avatars with fallback to circle with user initials. Icon helper for [Font Awesome 4.7](https://fontawesome.com/v4.7.0/icons/) icons.
@@ -32,7 +31,7 @@ The [gemset](https://github.com/archonic/limestone/blob/master/Gemfile) has been
 * Banner with a link to billing page users that are past due.
 * Opinionated search integration using Elasticsearch via Searchkick. Gem is in place but integration is up to you.
 * Feature control using the [Flipper](https://github.com/jnunemaker/flipper) gem. Demonstrated with the `public_registration` feature.
-* 87.85% RSpec test coverage.
+* 84% RSpec test coverage.
 
 ## Notes
 * RSpec controller tests have been omitted in favour of requests tests.
@@ -50,8 +49,8 @@ The [gemset](https://github.com/archonic/limestone/blob/master/Gemfile) has been
 * You could also just run test locally with `docker-compose run web rspec` or `docker-compose exec web rspec` if you've already run `docker-compose up`.
 
 ### Production
-* A cloud storage account compatible with ActiveStorage (AWS S3 is the default).
-* Because Docker is already configured, you probably want a Kubernetes host ([GKE](https://cloud.google.com/kubernetes-engine/), [AWS](https://aws.amazon.com/kubernetes/) or [DigitalOcean](https://www.digitalocean.com/products/kubernetes/)).
+* A cloud storage account [compatible with ActiveStorage](https://edgeguides.rubyonrails.org/active_storage_overview.html#setup).
+* Because Docker is already configured, you may want a Kubernetes host ([GKE](https://cloud.google.com/kubernetes-engine/), [AWS](https://aws.amazon.com/kubernetes/) or [DigitalOcean](https://www.digitalocean.com/products/kubernetes/)).
 
 ## Getting Started
 1. Clone this repository to your local system and `cd` into it:

@@ -5,6 +5,10 @@
 * Updated readme with better Getting Started instructions.
 * Upgraded to Ruby 2.7.1 and fixed version pinning.
 * Integrated Pay gem for all subscription management :tada:
+* Removed user `role` enum
+* Removed invoices (will rely on Stripe for invoice generation)
+* Converted Coffeescript to JS and removed Coffeescript.
+* Updated Webpacker and Moved rails-ujs and actioncable to webpack.
 
 ## v0.2
 * Rails updated to 6.0.2.1
