@@ -3,14 +3,14 @@
 
 Limestone is a boilerplate SaaS app built with Rails 6 on Ruby 2.7.1 and has an opinionated integration with NPM using [Webpacker](https://github.com/rails/webpacker) and [Stimulus](https://stimulusjs.org/).
 
-Limestone assumes you want each user to pay for access to your SaaS. If you instead want users to belong to accounts and have billing scoped to accounts, try [Limestone Accounts](https://github.com/archonic/limestone-accounts).
+Limestone assumes you want each user to pay for access to your SaaS. If instead you want users to belong to accounts and have billing scoped to accounts, try [Limestone Accounts](https://github.com/archonic/limestone-accounts).
 
 ## Versions
 Versioning in this repo in intended to maintain and modernize the boilerplate. New versions are not intended to update existing forks, although looking through the commits serve as a good upgrade resource.
 
 v0.1 is Rails 5.2  
-v0.2+ is Rails 6
-v0.3 introduces the [Pay gem](https://github.com/pay-rails/pay).
+v0.2+ is Rails 6  
+v0.3 introduces the [Pay gem](https://github.com/pay-rails/pay)  
 See [CHANGELOG.md](https://github.com/archonic/limestone/blob/master/CHANGELOG.md) for more details.
 
 See more in the [changelog](https://github.com/archonic/limestone/blob/master/CHANGELOG.md).
