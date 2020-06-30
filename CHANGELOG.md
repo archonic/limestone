@@ -9,6 +9,7 @@
 * Removed invoices (will rely on Stripe for invoice generation)
 * Converted Coffeescript to JS and removed Coffeescript.
 * Updated Webpacker and Moved rails-ujs and actioncable to webpack.
+* Issues with administrate fixed by using a fork and overriding templates.
 
 ## v0.2
 * Rails updated to 6.0.2.1
