@@ -20,9 +20,9 @@ The [gemset](https://github.com/archonic/limestone/blob/master/Gemfile) has been
 
 ## Features
 * Free trial begins upon registration without credit card. Number of days is configurable with ENV var.
-* Subscription management. Card update form and cancel account button.
+* Subscription management. Card update form, switch plan form and cancel account button.
 * Emails for welcome, billing updated, invoice paid, invoice failed and trial expiring. All except welcome are controlled by Stripe webhooks.
-* Mail sends through Sidekiq with deliver_later. Devise mailing also configured for Sidekiq dispatch.
+* Mail sends through Sidekiq with deliver_later. Sendgrid is configured, or you can use plain SMTP auth for development.
 * Direct uploading to S3 with ActiveStorage. Lazy transform for resizing. Demonstrated with user avatars.
 * Icon helper for user avatars with fallback to circle with user initials. Icon helper for [Font Awesome 4.7](https://fontawesome.com/v4.7.0/icons/) icons.
 * Administrate dashboard lets you CRUD records (ex: users). Easy to add more and customize as you like. Visit /admin/.

@@ -300,6 +300,7 @@ GEM
     ruby-vips (2.0.17)
       ffi (~> 1.9)
     ruby_dep (1.5.0)
+    ruby_http_client (3.5.0)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -325,6 +326,8 @@ GEM
       hashie
     selectize-rails (0.12.6)
     semantic_range (2.3.0)
+    sendgrid-ruby (6.3.1)
+      ruby_http_client (~> 3.4)
     shoulda-matchers (3.1.3)
       activesupport (>= 4.0.0)
     sidekiq (5.2.9)
@@ -424,6 +427,7 @@ DEPENDENCIES
   rubocop-rails
   sass-rails (~> 5)
   searchkick (~> 3)
+  sendgrid-ruby (~> 6.3)
   shoulda-matchers (~> 3.1)
   sidekiq (~> 5)
   simple_form (~> 5)
