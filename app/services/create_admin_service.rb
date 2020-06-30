@@ -11,7 +11,7 @@ class CreateAdminService
       u.last_name = ENV["ADMIN_LAST_NAME"]
       u.trial_ends_at = Time.current + TRIAL_PERIOD_DAYS.days
       u.admin = true
-      u.product_id = Product.first.id
+      u.plan_id = Plan.first.id
     end
   end
 end

@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe CreateAdminService, type: :service do
   describe "#call" do
-    before { create(:product) }
+    before { create(:plan) }
 
     it "creates the admin" do
       expect(User.count).to eq 0

@@ -9,8 +9,7 @@ RSpec.describe Users::RegistrationsController, type: :request do
   end
 
   describe "POST /profile" do
-    let!(:product) { create(:product) }
-    let!(:plan) { create(:plan, product: product) }
+    let(:plan) { create(:plan) }
 
     context "with valid parameters" do
       let(:valid_user_params) do
@@ -33,8 +32,9 @@ RSpec.describe Users::RegistrationsController, type: :request do
         subject
         expect(user).to be_present
         expect(user.on_trial_or_subscribed?).to be true
-        # False for the wrong reason? check subscribed_to_any?
-        expect(user.subscribed?).to be false
+        expect(user.on_trial?).to be true
+        # NOTE User has a subscription but no payment source
+        expect(user.subscribed_to_any?).to be true
       end
 
       it "populates customer data" do

@@ -14,7 +14,7 @@ module Users
       build_resource(
         sign_up_params.merge(
           trial_ends_at: TRIAL_PERIOD_DAYS.days.from_now,
-          product_id: @product.id
+          plan_id: @plan.id
         )
       )
       # NOTE It would be ideal to wrap user and subscription creation in a transaction block
@@ -68,7 +68,7 @@ module Users
       end
 
       def set_product
-        @product = Plan.active.find(params[:user][:plan_id]).product
+        @plan = Plan.active.find(params[:user][:plan_id])
       end
   end
 end

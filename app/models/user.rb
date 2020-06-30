@@ -9,8 +9,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :trackable, :validatable
   has_one_attached :avatar
-  # set optional: true if you don't want the default Rails 5 belongs_to presence validation
-  belongs_to :product
+  belongs_to :plan
+  has_one :product, through: :plan
 
   validates :email, presence: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }

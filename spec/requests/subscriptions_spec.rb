@@ -3,15 +3,15 @@
 require "rails_helper"
 
 RSpec.describe SubscriptionsController, type: :request do
-  let(:user_trial) { create(:user) }
-  let(:user_subscribed) { create(:user, :trial_expired) }
-
   let(:product) { create(:product) }
   let(:plan) { create(:plan, product: product) }
   let(:plan_annual) { create(:plan, :basic_annual, product: product) }
 
   let(:product_pro) { create(:product, :pro) }
   let(:plan_pro) { create(:plan, :pro_monthly, product: product_pro) }
+
+  let(:user_trial) { create(:user) }
+  let(:user_subscribed) { create(:user, :trial_expired) }
 
   let(:payment_method) do
     Stripe::PaymentMethod.create({
@@ -87,8 +87,7 @@ RSpec.describe SubscriptionsController, type: :request do
       before { sign_in user_subscribed }
       subject do
         patch subscriptions_path, params: {
-          product_id: product_pro.stripe_id,
-          plan_id: plan_pro.stripe_id
+          plan_id: plan_pro.id
         }
       end
 
@@ -110,7 +109,7 @@ RSpec.describe SubscriptionsController, type: :request do
       before { sign_in user_subscribed }
       subject do
         patch subscriptions_path, params: {
-          plan_id: plan_annual.stripe_id
+          plan_id: plan_annual.id
         }
       end
 
