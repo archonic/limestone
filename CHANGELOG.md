@@ -10,6 +10,9 @@
 * Converted Coffeescript to JS and removed Coffeescript.
 * Updated Webpacker and Moved rails-ujs and actioncable to webpack.
 * Issues with administrate fixed by using a fork and overriding templates.
+* curl installed in dockerfile.
+* Updated Devise.
+* Configured Devise confirmable module. All emails in all apps should be confirmed.
 
 ## v0.2
 * Rails updated to 6.0.2.1
