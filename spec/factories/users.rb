@@ -7,6 +7,7 @@ FactoryBot.define do
     email {  Faker::Internet.email }
     password { "password" }
     password_confirmation { "password" }
+    confirmed_at { 5.minutes.ago }
     trial_ends_at { 1.hour.from_now }
     association :plan
     initialize_with { User.where(email: email).first_or_initialize }
