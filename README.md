@@ -47,6 +47,7 @@ The [gemset](https://github.com/archonic/limestone/blob/master/Gemfile) has been
 ### Test
 * [Codeship](https://codeship.com/) files are in place - just create an account and integrate with your repo. You will need to create your [codeship.aes file](https://documentation.codeship.com/pro/builds-and-configuration/environment-variables/#downloading-your-aes-key), [install jet](https://documentation.codeship.com/pro/jet-cli/installation/) and run `jet encrypt .env .env.encrypted`.
 * [CircleCI](https://circleci.com/) files are in place - just create an account and integrate with your repo.
+* **NOTE** Limestone expects your product prices to have trial days > 0. If you don't create a trail, testing will get the error `Pay::Error: This customer has no attached payment source or default payment method.`.
 * You could also just run test locally with `docker-compose run web rspec` or `docker-compose exec web rspec` if you've already run `docker-compose up`.
 
 ### Production
