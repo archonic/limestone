@@ -17,7 +17,8 @@
     = csrf_meta_tags
   %body{ turbolinks? }
     = render "layouts/past_due" if user_signed_in? && !current_user.on_trial_or_subscribed?
-    = render user_signed_in? ? "layouts/navbar_loggedin" : "layouts/navbar_loggedout"
+    .mb-2
+      = render user_signed_in? ? "layouts/navbar_loggedin" : "layouts/navbar_loggedout"
     .container
       - flash.each do |name, msg|
         - if msg.is_a?(String)
