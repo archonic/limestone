@@ -2,7 +2,7 @@
 
 Rails.application.configure do
   # NOTE Required to inline mail delivery so it can be picked up by letter_opener
-  require 'sidekiq/testing/inline'
+  require "sidekiq/testing/inline"
 
   # Settings specified here will take precedence over those in config/application.rb.
   # Verifies that versions and hashed value of the package contents in the project's package.json
