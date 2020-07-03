@@ -7,17 +7,16 @@ module IconHelper
     width = AVATAR_SIZES[size]
     resize_str = "#{width}x#{width}"
     img_or_text = user.avatar.attached? ? "img" : "text"
-    image_url = if user.avatar.attached?
-      user.avatar.variant(resize: resize_str)
+    image_tag = if user.avatar.attached?
+      image_tag(
+        user.avatar.variant(resize: resize_str),
+        class: "rounded-circle"
+      )
     else
-      hash = Digest::MD5.hexdigest(user.email.try(:downcase) || "noemail")
-      "https://secure.gravatar.com/avatar/#{hash}?d=blank&s=#{width}"
+      ""
     end
     circular_icon(
-      image_tag(
-        image_url,
-        class: "rounded-circle"
-      ) + user.name.initials,
+      image_tag + user.name.initials,
       style: size.to_s,
       class: "avatar-#{img_or_text}",
       alt: user.name
