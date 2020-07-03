@@ -6,7 +6,7 @@ TRIAL_PERIOD_DAYS = ENV["TRIAL_PERIOD_DAYS"] || 14
 # Write stripe events to seperate log
 STRIPE_LOG_PATH = "log/stripe.log"
 
-# NOTE To test against live stripe, create your test product on stripe, and replace this ID
+# NOTE To test against live stripe, create your test product on stripe, and set your ENV vars
 STRIPE_TEST_PRODUCT_BASIC_ID = ENV["STRIPE_TEST_PRODUCT_BASIC_ID"] || "replace-this-product-id"
 STRIPE_TEST_PLAN_BASIC_MONTH_ID = ENV["STRIPE_TEST_PLAN_BASIC_MONTH_ID"] || "replace-this-plan-id"
 STRIPE_TEST_PLAN_BASIC_YEAR_ID = ENV["STRIPE_TEST_PLAN_BASIC_YEAR_ID"] || "replace-this-plan-id"

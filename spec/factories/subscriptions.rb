@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  # NOTE Not used! (yet)
   factory :subscription, class: Pay::Subscription do
     association :owner, factory: :user
     name { "[test] Basic" }
