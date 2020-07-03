@@ -13,6 +13,8 @@
 * curl installed in dockerfile.
 * Updated Devise.
 * Configured Devise confirmable module. All emails in all apps should be confirmed.
+* Upgraded Sidekiq to 6.1
+* letter_opener and letter_opener_web installed and configured. Visit /admin/letter_opener to view sent mail in the development environment.
 
 ## v0.2
 * Rails updated to 6.0.2.1

@@ -16,5 +16,7 @@ as defined by the routes in the `admin/` namespace
   <% end %>
   <%= link_to 'Sidekiq', admin_sidekiq_path, class: 'navigation__link navigation__link--sidekiq', target: :_blank %>
   <%= link_to 'Features', admin_flipper_path, class: 'navigation__link navigation__link--features', target: :_blank %>
-  <%= link_to 'Mail sent', admin_letters_path, class: 'navigation__link navigation__link--features', target: :_blank %>
+  <% if Rails.env.development? %>
+    <%= link_to 'Mail sent', admin_letters_path, class: 'navigation__link navigation__link--features', target: :_blank %>
+  <% end %>
 </nav>
