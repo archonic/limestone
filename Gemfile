@@ -71,7 +71,7 @@ gem "webpacker", ">= 4"
 gem "searchkick", "~> 3"
 
 # Jerbs
-gem "sidekiq", "~> 5"
+gem "sidekiq", "~> 6"
 
 # Payment stuff
 gem "pay", "~> 2.0"
@@ -89,6 +89,8 @@ group :development do
   gem "spring"
   gem "spring-watcher-listen", "~> 2.0.0"
   gem "web-console", ">= 3.3.0"
+  gem "letter_opener", "~> 1.7"
+  gem "letter_opener_web", "~> 1.4"
 end
 
 group :test do

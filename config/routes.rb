@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       get :stop_impersonating, to: :stop_impersonating, controller: "users"
       mount Flipper::UI.app(Flipper) => "/flipper", as: "flipper"
       mount Sidekiq::Web => "/sidekiq", as: "sidekiq"
+      mount LetterOpenerWeb::Engine, at: "/letter_opener", as: "letters" if Rails.env.development?
     end
   end
 

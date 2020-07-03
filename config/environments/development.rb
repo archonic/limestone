@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.configure do
+  # NOTE Required to inline mail delivery so it can be picked up by letter_opener
+  require 'sidekiq/testing/inline'
+
   # Settings specified here will take precedence over those in config/application.rb.
   # Verifies that versions and hashed value of the package contents in the project's package.json
   config.webpacker.check_yarn_integrity = true
@@ -42,16 +45,19 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_deliveries = true
   config.action_mailer.perform_caching = false
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address: ENV["SMTP_ADDRESS"],
-    port: ENV["SMTP_PORT"].to_i,
-    domain: ENV["SMTP_DOMAIN"],
-    user_name: ENV["SMTP_USERNAME"],
-    password: ENV["SMTP_PASSWORD"],
-    authentication: ENV["SMTP_AUTH"],
-    enable_starttls_auto: ENV["SMTP_ENABLE_STARTTLS_AUTO"] == "true"
-  }
+  # NOTE Switch the comments of the following lines to enable real sending in development
+  config.action_mailer.delivery_method = :letter_opener
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = {
+  #   address: ENV["SMTP_ADDRESS"],
+  #   port: ENV["SMTP_PORT"].to_i,
+  #   domain: ENV["SMTP_DOMAIN"],
+  #   user_name: ENV["SMTP_USERNAME"],
+  #   password: ENV["SMTP_PASSWORD"],
+  #   authentication: ENV["SMTP_AUTH"],
+  #   enable_starttls_auto: ENV["SMTP_ENABLE_STARTTLS_AUTO"] == "true"
+  # }
+
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
