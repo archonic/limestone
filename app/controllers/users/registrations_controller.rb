@@ -5,10 +5,6 @@ module Users
     before_action :check_public_registration, only: %i(new create)
     before_action :set_product, only: %i(create)
 
-    def new
-      super
-    end
-
     # POST /resource
     def create
       build_resource(
@@ -19,11 +15,12 @@ module Users
       )
       # NOTE It would be ideal to wrap user and subscription creation in a transaction block
       # This is not possible due to Pay::Billable relations
-      if resource.save && SubscriptionService.new(resource, params).create_subscription!
+      success = resource.save && SubscriptionService.new(resource, params[:user][:plan_id]).create_subscription!
+      yield resource if block_given?
+      if success
         if resource.active_for_authentication?
           set_flash_message! :notice, :signed_up
           sign_up(resource_name, resource)
-          UserMailer.welcome_email(resource).deliver_later
           respond_with resource, location: after_sign_up_path_for(resource)
         else
           set_flash_message! :notice,
@@ -40,7 +37,7 @@ module Users
     end
 
     def destroy
-      if SubscriptionService.new(current_user, params).destroy_subscription
+      if SubscriptionService.new(current_user).destroy_subscription
         resource.discard
         Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
         set_flash_message! :notice, :destroyed

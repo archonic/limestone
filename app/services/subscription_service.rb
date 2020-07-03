@@ -2,9 +2,9 @@
 
 # Manages all calls to Stripe pertaining to subscriptions
 class SubscriptionService
-  def initialize(current_user, params)
+  def initialize(current_user, plan_id = nil)
     @user = current_user
-    @params = params
+    @plan_id = plan_id
     @user.processor = "stripe"
   end
 
@@ -12,7 +12,7 @@ class SubscriptionService
   def create_subscription!
     subscription, local_product, local_plan = nil
     begin
-      local_plan = Plan.active.find(@params[:user][:plan_id])
+      local_plan = Plan.active.find(@plan_id)
       local_product = local_plan.product
     rescue ActiveRecord::RecordNotFound => e
       StripeLogger.error e.message
