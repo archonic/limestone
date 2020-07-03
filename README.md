@@ -55,9 +55,9 @@ The [gemset](https://github.com/archonic/limestone/blob/master/Gemfile) has been
 * Because Docker is already configured, you may want a Kubernetes host ([GKE](https://cloud.google.com/kubernetes-engine/), [AWS](https://aws.amazon.com/kubernetes/) or [DigitalOcean](https://www.digitalocean.com/products/kubernetes/)).
 
 ## Getting Started
-1. Clone this repository to your local system and `cd` into it:
+1. Clone this repository at the most recent tag and `cd` into it:
     ```
-    git clone https://github.com/archonic/limestone.git
+    git clone -b 'v0.3' --single-branch --depth 1 https://github.com/archonic/limestone.git
     cd limestone
     ```
 
@@ -66,7 +66,7 @@ The [gemset](https://github.com/archonic/limestone/blob/master/Gemfile) has been
     cp .env-example .env
     ```
 
-3. Update the `.env` file - running the project in development mode requires you change the following:
+3. Update the `.env` file - running the project requires you change the following:
     - `STRIPE_API_KEY`
     - `STRIPE_PUBLISHABLE_KEY`
     - `STRIPE_SIGNING_SECRET` (This can be something random)
@@ -79,13 +79,13 @@ The [gemset](https://github.com/archonic/limestone/blob/master/Gemfile) has been
 
 5. Once everything is up, run `docker-compose exec web rails db:prepare` to create DB, load schema and seed. Seeding will also create your plan(s) in Stripe.
 
-6. Visit [http://localhost:3000](http://localhost:3000) and rejoice :tada: You can login using the Admin user defined in `.env`. Keep in mind your admin doesn't have active billing. Enter a [test card](https://stripe.com/docs/testing#cards) when prompted.
+6. Visit [http://localhost:3000](http://localhost:3000) and rejoice :tada: You can login using the Admin user defined in `.env`. Keep in mind your admin doesn't have active billing. Enter a [test card](https://stripe.com/docs/testing#cards) when prompted or by visiting /subscribe.
 
 7. See the [Limestone Wiki](https://github.com/archonic/limestone/wiki) more about [development with Docker](https://github.com/archonic/limestone/wiki/Development-with-Docker)
 
-### Enable Public User Registration
-1. Visit the `/admin/flipper` page
-2. Create a new Feature called `public_registration` enable it. Now anyone can register :clap:
+### Note About Flipper / Public User Registration
+1. The [Flipper gem](https://github.com/jnunemaker/flipper) controls feature flagging and provides a UI. Visit the `/admin/flipper`.
+2. The feature called `public_registration` has been created for you (during seeding). You can enable/disable this to control user registration :clap:
 
 ### Setting up production
-A wiki will be written about this. Need to learn more about Kubernetes. Feel free to help out here if you're familiar with Docker/Kubernetes.
+A wiki will be written about this. Feel free to help out here if you're familiar with Docker/Kubernetes.

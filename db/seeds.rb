@@ -61,3 +61,6 @@ puts "CREATED PLANS #{plans.map(&:name).join(', ')}."
 
 admin_user = CreateAdminService.call
 puts "CREATED ADMIN USER: #{admin_user.email}."
+
+# Enabled public user registration
+Flipper.enable :public_registration
