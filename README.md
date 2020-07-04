@@ -21,14 +21,16 @@ The [gemset](https://github.com/archonic/limestone/blob/master/Gemfile) has been
 ## Features
 * Free trial begins upon registration without credit card. Number of days is configurable with ENV var.
 * Subscription management. Card update form, switch plan form and cancel account button.
-* Emails for welcome, billing updated, invoice paid, invoice failed and trial expiring. All except welcome are controlled by Stripe webhooks.
-* Mail sends through Sidekiq with deliver_later. [Sendgrid](https://sendgrid.com/) is configured, or you can use plain SMTP auth for development.
-* Direct uploading to S3 with ActiveStorage. Lazy transform for resizing. Demonstrated with user avatars.
-* Icon helper for user avatars with fallback to circle with user initials.
+* [Devise confirmable](https://github.com/heartcombo/devise/wiki/How-To:-Add-:confirmable-to-Users) installed and configured.
+* Emails for welcome, receipt, refund, subscription renewing and payment action required.
+* [letter_opener](https://github.com/ryanb/letter_opener) and [letter_opener_web](https://github.com/fgrehm/letter_opener_web) installed and configured. Visit /admin/letter_opener in development to see emails sent.
+* Mail sends through Sidekiq with deliver_later for production. [Sendgrid](https://sendgrid.com/) is configured and ready to use once your API keys are set in ENV.
+* Direct cloud uploading with [ActiveStorage](https://edgeguides.rubyonrails.org/active_storage_overview.html). Lazy transform for resizing. Demonstrated with user avatars.
+* Icon helper for user avatars with fallback to user initials.
 * Icon helper for [Font Awesome 4.7](https://fontawesome.com/v4.7.0/icons/) icons.
-* Administrate dashboard lets you CRUD records (ex: users). Easy to add more and customize as you like. Visit /admin/.
-* Impersonate users through administrate dashboard.
-* Pretty modals using bootstrap integrated into rails_ujs data-confirm. Demonstrated with cancel account button.
+* Administrate dashboard lets you CRUD records. Easy to add more models and customize as you like. Visit /admin/.
+* Impersonate users through Administrate dashboard.
+* Pretty modals using Bootstrap integrated into rails_ujs data-confirm. Demonstrated with cancel account button.
 * Banner with a link to billing page users that are past due.
 * Opinionated search integration using Elasticsearch via Searchkick. Gem is in place but integration is up to you.
 * Feature control using the [Flipper](https://github.com/jnunemaker/flipper) gem. Demonstrated with the `public_registration` feature.
@@ -47,7 +49,7 @@ The [gemset](https://github.com/archonic/limestone/blob/master/Gemfile) has been
 ### Test
 * [Codeship](https://codeship.com/) files are in place - just create an account and integrate with your repo. You will need to create your [codeship.aes file](https://documentation.codeship.com/pro/builds-and-configuration/environment-variables/#downloading-your-aes-key), [install jet](https://documentation.codeship.com/pro/jet-cli/installation/) and run `jet encrypt .env .env.encrypted`.
 * [CircleCI](https://circleci.com/) files are in place - just create an account and integrate with your repo.
-* **NOTE** Limestone expects your product prices to have trial days > 0. If you don't create a trail, testing will get the error `Pay::Error: This customer has no attached payment source or default payment method.`.
+* **NOTE** Limestone expects your product prices to have trial days > 0. If you don't create a trial, testing will get the error `Pay::Error: This customer has no attached payment source or default payment method.`.
 * You could also just run test locally with `docker-compose run web rspec` or `docker-compose exec web rspec` if you've already run `docker-compose up`.
 
 ### Production
