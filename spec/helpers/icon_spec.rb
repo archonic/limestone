@@ -3,15 +3,12 @@
 require "rails_helper"
 
 describe IconHelper do
-  let(:user) { create(:user) }
+  let(:user) { create(:user, :avatared) }
 
   describe "avatar" do
-    it "defaults to small" do
-      expect(avatar(user)).to match ";s=#{IconHelper::AVATAR_SIZES[:sm]}"
-    end
-
     it "returns avatar" do
-      expect(avatar(user)).to match "circular-icon sm avatar-text"
+      expect(avatar(user)).to match "circular-icon sm avatar-img"
+      expect(avatar(user)).to match "money_sloth.png"
     end
 
     it "has text backup" do

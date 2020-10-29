@@ -15,11 +15,17 @@ FactoryBot.define do
     trait :admin do
       admin { true }
     end
+
     trait :pro do
       association :product, :pro
     end
+
     trait :trial_expired do
       trial_ends_at { 1.hour.ago }
+    end
+
+    trait :avatared do
+      avatar { Rack::Test::UploadedFile.new("#{::Rails.root}/spec/fixtures/files/money_sloth.png") }
     end
   end
 end
