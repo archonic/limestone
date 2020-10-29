@@ -42,7 +42,7 @@ gem "pretender", "~> 0.3"
 gem "pundit", "~> 1"
 
 # Use Puma as the app server
-gem "puma", "~> 4"
+gem "puma", "~> 5"
 
 # Use Rack Timeout. Read more: https://github.com/heroku/rack-timeout
 gem "rack-timeout", "~> 0.4"
