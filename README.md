@@ -8,9 +8,9 @@ Limestone assumes you want each user to pay for access to your SaaS. If instead 
 ## Versions
 Versioning in this repo in intended to maintain and modernize the boilerplate. New versions are not intended to update existing forks, although looking through the commits serve as a good upgrade resource.
 
-v0.1 is Rails 5.2
-v0.2 is Rails 6
-v0.3 introduces the [Pay gem](https://github.com/pay-rails/pay)
+v0.1 is Rails 5.2  
+v0.2 is Rails 6  
+v0.3 introduces the [Pay gem](https://github.com/pay-rails/pay)  
 
 See more in the [changelog](https://github.com/archonic/limestone/blob/master/CHANGELOG.md).
 
