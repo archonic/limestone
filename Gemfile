@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "2.7.1"
+ruby "2.7.2"
 
 # Pretty admin dashboards
 gem "administrate", github: "archonic/administrate"
@@ -51,7 +51,7 @@ gem "rack-timeout", "~> 0.4"
 gem "rails", "~> 6"
 
 # Use SCSS for stylesheets
-gem "sass-rails", "~> 5"
+gem "sassc", "~> 2"
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem "turbolinks", "~> 5"
