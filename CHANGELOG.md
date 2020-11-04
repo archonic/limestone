@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.5 (unreleased)
+• Fixed sprockets issue and removed reliance on fork of Administrate.
+
 ## v0.4
 • Security updates.
 • Rails and many other gems updated.

@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "2.7.2"
 
 # Pretty admin dashboards
-gem "administrate", github: "archonic/administrate"
+gem "administrate"
 
 # Upload to S3 directly
 gem "aws-sdk-s3", "~> 1"
