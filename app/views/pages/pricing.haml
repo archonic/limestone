@@ -16,7 +16,7 @@
             = icon(:check)
             Get access
     .card-body
-      = link_to 'Get Basic', new_registration_path(resource_name, plan_id: Product.active&.first&.plan&.active&.first&.id), class: 'btn btn-primary btn-block'
+      = link_to 'Get Basic', new_registration_path(resource_name, plan_id: Product.active&.first&.plans&.active&.first&.id), class: 'btn btn-primary btn-block'
 
   .col.col-1
   .card.col.col-lg-4
@@ -35,4 +35,4 @@
             = icon(:check)
             Access to Pro page
     .card-body
-      = link_to 'Get PRO', new_registration_path(resource_name, plan_id: Product.active&.second&.plan&.active&.first&.id), class: 'btn btn-primary btn-block'
+      = link_to 'Get PRO', new_registration_path(resource_name, plan_id: Product.active&.second&.plans&.active&.first&.id), class: 'btn btn-primary btn-block'
