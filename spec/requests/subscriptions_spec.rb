@@ -58,7 +58,8 @@ RSpec.describe SubscriptionsController, type: :request do
     before { sign_in user }
     subject do
       patch subscriptions_path, params: {
-        plan_id: plan_pro.id
+        plan_id: plan_pro.id,
+        payment_method_id: payment_method.id
       }
     end
 
@@ -81,7 +82,8 @@ RSpec.describe SubscriptionsController, type: :request do
     before { sign_in user }
     subject do
       patch subscriptions_path, params: {
-        plan_id: plan_annual.id
+        plan_id: plan_annual.id,
+        payment_method_id: payment_method.id
       }
     end
 

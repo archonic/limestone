@@ -22,6 +22,10 @@ class SubscriptionsController < ApplicationController
     current_user.processor = "stripe"
     success = if params[:plan_id].present?
       stripe_plan_id = Plan.find(params[:plan_id]).try(:stripe_id)
+      current_user.card_token ||= params[:payment_method_id]
+      # NOTE This shouldn't be needed but is.
+      # https://github.com/pay-rails/pay/issues/235
+      current_user.customer.invoice_settings
       current_user.sub.swap(stripe_plan_id)
       current_user.update(plan_id: params[:plan_id])
     elsif params[:payment_method_id].present?
