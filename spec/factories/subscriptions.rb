@@ -9,8 +9,8 @@ FactoryBot.define do
     processor_id { "sub_xxx" }
     processor_plan { "plan_xxx" }
     quantity { 1 }
-    trial_ends_at { TRIAL_PERIOD_DAYS.days.from_now }
-    ends_at { nil }
+    trial_ends_at { nil }
+    ends_at { 30.days.from_now }
     created_at { 1.minute.ago }
     updated_at { 1.minute.ago }
     status { "active" }
@@ -46,6 +46,11 @@ FactoryBot.define do
 
     trait :trialing do
       status { "trialing" }
+      trial_ends_at { TRIAL_PERIOD_DAYS.days.from_now }
+    end
+    trait :trial_expired do
+      status { "trialing" }
+      trial_ends_at { 1.hour.ago }
     end
     trait :past_due do
       status { "past_due" }

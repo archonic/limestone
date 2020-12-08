@@ -27,7 +27,7 @@ class SubscriptionService
 
   def destroy_subscription
     stripe_call do
-      @user.subscription.cancel
+      @user.sub.cancel
     end
   end
 

@@ -32,22 +32,16 @@ class User < ApplicationRecord
   end
 
   # Assumes user has just one subscription
-  def get_subscription
-    Product.find_each.map(&:name).each do |product_name|
-      return subscription(name: product_name)
-    end
+  def sub
+    subscriptions.first
   end
 
-  def subscribed_to_any?
-    Product.find_each.map(&:name).each do |product_name|
-      return true if subscribed?(name: product_name)
-    end
-    false
+  def sub_active?
+    sub.status == "active"
   end
 
-  def on_trial_or_subscribed_to_any?
-    return true if on_trial?
-    subscribed_to_any?
+  def sub_active_or_trialing?
+    sub.status.in? ["active", "trialing"]
   end
 
   private

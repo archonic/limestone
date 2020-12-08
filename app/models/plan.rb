@@ -5,6 +5,7 @@
 class Plan < ApplicationRecord
   include CurrencyHelper
   belongs_to :product
+
   validates :name, presence: true
   validates :amount, presence: true
   validates :currency, presence: true
