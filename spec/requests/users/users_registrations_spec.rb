@@ -31,10 +31,9 @@ RSpec.describe Users::RegistrationsController, type: :request do
       it "creates a user on a trial" do
         subject
         expect(user).to be_present
-        expect(user.on_trial_or_subscribed?).to be true
-        expect(user.on_trial?).to be true
         # NOTE User has a subscription but no payment source
-        expect(user.subscribed_to_any?).to be true
+        expect(user.sub_active_or_trialing?).to be true
+        expect(user.sub_active?).to be false
       end
 
       it "populates customer data" do
@@ -85,8 +84,9 @@ RSpec.describe Users::RegistrationsController, type: :request do
     let!(:user) { create(:user) }
     let(:subscription) { double(Pay::Subscription) }
     before do
-      allow(user).to receive(:subscription) { subscription }
+      allow(user).to receive(:sub) { subscription }
       allow(subscription).to receive(:cancel) { true }
+      allow(subscription).to receive(:status) { "trialing" }
       sign_in user
     end
     subject do
@@ -95,7 +95,7 @@ RSpec.describe Users::RegistrationsController, type: :request do
     end
 
     context "subscription cancellation succeeds" do
-      it "cancels the subscription, and signs out + discards the user" do
+      it "cancels the subscription" do
         expect(subscription).to receive(:cancel).once
         subject
       end

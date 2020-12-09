@@ -8,13 +8,14 @@ class SubscriptionsController < ApplicationController
 
   # GET '/billing'
   def show
+    redirect_to subscribe_path unless current_user.sub_active?
+
     @plans = Plan.active.all.select(:id, :name)
-    redirect_to subscribe_path unless current_user.subscribed_to_any?
   end
 
   # GET '/subscribe'
   def new
-    redirect_to billing_path if current_user.subscribed_to_any?
+    redirect_to billing_path if current_user.sub_active?
   end
 
   # PATCH /subscriptions
@@ -22,7 +23,7 @@ class SubscriptionsController < ApplicationController
     current_user.processor = "stripe"
     success = if params[:plan_id].present?
       stripe_plan_id = Plan.find(params[:plan_id]).try(:stripe_id)
-      current_user.get_subscription.swap(stripe_plan_id)
+      current_user.sub.swap(stripe_plan_id)
       current_user.update(plan_id: params[:plan_id])
     elsif params[:payment_method_id].present?
       current_user.update_card(params[:payment_method_id])

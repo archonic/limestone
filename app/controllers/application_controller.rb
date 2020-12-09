@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
     # Users are always allowed to manage their session, registration and subscription
     def access_required?
       user_signed_in? &&
-        !current_user.on_trial_or_subscribed_to_any? &&
+        !current_user.sub_active_or_trialing? &&
         !devise_controller? &&
         controller_name != "subscriptions"
     end

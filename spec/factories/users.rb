@@ -12,6 +12,11 @@ FactoryBot.define do
     association :plan
     initialize_with { User.where(email: email).first_or_initialize }
 
+    after(:create) do |user|
+      user.processor = "stripe"
+      user.subscribe(name: user.product.name, plan: user.plan.stripe_id)
+    end
+
     trait :admin do
       admin { true }
     end
@@ -22,6 +27,34 @@ FactoryBot.define do
 
     trait :trial_expired do
       trial_ends_at { 1.hour.ago }
+    end
+
+    trait :subscribed do
+      card_last4 { "4242" }
+      card_type { "Visa" }
+      card_exp_month { "06" }
+      card_exp_year { "2025" }
+      trial_ends_at { nil }
+
+      after(:create) do |user|
+        # A user must enter their card to transition from trial to active subscription.
+        payment_method_id = Stripe::PaymentMethod.create({
+          type: "card",
+            card: {
+              number: "4242424242424242",
+              exp_month: 6,
+              exp_year: 2025,
+              cvc: "123",
+            },
+          }).id
+        user.update_card(payment_method_id)
+        # Simulate ending trial and recieving a Stripe webhook
+        user.sub.update(
+          status: "active",
+          trial_ends_at: nil,
+          ends_at: 30.days.from_now
+        )
+      end
     end
 
     trait :avatared do
