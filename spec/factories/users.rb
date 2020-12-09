@@ -37,13 +37,8 @@ FactoryBot.define do
       trial_ends_at { nil }
 
       after(:create) do |user|
-        # NOTE this breaks swapping
-        user.subscriptions.first.update(
-          status: "active",
-          trial_ends_at: nil,
-          ends_at: 30.days.from_now
-        )
-        user.card_token = Stripe::PaymentMethod.create({
+        # A user must enter their card to transition from trial to active subscription.
+        payment_method_id = Stripe::PaymentMethod.create({
           type: "card",
             card: {
               number: "4242424242424242",
@@ -52,6 +47,13 @@ FactoryBot.define do
               cvc: "123",
             },
           }).id
+        user.update_card(payment_method_id)
+        # Simulate ending trial and recieving a Stripe webhook
+        user.sub.update(
+          status: "active",
+          trial_ends_at: nil,
+          ends_at: 30.days.from_now
+        )
       end
     end
 
