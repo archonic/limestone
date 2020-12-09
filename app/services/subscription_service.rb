@@ -38,18 +38,14 @@ class SubscriptionService
         yield if block
         stripe_success = true
       # https://stripe.com/docs/api?lang=ruby#errors
-      rescue Stripe::CardError => e
-        StripeLogger.error(e.json_body[:error])
-      rescue Stripe::RateLimitError
-        StripeLogger.error "Too many requests made to the API too quickly."
-      rescue Stripe::InvalidRequestError
-        StripeLogger.error "Invalid parameters were supplied to Stripe's API."
-      rescue Stripe::AuthenticationError
-        StripeLogger.error("Authentication with Stripe's API failed. Maybe you changed API keys recently. sdfgdfg")
-      rescue Stripe::APIConnectionError
-        StripeLogger.error "Network communication with Stripe failed."
-      rescue Stripe::StripeError
-        StripeLogger.error "Genric Stripe error."
+      rescue  Stripe::CardError,
+              Stripe::InvalidRequestError,
+              Stripe::RateLimitError,
+              Stripe::InvalidRequestError,
+              Stripe::AuthenticationError,
+              Stripe::APIConnectionError,
+              Stripe::StripeError => e
+        StripeLogger.error(e.json_body.try(:[], :error))
       end
       stripe_success
     end
