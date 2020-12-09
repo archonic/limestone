@@ -27,7 +27,6 @@ RSpec.describe SubscriptionsController, type: :request do
 
   before do
     user_subscribed.processor = "stripe"
-    stripe_plan = Stripe::Plan.retrieve(plan.stripe_id)
   end
 
   describe "GET billing_path" do
