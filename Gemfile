@@ -83,6 +83,9 @@ gem "minitest", "~> 5.14"
 # Send mail via service
 gem "sendgrid-ruby", "~> 6.3"
 
+# Not used directly but needed for low severity security warning
+gem "nokogiri", ">= 1.11.0.rc4"
+
 group :development do
   gem "haml-lint", require: false
   gem "listen", ">= 3.0.5", "< 3.2"
