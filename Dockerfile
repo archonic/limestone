@@ -1,6 +1,6 @@
 FROM ruby:2.7.2-alpine3.11
 
-RUN apk update && apk add build-base curl git nodejs python2 postgresql-dev postgresql-client graphicsmagick yarn --no-cache
+RUN apk update && apk add build-base curl git nodejs npm python2 postgresql-dev postgresql-client graphicsmagick yarn --no-cache
 
 # Make busybox and pry work nicely for large output
 ENV PAGER='more'
@@ -15,6 +15,9 @@ COPY package.json yarn.lock ./
 RUN set -ex; \
   yarn install --frozen-lockfile --production; \
   yarn cache clean;
+  
+# node-scss build issue https://github.com/yarnpkg/yarn/issues/4867#issuecomment-412463845
+RUN npm rebuild
 
 COPY . .
 
