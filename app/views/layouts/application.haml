@@ -7,8 +7,6 @@
     %meta{ "http-equiv": "x-ua-compatible", content: "ie=edge" }
     = action_cable_meta_tag
     = tag :meta, name: "stripe-key", content: Pay::Stripe.public_key
-    -# Sprockets application.js
-    = javascript_include_tag "application", "data-turbolinks-track": "reload"
     -# Webpacker application.js
     = javascript_pack_tag "application", "data-turbolinks-track": "reload"
     -# Webpacker application.css
