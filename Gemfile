@@ -72,6 +72,7 @@ gem "searchkick", "~> 3"
 
 # Jerbs
 gem "sidekiq", "~> 6"
+gem "sidekiq-cron", "~> 1"
 
 # Payment stuff
 gem "pay", "~> 2.0"
