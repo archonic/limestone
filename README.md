@@ -1,14 +1,12 @@
 # Limestone
 [![<archonic>](https://circleci.com/gh/archonic/limestone.svg?style=svg)](https://circleci.com/gh/archonic/workflows/limestone/tree/master)
 
-## Vote!
-Help decide future features and changes for Limestone with this poll:
-https://www.strawpoll.me/42684734/
-
 Limestone is a boilerplate SaaS app built with Rails 6 on Ruby 2.7.2 and has an opinionated integration with NPM using [Webpacker](https://github.com/rails/webpacker) and [Stimulus](https://stimulusjs.org/).
 
 Limestone assumes you want each user to pay for access to your SaaS. If instead you want users to belong to accounts and have billing scoped to accounts, try [Limestone Accounts](https://github.com/archonic/limestone-accounts).
-
+## Vote!
+Help decide future features and changes for Limestone with this poll:
+https://www.strawpoll.me/42684734/
 ## Versions
 Versioning in this repo in intended to maintain and modernize the boilerplate. New versions are not intended to update existing forks, although looking through the commits serve as a good upgrade resource.
 
