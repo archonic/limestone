@@ -1,6 +1,16 @@
 FROM ruby:2.7.2-alpine3.11
 
-RUN apk update && apk add build-base curl git nodejs npm python2 postgresql-dev postgresql-client graphicsmagick yarn --no-cache
+RUN apk update && apk add --update \
+  build-base \
+  curl \
+  git \
+  nodejs \
+  npm \
+  python2 \
+  postgresql-dev \
+  postgresql-client \
+  graphicsmagick &&\
+  apk add -u yarn
 
 # Make busybox and pry work nicely for large output
 ENV PAGER='more'
@@ -9,7 +19,7 @@ RUN mkdir /app
 WORKDIR /app
 
 # NOTE This must match "BUNDLED WITH" in Gemfile.lock
-RUN gem install bundler:2.1.4
+RUN gem install bundler:2.2.4
 
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
