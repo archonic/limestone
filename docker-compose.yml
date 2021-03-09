@@ -58,7 +58,7 @@ services:
     depends_on:
       - web
     build: .
-    image: gcr.io/collaborase3-staging/c3/rails
+    image: 'limestone-rails'
     ports:
       - 7658:7658
     command: solargraph socket -h 0.0.0.0

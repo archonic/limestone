@@ -12,9 +12,6 @@ RUN apk update && apk add --update \
   graphicsmagick &&\
   apk add -u yarn
 
-# Make busybox and pry work nicely for large output
-ENV PAGER='more'
-
 RUN mkdir /app
 WORKDIR /app
 
