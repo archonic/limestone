@@ -4,8 +4,10 @@ require "rails_helper"
 require "sidekiq/testing"
 
 RSpec.describe AvatarsController, type: :request do
+  include ActionDispatch::TestProcess::FixtureFile
+
   let(:user) { create(:user) }
-  let(:file) { fixture_file_upload("#{fixture_path}/files/money_sloth.png") }
+  let(:file) { fixture_file_upload("files/money_sloth.png", "image/png") }
 
   describe "#update" do
     subject do
