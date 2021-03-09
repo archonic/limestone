@@ -8,7 +8,7 @@ Limestone assumes you want each user to pay for access to your SaaS. If instead 
 Help decide future features and changes for Limestone with this poll:
 https://www.strawpoll.me/42684734/
 ## Versions
-Versioning in this repo in intended to maintain and modernize the boilerplate. New versions are not intended to update existing forks, although looking through the commits serve as a good upgrade resource.
+Versioning in this repo in intended to maintain and modernize the boilerplate. New versions are not intended to update existing forks, although looking through the commits serves as a good upgrade resource.
 
 v0.1 is Rails 5.2  
 v0.2 is Rails 6  
