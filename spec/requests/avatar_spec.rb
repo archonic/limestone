@@ -7,7 +7,7 @@ RSpec.describe AvatarsController, type: :request do
   include ActionDispatch::TestProcess::FixtureFile
 
   let(:user) { create(:user) }
-  let(:file) { fixture_file_upload("files/money_sloth.png", "image/png") }
+  let(:file) { fixture_file_upload("money_sloth.png", "image/png") }
 
   describe "#update" do
     subject do
