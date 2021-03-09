@@ -2,17 +2,19 @@
 
 # Manages all calls to Stripe pertaining to subscriptions
 class SubscriptionService
-  def initialize(user, plan)
+  def initialize(user, plan = nil)
     @user = user
     @user.processor = "stripe"
     @plan = plan
-    raise "Plan #{plan.name}<#{plan.id}> is not active!" if !@plan.active?
   end
 
   def swap_plan!
-    stripe_call do
-      @user.update(plan_id: @plan.id) if @user.sub.swap(@plan.try(:stripe_id))
+    stripe_plan_id = @plan.try(:stripe_id)
+    success = stripe_call do
+      @user.sub.swap(stripe_plan_id)
     end
+    @user.update(plan_id: @plan.id) if success
+    success
   end
 
   # Subscriptions are created when users complete the registration form.

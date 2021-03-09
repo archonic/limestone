@@ -13,6 +13,6 @@ class CreateAdminService
       u.admin = true
       u.plan_id = Plan.first.id
     end
-    SubscriptionService.new(admin, Plan.last.id).create_subscription!
+    SubscriptionService.new(admin, Plan.last).create_subscription!
   end
 end
