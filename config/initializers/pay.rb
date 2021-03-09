@@ -18,7 +18,7 @@ Pay.setup do |config|
   # https://dashboard.stripe.com/settings/billing/automatic
   # If you turn on emails for upcoming renewal, failed payments and invoicing,
   # make sure you're not doubling up emails for the same event here.
-  
+
   # Stripe does not send emails to customers created with test API keys.
   # See Pay's emails here:
   # https://github.com/pay-rails/pay/blob/master/app/mailers/pay/user_mailer.rb
