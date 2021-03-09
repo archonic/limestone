@@ -4,9 +4,11 @@
 Limestone is a boilerplate SaaS app built with Rails 6 on Ruby 2.7.2 and has an opinionated integration with NPM using [Webpacker](https://github.com/rails/webpacker) and [Stimulus](https://stimulusjs.org/).
 
 Limestone assumes you want each user to pay for access to your SaaS. If instead you want users to belong to accounts and have billing scoped to accounts, try [Limestone Accounts](https://github.com/archonic/limestone-accounts).
-
+## Vote!
+Help decide future features and changes for Limestone with this poll:
+https://www.strawpoll.me/42684734/
 ## Versions
-Versioning in this repo in intended to maintain and modernize the boilerplate. New versions are not intended to update existing forks, although looking through the commits serve as a good upgrade resource.
+Versioning in this repo in intended to maintain and modernize the boilerplate. New versions are not intended to update existing forks, although looking through the commits serves as a good upgrade resource.
 
 v0.1 is Rails 5.2  
 v0.2 is Rails 6  
@@ -35,6 +37,7 @@ The [gemset](https://github.com/archonic/limestone/blob/master/Gemfile) has been
 * Opinionated search integration using Elasticsearch via Searchkick. Gem is in place but integration is up to you.
 * Feature control using the [Flipper](https://github.com/jnunemaker/flipper) gem. Demonstrated with the `public_registration` feature.
 * 84% RSpec test coverage.
+* Solargraph (language server for code-aware auto-completions) configured in docker-compose.yml. Just point to localhost:7658 in your solargraph extension in your code editor.
 
 ## Notes
 * RSpec controller tests have been omitted in favour of requests tests.

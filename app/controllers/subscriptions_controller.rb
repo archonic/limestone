@@ -19,13 +19,13 @@ class SubscriptionsController < ApplicationController
   end
 
   # PATCH /subscriptions
+  # NOTE This handles both card updates and plan swaps
   def update
-    current_user.processor = "stripe"
     success = if params[:plan_id].present?
-      stripe_plan_id = Plan.find(params[:plan_id]).try(:stripe_id)
-      current_user.sub.swap(stripe_plan_id)
-      current_user.update(plan_id: params[:plan_id])
+      plan = Plan.active.find(params[:plan_id])
+      SubscriptionService.new(current_user, plan).swap_plan!
     elsif params[:payment_method_id].present?
+      current_user.processor = "stripe"
       current_user.update_card(params[:payment_method_id])
     end
     if success

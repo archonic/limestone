@@ -37,10 +37,12 @@ class User < ApplicationRecord
   end
 
   def sub_active?
-    sub.status == "active"
+    sub.try(:status) == "active"
   end
 
   def sub_active_or_trialing?
+    return false if sub.nil?
+
     sub.status.in? ["active", "trialing"]
   end
 

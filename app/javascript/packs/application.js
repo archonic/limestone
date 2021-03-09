@@ -20,17 +20,18 @@ require("channels")
 // External libs
 import 'jquery'
 window.$ = window.jQuery = require('jquery')
+
 import 'bootstrap'
 
-import './subscriptions'
+import '../packs/subscriptions'
 // TODO why is $ undefined in modals?
-import './modals'
-import './global'
+import '../packs/modals'
+import '../packs/global'
 
 // All Stimulus
 import 'controllers'
 
 // All styles
-import './src/application'
+import '../src/application'
 
 console.log('Hello World from Webpacker (app/javascript/packs/application.js)')

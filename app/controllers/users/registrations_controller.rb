@@ -3,7 +3,7 @@
 module Users
   class RegistrationsController < Devise::RegistrationsController
     before_action :check_public_registration, only: %i(new create)
-    before_action :set_product, only: %i(create)
+    before_action :set_plan, only: %i(create)
 
     # POST /resource
     def create
@@ -15,7 +15,7 @@ module Users
       )
       # NOTE It would be ideal to wrap user and subscription creation in a transaction block
       # This is not possible due to Pay::Billable relations
-      success = resource.save && SubscriptionService.new(resource, params[:user][:plan_id]).create_subscription!
+      success = resource.save && SubscriptionService.new(resource, @plan).create_subscription!
       yield resource if block_given?
       if success
         if resource.active_for_authentication?
@@ -64,7 +64,7 @@ module Users
         redirect_to root_path, flash: { warning: "That feature is not enabled." }
       end
 
-      def set_product
+      def set_plan
         @plan = Plan.active.find(params[:user][:plan_id])
       end
   end

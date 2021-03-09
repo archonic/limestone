@@ -39,7 +39,7 @@ gem "pg", "~> 1.2"
 gem "pretender", "~> 0.3"
 
 # Authorization
-gem "pundit", "~> 1"
+gem "pundit", "~> 2"
 
 # Use Puma as the app server
 gem "puma", "~> 5"
@@ -72,6 +72,7 @@ gem "searchkick", "~> 3"
 
 # Jerbs
 gem "sidekiq", "~> 6"
+gem "sidekiq-cron", "~> 1"
 
 # Payment stuff
 gem "pay", "~> 2.0"
@@ -91,6 +92,7 @@ group :development do
   gem "web-console", ">= 3.3.0"
   gem "letter_opener", "~> 1.7"
   gem "letter_opener_web", "~> 1.4"
+  gem "solargraph"
 end
 
 group :test do

@@ -54,13 +54,23 @@ services:
     env_file:
       - '.env'
 
+  solargraph:
+    depends_on:
+      - web
+    build: .
+    image: gcr.io/collaborase3-staging/c3/rails
+    ports:
+      - 7658:7658
+    command: solargraph socket -h 0.0.0.0
+
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.7.1
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.2
     environment:
+      - discovery.type=single-node
       - cluster.name=docker-cluster
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      - logger.org.elasticsearch=error
+      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
+      - "logger.org.elasticsearch=error"
     ulimits:
       memlock:
         soft: -1

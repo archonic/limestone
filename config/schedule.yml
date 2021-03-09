@@ -1,0 +1,7 @@
+# This file holds scheduled jobs to be executed by Sidekiq
+# Use this to run jobs that should regularly clean data, dispatch activity emails, whatever
+
+# example:
+#   # Every hour
+#   cron: "0 * * * *"
+#   class: "ExampleWorker"
