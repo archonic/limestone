@@ -39,7 +39,7 @@ gem "pg", "~> 1.2"
 gem "pretender", "~> 0.3"
 
 # Authorization
-gem "pundit", "~> 1"
+gem "pundit", "~> 2"
 
 # Use Puma as the app server
 gem "puma", "~> 5"
@@ -84,9 +84,6 @@ gem "minitest", "~> 5.14"
 # Send mail via service
 gem "sendgrid-ruby", "~> 6.3"
 
-# Not used directly but needed for low severity security warning
-gem "nokogiri", ">= 1.11.0.rc4"
-
 group :development do
   gem "haml-lint", require: false
   gem "listen", ">= 3.0.5", "< 3.2"
@@ -95,6 +92,7 @@ group :development do
   gem "web-console", ">= 3.3.0"
   gem "letter_opener", "~> 1.7"
   gem "letter_opener_web", "~> 1.4"
+  gem "solargraph"
 end
 
 group :test do
