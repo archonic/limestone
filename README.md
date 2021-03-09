@@ -37,6 +37,7 @@ The [gemset](https://github.com/archonic/limestone/blob/master/Gemfile) has been
 * Opinionated search integration using Elasticsearch via Searchkick. Gem is in place but integration is up to you.
 * Feature control using the [Flipper](https://github.com/jnunemaker/flipper) gem. Demonstrated with the `public_registration` feature.
 * 84% RSpec test coverage.
+* Solargraph (language server for code-aware auto-completions) configured in docker-compose.yml. Just point to localhost:7658 in your solargraph extension in your code editor.
 
 ## Notes
 * RSpec controller tests have been omitted in favour of requests tests.
