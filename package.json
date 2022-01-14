@@ -10,7 +10,7 @@
     "core-js": "^3.6.5",
     "font-awesome": "4.7.0",
     "jquery": "^3.4.1",
-    "node-forge": "^0.10.0",
+    "node-forge": "^1.0.0",
     "popper.js": "^2.0.0-next.4",
     "postcss-smart-import": "^0.7.6",
     "regenerator-runtime": "^0.13.5",
