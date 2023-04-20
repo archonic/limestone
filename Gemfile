@@ -75,7 +75,7 @@ gem "sidekiq", "~> 6"
 gem "sidekiq-cron", "~> 1"
 
 # Payment stuff
-gem "pay", "~> 2.0"
+gem "pay", "~> 6.3"
 gem "stripe", "< 6.0", ">= 2.8"
 gem "stripe_event", "~> 2.3"
 
