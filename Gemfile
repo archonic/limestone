@@ -71,7 +71,7 @@ gem "webpacker", ">= 4"
 gem "searchkick", "~> 3"
 
 # Jerbs
-gem "sidekiq", "~> 6"
+gem "sidekiq", "~> 7"
 gem "sidekiq-cron", "~> 1"
 
 # Payment stuff
